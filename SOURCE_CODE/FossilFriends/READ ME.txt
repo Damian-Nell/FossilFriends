@@ -33,6 +33,17 @@ Below includes a full guide for Fossil Friends:
 	https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html
 
 
+FOR MAC:
+- if you encounter an error saying that Apple couldn't verify the integrity of this application follow these instructions:
+	1. Ensure you have the above structure correct and have unzipped the files.
+	2. Ensure that the program is not in an icloud drive.
+	3. Open terminal and run these commands:
+			
+			cd /your_file_path
+			
+			xattr -d com.apple.quarantine FossilFriends.jar
+- If FossilFriends.jar still isn't open, ensure you have the correct Java version.
+
 ====================================
 =	System Requirements        =
 ====================================
