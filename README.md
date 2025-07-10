@@ -1,7 +1,5 @@
-===============================
-=	FOSSIL FRIENDS        =
-=	READ ME:	      =
-===============================
+🦖🦕 FOSSIL FRIENDS
+	READ ME:
 
 **Disclaimer:**
 This is a prototype version developed to explore how to use GitHub effectively and to track my progress.
@@ -9,24 +7,31 @@ It does not refelct the final quality or content of the intended release.
 
 Below includes a full guide for Fossil Friends:
 
-=============================
-=	Installation        =
-=============================
+Installation:
 
 1. 	Unzip the folder inside the `BUILD` directory. The structure should look like this:
+`
+FossilFriends/
 
-   FossilFriends/
-   ├── FossilFriends.jar
-   ├── FossilFriendsSaves.accdb
-   └── lib/
-       ├── commons-lang3-3.8.1.jar
-       ├── commons-logging-1.2.jar
-       ├── hsqldb2.5.0.jar
-       ├── jackcess-3.0.1.jar
-       ├── rs2xml.jar
-       └── ucanaccess-5.0.1.jar
+        ├── FossilFriends.jar
 
-2. 	Open 'FossilFriends.jar' to start the game. 
+        ├── FossilFriendsSaves.accdb
+
+        └── lib/
+
+                ├── commons-lang3-3.8.1.jar
+
+                ├── commons-logging-1.2.jar
+
+                ├── hsqldb2.5.0.jar
+
+                ├── jackcess-3.0.1.jar
+
+                ├── rs2xml.jar
+
+                └── ucanaccess-5.0.1.jar
+`
+3. 	Open 'FossilFriends.jar' to start the game. 
 	--If you encounter prompts for which application to use, ensure that **JAVA 17.0.12** is installed.
 
 	you can download JAVA 17 from:
@@ -42,12 +47,11 @@ FOR MAC:
 			cd /your_file_path
 			
 			xattr -d com.apple.quarantine FossilFriends.jar
+
 - If FossilFriends.jar still isn't open, ensure you have the correct Java version.
 
-====================================
-=	System Requirements        =
-====================================
-	
+System Requirements
+
 	MINIMUM:
 	OS		Windows 7 SP1 or newer (64-bit)
 	CPU		Dual-core processor
