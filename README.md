@@ -43,11 +43,14 @@ FOR MAC:
 	1. Ensure you have the above structure correct and have unzipped the files.
 	2. Ensure that the program is not in an icloud drive.
 	3. Open terminal and run these commands:
-			
-			cd /your_file_path
-			
-			xattr -d com.apple.quarantine FossilFriends.jar
 
+			`
+			cd /your_file_path
+			`
+
+			`
+			xattr -d com.apple.quarantine FossilFriends.jar
+			`
 - If FossilFriends.jar still isn't open, ensure you have the correct Java version.
 
 System Requirements
@@ -59,16 +62,12 @@ System Requirements
 	STORAGE		10MB free disk space
 	JAVA VERSION	17.0.12
 
-
-===============================
-=      Notes & Warnings       =
-===============================
+Notes & Warnings:
 
 - Do not rename or remove any files in the `lib` folder.
 - All save data is stored in the `FossilFriendsSaves.accdb` file. Deleting this file will erase all progress.'
 
-===============================
-=     Contact & Feedback      =
-===============================
+
+Contact & Feedback:
 
 For bugs or feedback, reach out via GitHub Issues or email: damian.nell2203@gmail.com
