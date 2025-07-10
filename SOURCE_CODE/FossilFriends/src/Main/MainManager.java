@@ -1,37 +1,40 @@
-/*
-    *imports needed files
-*/
 package Main;
 
 public class MainManager {
 
-    /*
-        *creates a SaveManager at the beginning for the rest of the project to refer to when wanting to save/load
-    */
+    //creates a SaveManager and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
     public static SaveManager SM = new SaveManager();
     public static Dinosaur currentDino;
 
-    /*
-        *main method runs when the project is opened. then calls the method "selectPage" with everything at 0
-    */
+    
+    //main method runs when the project is opened. then calls the method "selectPage" with everything at 0.
     public static void main(String[] args) {
         selectPage(0, 0, 0);
     }
     
+    /*
+        *method called to save the game. 
+        *creates a new thread so that the game doesn't wait until saving is done to create the next frame.
+    */
     public static void SaveGame(){
         new Thread(() -> {
         SM.saveGame(currentDino);
         }).start();
     }
     
+   
+    //used to set the currentDino from other classes.
     public static void setDino(Dinosaur Dino){
         currentDino = Dino;
     }
     
+    //used to get the currentDino from other classes.
     public static Dinosaur getDino(){
         return currentDino;
     }
     
+    
+    //used to delete the current dino from other classes.
     public static void deleteDino(){
         SM.deleteSave(currentDino);
     }
@@ -39,10 +42,9 @@ public class MainManager {
     /*
         * selectPage method. Takes in:
         *   - pageNum   - to determine which page to switch to
-        *   - save      - represents which saveNum to use and individual pages load the rest of the Dinosaur
         *   - x & y     - where the next form will load in (keeping the look uniform)
-        *   - hCoolDown, tCoolDown, cCoolDown   -   different cooldown stats to track how long till the next respective minigame
-        * it checks the pageNum and loads the page, then sets the location and make the form visible, and calls the respective initGame with required field
+        * it checks the pageNum and loads the page, then sets the location and make the form visible, 
+        * and calls the respective initGame.
     */
     public static void selectPage(int pageNum, int x, int y) {
         if (pageNum == 0) {
@@ -74,9 +76,7 @@ public class MainManager {
         }
     }
     
-    /*
-        *closes the whole game
-    */
+    //closes the whole game
     public static void close(){
         System.exit(1);
     }

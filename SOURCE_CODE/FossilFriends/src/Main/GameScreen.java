@@ -1,7 +1,5 @@
 package Main;
 
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
@@ -11,6 +9,18 @@ import javax.swing.Timer;
 
 public class GameScreen extends javax.swing.JFrame {
 
+    /*
+        *list of all the variables needed for this screen:
+        *    - gameTimer - a timer that is initialised later on. it will update the game everytime it goes off.
+        *    - frameTime - the time it takes for the gameTimer to go off (in ms).
+        *    - frameCount - goes up one everyFrame for time based mechanics.
+        *    - currentDino - object used to keep track of you dinosaur.
+        *    - dinoIMG - JLabel to display your dinosaur.
+        *    - hearts - Array containing all the hearts, displays when you pet the dino.
+        *    - ran - used to make sure this page runs atleast once
+        *    - pet - used so if you do pet the dino, it doesnt run the same code a million times per click.
+        *    - deadConfirm - used to run the dead input box only once if you dino has died.
+    */
     private Timer gameTimer;
     private int frameTime = 10;
     private int frameCounter = 0;
@@ -20,10 +30,12 @@ public class GameScreen extends javax.swing.JFrame {
 
     private boolean ran = false, pet = false, deadConfirm = false;
 
+    //initialises the UI components.
     public GameScreen() {
         initComponents();
     }
 
+    //initialises the game by calling initSave and creating the timer.
     public void initGame() {
         initSaves();
 
@@ -31,6 +43,7 @@ public class GameScreen extends javax.swing.JFrame {
         gameTimer.start();
     }
 
+    //gets the current save from main manager and sets the dinoIMG.
     private void initSaves() {
         currentDino = MainManager.getDino();
 
@@ -39,6 +52,13 @@ public class GameScreen extends javax.swing.JFrame {
         dinoIMG.setSize(150, 150);
     }
 
+    /*
+        * updates the game by checking if the dino is not dead or if it hasnt ran once yet. 
+        * Then it updates the fields and stats of the dino. 
+        * Checks if you have pet the dino and updates the hearts.
+        * then every second (100 frames) it will save the current game.
+        * If the dino is dead then it will call the dead dino method. 
+    */  
     private void updateGame() {
         if (currentDino.getDeath() == false || ran == false) {
             updateFields();
@@ -62,6 +82,11 @@ public class GameScreen extends javax.swing.JFrame {
         }
     }
 
+    /*
+        * listens for when you click on the dinoIMG
+        * then checks if pet is false and the lonely stat isnt at a max, then creates a heart image and increases the lonely stat.
+        * then sets pet to true
+    */
     private void petDino() {
         dinoIMG.addMouseListener(new MouseAdapter() {
             @Override
@@ -90,9 +115,10 @@ public class GameScreen extends javax.swing.JFrame {
 
     }
 
+    //while the heart is still on screen it will move 1 pixel up every frame.
     private void updateHearts() {
         for (int i = 0; i < hearts.length; i++) {
-            if (hearts[i].getLocation().y > 80) {
+            if (hearts[i].getLocation().y > 0) {
                 hearts[i].setLocation(hearts[i].getLocation().x, hearts[i].getLocation().y - 1);
             } else {
                 backPanel.remove(hearts[i]);
@@ -100,6 +126,7 @@ public class GameScreen extends javax.swing.JFrame {
         }
     }
 
+    //updates all the fields and buttons inside this page with their respective statistics.
     private void updateFields() {
         LName.setText(currentDino.getName());
         LAge.setText(String.valueOf(currentDino.getAge()));
@@ -182,6 +209,13 @@ public class GameScreen extends javax.swing.JFrame {
         LClean.setText(currentDino.getClean() + "%");
     }
 
+    /*
+        * when this is called then it will check if dinoIMG exists (incase this is a new frame)
+        *   if it doesnt it will create a new dinoIMG
+        * and then it will set dinoIMG to the dead version of its type.
+        * it will also set all the necessary fields to their correct values.
+        * it will display a popup asking if you want to delete your dinosaur from the save file once.
+    */
     public void deadDino() {
         if (dinoIMG == null) {
             dinoIMG = new JLabel("");

@@ -1,6 +1,3 @@
-/*
-    *imports needed files.
- */
 package Main;
 
 import java.sql.*;
@@ -11,8 +8,14 @@ public class SaveManager {
 
     /*
         * variable list for all the sql presets.
+        *   - con - used for the connection to the database.
+        *   - url - where to look for the game save.
+        *   - createSQL - SQL code to create a new table if none is found in the file.
+        *   - updateSQL - used to update specific fields of the SQL table.
+        *   - newSQL - used to create a new row in SQL table.
+        *   - loadSQL - used to load all the saves from the SQL table.
+        *   - deleteSQL - used to delete a specific row from the SQL table.
      */
-    private int counter;
     private Connection con;
     private String url = "jdbc:ucanaccess://FossilFriendsSaves.accdb";
     private String createSQL = "CREATE TABLE saveGames ("
@@ -39,7 +42,7 @@ public class SaveManager {
         try {
             DBConnect();
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Connection to save file error.");
         }
     }
 
@@ -51,8 +54,6 @@ public class SaveManager {
         try {
             con = DriverManager.getConnection(url);
         } catch (Exception e) {
-            System.out.println("Connection error: " + e + "\nplease create file");
-
             JOptionPane.showMessageDialog(null, "No save file detected. Please Refer to the READ ME.");
             MainManager.close();
         }
@@ -62,20 +63,17 @@ public class SaveManager {
         * creates a table, if there isnt a suitable table found in the .accdb file. 
      */
     public void createTable() {
-
         try {
             Statement st = con.createStatement();
             st.executeUpdate(createSQL);
             st.close();
         } catch (Exception e) {
-            System.out.println("failed to create table");
+            JOptionPane.showMessageDialog(null, "Failed to create table.");
         }
 
     }
 
-    /*
-        * Saves the currentDino, if no rows are effected that means the dino doesnt exist and so it creates a new save.
-     */
+    //Saves the currentDino, if no rows are effected that means the dino doesnt exist and so it creates a new save.
     public void saveGame(Dinosaur currentDino) {
         try {
             PreparedStatement ps = con.prepareStatement(updateSQL);
@@ -129,18 +127,16 @@ public class SaveManager {
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Save " + dino.getNo() + " deleted.");
+                JOptionPane.showMessageDialog(null, dino.getName() + " deleted." );
             } else {
                 System.out.println("No save with SaveNum " + dino.getNo() + " found.");
             }
         } catch (Exception e) {
-            System.out.println("Delete Error");
+            JOptionPane.showMessageDialog(null, "Delete error.");
         }
     }
 
-    /*
-        *loads an array of all the detected dinosaurs in the save game.
-     */
+    //loads an array of all the detected dinosaurs in the save game.
     public Dinosaur[] loadGames() {
         Dinosaur[] allSaves = new Dinosaur[0];
         try {

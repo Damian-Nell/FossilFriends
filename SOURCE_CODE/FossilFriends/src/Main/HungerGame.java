@@ -1,6 +1,3 @@
-/*
-    *imports needed files.
- */
 package Main;
 
 import java.awt.Cursor;
@@ -21,7 +18,6 @@ public class HungerGame extends javax.swing.JFrame {
         *   - score - to keep track of how many apples you have caught
         *   - aApple - to keep track of all the apples fallen (including missed and caught ones) to limit the number of apples you can catch to a set num
         *   - timeTillNext - the time taken for the next apple to spawn
-        *   - tCoolDown, cCoolDown - to keep track of the other minigames cooldown period
         *   - Apples - array containing all the apples
         *   - Player - the image you will control.
      */
@@ -37,16 +33,14 @@ public class HungerGame extends javax.swing.JFrame {
     private JLabel[] Apples = new JLabel[0];
     private JLabel Player = new JLabel("");
 
-    /*
-        initialises UI components.
-     */
+    
+    //initialises UI components.
     public HungerGame() {
         initComponents();
     }
 
     /*
-        * Initialises the game by setting currentDino to the corresponding number in the temporary array
-        * saves the coolDowns so when you switch back to main game the other games are still on cooldown
+        * Initialises the game by getting the currentDino
         * makes your mouse invisible
         * sets the player JLabel to a match your currentDino
         * starts the gameTimer.
@@ -81,7 +75,8 @@ public class HungerGame extends javax.swing.JFrame {
         * if all apples have reached above 30 then it will:
         *   - stop the timer and save the game
         *   - remove the player and apples JLabels to save memory
-        *   - go back to the main area and dispose of this frame.
+        *   - set the hCoolDown of the currentDino.
+        *   - save the game and go back to the main area and dispose of this frame.
      */
     private void updateGame() {
         if (aApple < 30) {
@@ -114,6 +109,14 @@ public class HungerGame extends javax.swing.JFrame {
         }
     }
 
+    /*
+        * checks if there are less than 30 apples, 
+        *   if there is then it will at a new apple in a random position.
+        * and then it will move all the apples down 3 pixels.
+        * it will detect once an apple goes offscreen or collides with the player and will update aApples and score accoringly
+        * and send the apples somewhere where they wont bother us and remove them to free up memory and cpu.
+        
+    */
     private void updateApples() {
         if (Apples.length < 30) {
             if (frameCount > timeTillNext) {

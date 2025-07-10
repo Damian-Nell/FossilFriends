@@ -11,6 +11,19 @@ import javax.swing.Timer;
 
 public class ThirstGame extends javax.swing.JFrame {
 
+    /*
+        * all the variables needed for the hunger minigame.
+        *   - gameTimer, frameTime, frameCounter - same as the loginPage.
+        *   - currentDino to effect only the needed dino.
+        *   - score - to keep track of how many drops you have caught
+        *   - aDrops - to keep track of all the drops fallen (including missed and caught ones) to limit the number of drops you can catch to a set num
+        *   - timeTillNext - the time taken for the next apple to spawn.
+        *   - playerFrameCount - used to update the dinosaurs position.
+        *   - dir - used to tell which direction the dinosaur is facing.
+        *   - bottle - the image of the bottle you will control.
+        *   - Drops - array containing all the Drops.
+        *   - Player - the image of your dino.
+     */
     private Timer gameTimer;
     private Dinosaur currentDino;
 
@@ -27,10 +40,17 @@ public class ThirstGame extends javax.swing.JFrame {
     private JLabel Player = new JLabel("");
     private JLabel[] Drops = new JLabel[0];
 
+    //initialises UI components.
     public ThirstGame() {
         initComponents();
     }
 
+    /*
+        *initialises the game but getting your current dino.
+        * then making your cursor invisible
+        * then creating the bottle and dino images
+        * then starting the game timer.
+    */
     public void initGame() {
         currentDino = MainManager.getDino();
 
@@ -57,6 +77,14 @@ public class ThirstGame extends javax.swing.JFrame {
         gameTimer.start();
     }
 
+    /*
+        *checks if there has been less than 35 drops
+        *if true then it will set the bottle to the cursors x pos.
+        *   update the labels
+        *   and call the other update methods
+        *otherwise it will stop the timer, remove the UI components
+        *set tCoolDown, set currentDino, and switch back to the main screen. will dispose of this one after to free up resources.
+    */
     private void updateGame() {
         if (aDrops < 35) {
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
@@ -91,6 +119,13 @@ public class ThirstGame extends javax.swing.JFrame {
         }
     }
 
+    /*
+        * checks if there are less than 35 drops.
+        * if true then it will create a new drop
+        * and then it will move all the drops 3 pixels down
+        * it will detect once a drop goes offscreen or collides with the player and will update aDrops and score accoringly
+        * and send the drop somewhere where it wont bother us and remove them to free up memory and cpu.
+    */
     public void updateDrops() {
         dropFrameCount++;
 
@@ -137,7 +172,11 @@ public class ThirstGame extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    /*
+        * this moves the dinosaur from one side of the screen to the other. 
+        * the dinosaur moves once every 2 frames.
+    */
     public void updatePlayer() {
         int x = Player.getLocation().x;
         playerFrameCount++;

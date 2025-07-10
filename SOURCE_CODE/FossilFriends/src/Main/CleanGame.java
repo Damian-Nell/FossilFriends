@@ -11,6 +11,15 @@ import javax.swing.Timer;
 
 public class CleanGame extends javax.swing.JFrame {
 
+    /*
+        * all the variables needed for the hunger minigame.
+        *   - gameTimer, frameTime, frameCounter - same as the loginPage.
+        *   - currentDino to effect only the needed dino.
+        *   - aDirt - to keep track of all the dirt you have washed.
+        *   - sponge - the image of the sponge you will control.
+        *   - dirt - array containing all the dirt peices (set it to the number of dirt bits you want here).
+        *   - dinoIMG - the image of your dino.
+     */
     private Dinosaur currentDino;
     private Timer gameTimer;
 
@@ -22,10 +31,17 @@ public class CleanGame extends javax.swing.JFrame {
     private JLabel sponge = new JLabel("");
     private JLabel dinoIMG = new JLabel("");
 
+    //initialises UI components.
     public CleanGame() {
         initComponents();
     }
-    
+
+    /*
+        *initialises the game but getting the currentDino
+        *makes your cursor invisible
+        *sets the dino and spong images
+        *starts the game timer.
+     */
     public void initGame() {
         currentDino = MainManager.getDino();
 
@@ -54,13 +70,22 @@ public class CleanGame extends javax.swing.JFrame {
         gameTimer = new Timer(frameTime, e -> updateGame());
         gameTimer.start();
     }
-    
+
+    /*
+        *checks if the dirt collected it smaller than the amount of dirt on screen
+        *sets the sponge your your mouse location
+        *sets the fields to right values
+        *every second updates the dirt
+        *once you collected all the dirt it will stop the timer
+        *and remove UI components, set cCoolDown, save the same and go back to the main page.
+        *will dispose of this one after to free up resources.
+     */
     private void updateGame() {
         if (aDirt < dirt.length) {
 
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
             Point frameLocation = this.getLocationOnScreen();
-            sponge.setLocation(mousePos.x - frameLocation.x - sponge.getWidth()/2, mousePos.y - frameLocation.y  - sponge.getHeight()/2);
+            sponge.setLocation(mousePos.x - frameLocation.x - sponge.getWidth() / 2, mousePos.y - frameLocation.y - sponge.getHeight() / 2);
 
             frameCount++;
 
@@ -75,10 +100,10 @@ public class CleanGame extends javax.swing.JFrame {
             backPanel.remove(sponge);
             sponge = null;
             dirt = null;
-            
-            currentDino.setCCool(60*100);
+
+            currentDino.setCCool(60 * 100);
             MainManager.setDino(currentDino);
-            
+
             MainManager.SaveGame();
             MainManager.selectPage(1, this.getLocation().x, this.getLocation().y);
 
@@ -86,7 +111,7 @@ public class CleanGame extends javax.swing.JFrame {
         }
 
     }
-    
+
     //for every place in the dirt array it will create a new image and set it to a random position
     private void setDirt() {
         for (int i = 0; i < dirt.length; i++) {
@@ -99,7 +124,11 @@ public class CleanGame extends javax.swing.JFrame {
         }
     }
 
-    //called once every second in update game, checks if it is intersecting with the sponge. if it is then it removes the dirt peice and increase clean stat.
+    /*
+        *called once every second in update game, checks if it is intersecting with the sponge. 
+        *if it is then it removes the dirt peice and increase clean stat.
+        *creates the illusion that you have to scrub to get rid of the spot.
+     */
     private void updateDirt() {
         for (int i = 0; i < dirt.length; i++) {
             if (dirt[i].getBounds().intersects(sponge.getBounds())) {

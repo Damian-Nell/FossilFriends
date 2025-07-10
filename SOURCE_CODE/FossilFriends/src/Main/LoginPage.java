@@ -1,6 +1,3 @@
-/*
-    *imports needed files.
-*/
 package Main;
 
 import java.awt.Color;
@@ -75,7 +72,7 @@ public class LoginPage extends javax.swing.JFrame {
     }
     
     /*
-        *It is will try to set all the labels to their respective values, 
+        *It will try to set all the labels to their respective values, 
         *but if the try fails then that indicates there isnt a save for the selected spinner num, 
         *so it will default to empty to indicate the user to create a new save
         *also checks if there is an error. if it is then it will set the error text to red for 100 frames (1000ms or 1 second)
@@ -236,21 +233,13 @@ public class LoginPage extends javax.swing.JFrame {
         }
     }
     
-    /*
-        * just returns the spinner number value
-    */
+    //returns the spinner number value
     private int getSpinnerNum() {
         return (int) saveSpinner.getValue();
     }
     
     /*
-        *checks the current stats and then checks the last time you visited and updates the stats accordingly:
-        *   - hunger decreases by 15% every 6 hours.
-        *   - thirst decreases by 20% every 6 hours.
-        *   - Cleanliness decreases by 1% every hour (6% every 6 hours).
-        *   - Loneliness decreases by 2% every hour (12% every 6 hours).
-        * then checks if any of the stats has reached 0 and if so then sets the dinosaur to dead.
-        * and caps loneliness to 1 and then saves the new stats.
+        *loops through each save and calls the update method from it with the respective time since last.
     */
     private void updateFromLast() {
         for (int i = 0; i < saves.length; i++) {
