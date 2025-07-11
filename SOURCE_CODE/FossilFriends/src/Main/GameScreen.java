@@ -20,6 +20,7 @@ public class GameScreen extends javax.swing.JFrame {
         *    - ran - used to make sure this page runs atleast once
         *    - pet - used so if you do pet the dino, it doesnt run the same code a million times per click.
         *    - deadConfirm - used to run the dead input box only once if you dino has died.
+        *   - heartSpeed - to determine the speed of the hearts as they float.
     */
     private Timer gameTimer;
     private int frameTime = 10;
@@ -29,6 +30,8 @@ public class GameScreen extends javax.swing.JFrame {
     JLabel[] hearts = new JLabel[0];
 
     private boolean ran = false, pet = false, deadConfirm = false;
+    
+    private int heartSpeed = 1;
 
     //initialises the UI components.
     public GameScreen() {
@@ -48,7 +51,7 @@ public class GameScreen extends javax.swing.JFrame {
         currentDino = MainManager.getDino();
 
         dinoIMG = new JLabel("");
-        dinoIMG.setLocation((backPanel.getWidth() / 2) - 75 - 34, (backPanel.getHeight() / 2) - 75 + 60);
+        dinoIMG.setLocation((backPanel.getWidth() / 2) - 75, (backPanel.getHeight() / 2) - 15);
         dinoIMG.setSize(150, 150);
     }
 
@@ -91,7 +94,7 @@ public class GameScreen extends javax.swing.JFrame {
         dinoIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (pet == false && currentDino.getLonely() < 100) {
+                if (pet == false && currentDino.getLonely() < 100 && currentDino.getDeath() == false) {
                     JLabel[] temp = hearts;
                     hearts = new JLabel[temp.length + 1];
                     try {
@@ -119,7 +122,7 @@ public class GameScreen extends javax.swing.JFrame {
     private void updateHearts() {
         for (int i = 0; i < hearts.length; i++) {
             if (hearts[i].getLocation().y > 0) {
-                hearts[i].setLocation(hearts[i].getLocation().x, hearts[i].getLocation().y - 1);
+                hearts[i].setLocation(hearts[i].getLocation().x, hearts[i].getLocation().y - heartSpeed);
             } else {
                 backPanel.remove(hearts[i]);
             }
@@ -219,7 +222,7 @@ public class GameScreen extends javax.swing.JFrame {
     public void deadDino() {
         if (dinoIMG == null) {
             dinoIMG = new JLabel("");
-            dinoIMG.setLocation((backPanel.getWidth() / 2) - 75 - 34, (backPanel.getHeight() / 2) - 75 + 60);
+            dinoIMG.setLocation((backPanel.getWidth() / 2) - 75, (backPanel.getHeight() / 2) - 15);
             dinoIMG.setSize(150, 150);
         }
 

@@ -25,6 +25,9 @@ public class LoginPage extends javax.swing.JFrame {
     private Timer gameTimer;
     private int frameTime = 10;
     private int frameCount = 0;
+    
+    //default values for a new dinosaur.
+    private int defHunger = 50, defThirst = 50, defClean = 50, defAge = 0, defLonely = 50;
 
     
     /*
@@ -181,7 +184,7 @@ public class LoginPage extends javax.swing.JFrame {
                     type = 3;
                 }
 
-                Dinosaur currentDino = new Dinosaur(getSpinnerNum(), inputName.getText().trim(), type, 50, 50, 50, 1, 50, false, LocalDateTime.now(), LocalDateTime.now());
+                Dinosaur currentDino = new Dinosaur(getSpinnerNum(), inputName.getText().trim(), type, defHunger, defThirst, defClean, defAge, defLonely, false, LocalDateTime.now(), LocalDateTime.now());
                 MainManager.setDino(currentDino);
                 MainManager.SM.saveGame(currentDino);
                 

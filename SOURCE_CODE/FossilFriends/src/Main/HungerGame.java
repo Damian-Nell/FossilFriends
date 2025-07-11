@@ -17,7 +17,9 @@ public class HungerGame extends javax.swing.JFrame {
         *   - currentDino to effect only the needed dino.
         *   - score - to keep track of how many apples you have caught
         *   - aApple - to keep track of all the apples fallen (including missed and caught ones) to limit the number of apples you can catch to a set num
-        *   - timeTillNext - the time taken for the next apple to spawn
+        *   - timeTillNext - the time taken for the next apple to spawn.
+        *   - maxApples - determines how many apples will spawn.
+        *   - speed - how fast the apples fall per frame.
         *   - Apples - array containing all the apples
         *   - Player - the image you will control.
      */
@@ -29,6 +31,8 @@ public class HungerGame extends javax.swing.JFrame {
     private int score = 0;
     private int aApple = 0;
     private int timeTillNext = 70;
+    private int maxApples = 30;
+    private int speed = 3;
 
     private JLabel[] Apples = new JLabel[0];
     private JLabel Player = new JLabel("");
@@ -79,7 +83,7 @@ public class HungerGame extends javax.swing.JFrame {
         *   - save the game and go back to the main area and dispose of this frame.
      */
     private void updateGame() {
-        if (aApple < 30) {
+        if (aApple < maxApples) {
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
             Point frameLocation = this.getLocationOnScreen();
             int x = mousePos.x - frameLocation.x;
@@ -87,7 +91,7 @@ public class HungerGame extends javax.swing.JFrame {
 
             updateApples();
             frameCount++;
-            scoreLabel.setText(score + "/30");
+            scoreLabel.setText(score + "/" + maxApples);
             currentHungerBar.setValue(currentDino.getHunger());
             currentDino.updateStats(0.01, true);
         } else {
@@ -118,7 +122,7 @@ public class HungerGame extends javax.swing.JFrame {
         
     */
     private void updateApples() {
-        if (Apples.length < 30) {
+        if (Apples.length < maxApples) {
             if (frameCount > timeTillNext) {
                 JLabel[] tempApples = Apples;
                 Apples = new JLabel[tempApples.length + 1];
@@ -143,7 +147,7 @@ public class HungerGame extends javax.swing.JFrame {
         }
         
         for (int i = 0; i < Apples.length; i++) {
-            Apples[i].setLocation(Apples[i].getLocation().x, Apples[i].getLocation().y + 3);
+            Apples[i].setLocation(Apples[i].getLocation().x, Apples[i].getLocation().y + speed);
 
             if (Apples[i].getBounds().intersects(Player.getBounds())) {
                 score++;

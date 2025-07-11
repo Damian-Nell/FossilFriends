@@ -91,7 +91,6 @@ public class SaveManager {
 
             if (rows == 0) {
                 try {
-                    System.out.println("saving new game");
                     PreparedStatement nps = con.prepareStatement(newSQL);
 
                     nps.setInt(1, currentDino.getNo());

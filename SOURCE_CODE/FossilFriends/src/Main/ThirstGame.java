@@ -19,6 +19,8 @@ public class ThirstGame extends javax.swing.JFrame {
         *   - aDrops - to keep track of all the drops fallen (including missed and caught ones) to limit the number of drops you can catch to a set num
         *   - timeTillNext - the time taken for the next apple to spawn.
         *   - playerFrameCount - used to update the dinosaurs position.
+        *   - maxDrops - determines how many drops will spawn in total.
+        *   - speed - determines how many pixels per frame the drops will fall.
         *   - dir - used to tell which direction the dinosaur is facing.
         *   - bottle - the image of the bottle you will control.
         *   - Drops - array containing all the Drops.
@@ -33,6 +35,8 @@ public class ThirstGame extends javax.swing.JFrame {
     private int aDrops;
     private int timeTillNext;
     private int playerFrameCount = 0;
+    private int maxDrops = 35;
+    private int speed = 3;
 
     private boolean dir = true;
 
@@ -86,13 +90,13 @@ public class ThirstGame extends javax.swing.JFrame {
         *set tCoolDown, set currentDino, and switch back to the main screen. will dispose of this one after to free up resources.
     */
     private void updateGame() {
-        if (aDrops < 35) {
+        if (aDrops < maxDrops) {
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
             Point frameLocation = this.getLocationOnScreen();
             int x = mousePos.x - frameLocation.x;
             bottle.setLocation(x - (bottle.getWidth() / 2), 100);
 
-            scoreLabel.setText(score + "/35");
+            scoreLabel.setText(score + "/" + maxDrops);
             currentThirstBar.setValue(currentDino.getThirst());
 
             updateDrops();
@@ -129,7 +133,7 @@ public class ThirstGame extends javax.swing.JFrame {
     public void updateDrops() {
         dropFrameCount++;
 
-        if (Drops.length < 35) {
+        if (Drops.length < maxDrops) {
             if (dropFrameCount > timeTillNext) {
                 JLabel[] temp = Drops;
                 Drops = new JLabel[temp.length + 1];
@@ -153,7 +157,7 @@ public class ThirstGame extends javax.swing.JFrame {
             }
         }
         for (int i = 0; i < Drops.length; i++) {
-            Drops[i].setLocation(Drops[i].getLocation().x, Drops[i].getLocation().y + 3);
+            Drops[i].setLocation(Drops[i].getLocation().x, Drops[i].getLocation().y + speed);
 
             if (Drops[i].getBounds().intersects(Player.getBounds())) {
                 score++;
