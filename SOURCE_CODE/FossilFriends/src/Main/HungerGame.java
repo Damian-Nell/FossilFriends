@@ -20,6 +20,7 @@ public class HungerGame extends javax.swing.JFrame {
         *   - timeTillNext - the time taken for the next apple to spawn.
         *   - maxApples - determines how many apples will spawn.
         *   - speed - how fast the apples fall per frame.
+        *   - prevX - used to store the previous x position, to determine which direction the Dino is moving
         *   - Apples - array containing all the apples
         *   - Player - the image you will control.
      */
@@ -33,11 +34,11 @@ public class HungerGame extends javax.swing.JFrame {
     private int timeTillNext = 70;
     private int maxApples = 30;
     private int speed = 3;
+    private int prevX;
 
     private JLabel[] Apples = new JLabel[0];
     private JLabel Player = new JLabel("");
 
-    
     //initialises UI components.
     public HungerGame() {
         initComponents();
@@ -76,6 +77,7 @@ public class HungerGame extends javax.swing.JFrame {
         *   - will set the Player to the same x location as your mouse
         *   - will update all the apples
         *   - sets the score text and current hunger bar to corressponding values
+        *   - updates the dino to the direction it is moving (if not moving then keeps its same direction)
         * if all apples have reached above 30 then it will:
         *   - stop the timer and save the game
         *   - remove the player and apples JLabels to save memory
@@ -94,6 +96,26 @@ public class HungerGame extends javax.swing.JFrame {
             scoreLabel.setText(score + "/" + maxApples);
             currentHungerBar.setValue(currentDino.getHunger());
             currentDino.updateStats(0.01, true);
+
+            if (prevX < Player.getLocation().x) {
+                if (currentDino.getType() == 1) {
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/BrontoPic150.png")));
+                } else if (currentDino.getType() == 2) {
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/RaptorPic150.png")));
+                } else {
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/StegoPic150.png")));
+                }
+            }else if (prevX > Player.getLocation().x){
+                if (currentDino.getType() == 1) {
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/leftBrontoPic150.png")));
+                } else if (currentDino.getType() == 2) {
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/leftRaptorPic150.png")));
+                } else {
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/leftStegoPic150.png")));
+                }
+            }
+            
+            prevX = Player.getLocation().x;
         } else {
             gameTimer.stop();
             backPanel.remove(Player);
@@ -120,7 +142,7 @@ public class HungerGame extends javax.swing.JFrame {
         * it will detect once an apple goes offscreen or collides with the player and will update aApples and score accoringly
         * and send the apples somewhere where they wont bother us and remove them to free up memory and cpu.
         
-    */
+     */
     private void updateApples() {
         if (Apples.length < maxApples) {
             if (frameCount > timeTillNext) {
@@ -145,7 +167,7 @@ public class HungerGame extends javax.swing.JFrame {
                 timeTillNext = ((int) (Math.random() * 100) + 20);
             }
         }
-        
+
         for (int i = 0; i < Apples.length; i++) {
             Apples[i].setLocation(Apples[i].getLocation().x, Apples[i].getLocation().y + speed);
 

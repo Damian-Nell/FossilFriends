@@ -54,7 +54,7 @@ public class ThirstGame extends javax.swing.JFrame {
         * then making your cursor invisible
         * then creating the bottle and dino images
         * then starting the game timer.
-    */
+     */
     public void initGame() {
         currentDino = MainManager.getDino();
 
@@ -88,7 +88,7 @@ public class ThirstGame extends javax.swing.JFrame {
         *   and call the other update methods
         *otherwise it will stop the timer, remove the UI components
         *set tCoolDown, set currentDino, and switch back to the main screen. will dispose of this one after to free up resources.
-    */
+     */
     private void updateGame() {
         if (aDrops < maxDrops) {
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
@@ -129,7 +129,7 @@ public class ThirstGame extends javax.swing.JFrame {
         * and then it will move all the drops 3 pixels down
         * it will detect once a drop goes offscreen or collides with the player and will update aDrops and score accoringly
         * and send the drop somewhere where it wont bother us and remove them to free up memory and cpu.
-    */
+     */
     public void updateDrops() {
         dropFrameCount++;
 
@@ -176,11 +176,11 @@ public class ThirstGame extends javax.swing.JFrame {
             }
         }
     }
-    
+
     /*
-        * this moves the dinosaur from one side of the screen to the other. 
+        * this moves the dinosaur from one side of the screen to the other and updates which way its facing. 
         * the dinosaur moves once every 2 frames.
-    */
+     */
     public void updatePlayer() {
         int x = Player.getLocation().x;
         playerFrameCount++;
@@ -189,12 +189,26 @@ public class ThirstGame extends javax.swing.JFrame {
             if (dir == true) {
                 if (x < 250) {
                     Player.setLocation(x + 1, this.getHeight() - 175);
+                    if (currentDino.getType() == 1) {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/BrontoPic150.png")));
+                    } else if (currentDino.getType() == 2) {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/RaptorPic150.png")));
+                    } else {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/StegoPic150.png")));
+                    }
                 } else {
                     dir = false;
                 }
             } else if (dir == false) {
                 if (x > 0) {
                     Player.setLocation(x - 1, this.getHeight() - 175);
+                    if (currentDino.getType() == 1) {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/leftBrontoPic150.png")));
+                    } else if (currentDino.getType() == 2) {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/leftRaptorPic150.png")));
+                    } else {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/MainResources/leftStegoPic150.png")));
+                    }
                 } else {
                     dir = true;
                 }
