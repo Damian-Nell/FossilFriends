@@ -160,6 +160,7 @@ public class ThirstGame extends javax.swing.JFrame {
             Drops[i].setLocation(Drops[i].getLocation().x, Drops[i].getLocation().y + speed);
 
             if (Drops[i].getBounds().intersects(Player.getBounds())) {
+                MainManager.playSound("res/sounds/slurp.wav");
                 score++;
                 aDrops++;
                 Drops[i].setLocation(this.getWidth() + 100, this.getHeight() - 1000000);

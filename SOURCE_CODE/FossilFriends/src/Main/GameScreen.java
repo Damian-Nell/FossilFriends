@@ -21,7 +21,7 @@ public class GameScreen extends javax.swing.JFrame {
         *    - pet - used so if you do pet the dino, it doesnt run the same code a million times per click.
         *    - deadConfirm - used to run the dead input box only once if you dino has died.
         *   - heartSpeed - to determine the speed of the hearts as they float.
-    */
+     */
     private Timer gameTimer;
     private int frameTime = 10;
     private int frameCounter = 0;
@@ -30,7 +30,7 @@ public class GameScreen extends javax.swing.JFrame {
     JLabel[] hearts = new JLabel[0];
 
     private boolean ran = false, pet = false, deadConfirm = false;
-    
+
     private int heartSpeed = 1;
 
     //initialises the UI components.
@@ -61,7 +61,7 @@ public class GameScreen extends javax.swing.JFrame {
         * Checks if you have pet the dino and updates the hearts.
         * then every second (100 frames) it will save the current game.
         * If the dino is dead then it will call the dead dino method. 
-    */  
+     */
     private void updateGame() {
         if (currentDino.getDeath() == false || ran == false) {
             updateFields();
@@ -89,12 +89,13 @@ public class GameScreen extends javax.swing.JFrame {
         * listens for when you click on the dinoIMG
         * then checks if pet is false and the lonely stat isnt at a max, then creates a heart image and increases the lonely stat.
         * then sets pet to true
-    */
+     */
     private void petDino() {
         dinoIMG.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (pet == false && currentDino.getLonely() < 100 && currentDino.getDeath() == false) {
+                    MainManager.playSound("res/sounds/ping.wav");
                     JLabel[] temp = hearts;
                     hearts = new JLabel[temp.length + 1];
                     try {
@@ -218,7 +219,7 @@ public class GameScreen extends javax.swing.JFrame {
         * and then it will set dinoIMG to the dead version of its type.
         * it will also set all the necessary fields to their correct values.
         * it will display a popup asking if you want to delete your dinosaur from the save file once.
-    */
+     */
     public void deadDino() {
         if (dinoIMG == null) {
             dinoIMG = new JLabel("");
@@ -299,6 +300,7 @@ public class GameScreen extends javax.swing.JFrame {
         tCoolDownLabel = new javax.swing.JLabel();
         hCoolDownLabel = new javax.swing.JLabel();
         homeButton = new javax.swing.JButton();
+        SettingButton = new javax.swing.JButton();
 
         jLabel3.setText("jLabel3");
 
@@ -518,6 +520,16 @@ public class GameScreen extends javax.swing.JFrame {
             }
         });
 
+        SettingButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/MainResources/SettingsButton30.png"))); // NOI18N
+        SettingButton.setMaximumSize(new java.awt.Dimension(30, 30));
+        SettingButton.setMinimumSize(new java.awt.Dimension(30, 30));
+        SettingButton.setPreferredSize(new java.awt.Dimension(30, 30));
+        SettingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backPanelLayout = new javax.swing.GroupLayout(backPanel);
         backPanel.setLayout(backPanelLayout);
         backPanelLayout.setHorizontalGroup(
@@ -534,18 +546,22 @@ public class GameScreen extends javax.swing.JFrame {
                             .addComponent(cCoolDownLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(thirstButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tCoolDownLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(hCoolDownLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(hungerButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                        .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(thirstButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tCoolDownLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(hCoolDownLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(hungerButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(SettingButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         backPanelLayout.setVerticalGroup(
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backPanelLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SettingButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                 .addComponent(hungerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(hCoolDownLabel)
@@ -610,6 +626,11 @@ public class GameScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_homeButtonActionPerformed
 
+    private void SettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingButtonActionPerformed
+        // TODO add your handling code here:
+        MainManager.openPopup(0, this.getLocation().x, this.getLocation().y);
+    }//GEN-LAST:event_SettingButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -661,6 +682,7 @@ public class GameScreen extends javax.swing.JFrame {
     private javax.swing.JLabel LLonely;
     private javax.swing.JLabel LName;
     private javax.swing.JLabel LThirst;
+    private javax.swing.JButton SettingButton;
     private javax.swing.JLabel ageLabel;
     private javax.swing.JPanel backPanel;
     private javax.swing.JLabel cCoolDownLabel;

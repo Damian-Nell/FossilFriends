@@ -172,6 +172,7 @@ public class HungerGame extends javax.swing.JFrame {
             Apples[i].setLocation(Apples[i].getLocation().x, Apples[i].getLocation().y + speed);
 
             if (Apples[i].getBounds().intersects(Player.getBounds())) {
+                MainManager.playSound("res/sounds/eat.wav");
                 score++;
                 aApple++;
                 Apples[i].setLocation(this.getWidth() + 100, this.getHeight() - 1000000);
@@ -203,7 +204,7 @@ public class HungerGame extends javax.swing.JFrame {
         backPanel = new javax.swing.JPanel();
         scoreLabel = new javax.swing.JLabel();
         currentHungerBar = new javax.swing.JProgressBar();
-        scoreLabel1 = new javax.swing.JLabel();
+        hungerLabel = new javax.swing.JLabel();
         scoreLabel2 = new javax.swing.JLabel();
 
         jPasswordField1.setText("jPasswordField1");
@@ -218,10 +219,10 @@ public class HungerGame extends javax.swing.JFrame {
         scoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scoreLabel.setText("10");
 
-        scoreLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        scoreLabel1.setForeground(new java.awt.Color(74, 95, 51));
-        scoreLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        scoreLabel1.setText("Current Hunger:");
+        hungerLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        hungerLabel.setForeground(new java.awt.Color(74, 95, 51));
+        hungerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hungerLabel.setText("Hunger Level:");
 
         scoreLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         scoreLabel2.setForeground(new java.awt.Color(74, 95, 51));
@@ -236,7 +237,7 @@ public class HungerGame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backPanelLayout.createSequentialGroup()
-                        .addComponent(scoreLabel1)
+                        .addComponent(hungerLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(scoreLabel2))
                     .addGroup(backPanelLayout.createSequentialGroup()
@@ -254,7 +255,7 @@ public class HungerGame extends javax.swing.JFrame {
                     .addGroup(backPanelLayout.createSequentialGroup()
                         .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(scoreLabel2)
-                            .addComponent(scoreLabel1))
+                            .addComponent(hungerLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(currentHungerBar, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(scoreLabel))
@@ -313,9 +314,9 @@ public class HungerGame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backPanel;
     private javax.swing.JProgressBar currentHungerBar;
+    private javax.swing.JLabel hungerLabel;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JLabel scoreLabel;
-    private javax.swing.JLabel scoreLabel1;
     private javax.swing.JLabel scoreLabel2;
     // End of variables declaration//GEN-END:variables
 }

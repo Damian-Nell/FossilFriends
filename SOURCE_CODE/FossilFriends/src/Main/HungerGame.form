@@ -57,7 +57,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="scoreLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="hungerLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="scoreLabel2" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -80,7 +80,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="scoreLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="scoreLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="hungerLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="currentHungerBar" min="-2" pref="17" max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
         </Component>
         <Component class="javax.swing.JProgressBar" name="currentHungerBar">
         </Component>
-        <Component class="javax.swing.JLabel" name="scoreLabel1">
+        <Component class="javax.swing.JLabel" name="hungerLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="14" style="0"/>
@@ -116,7 +116,7 @@
               <Color blue="33" green="5f" red="4a" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Current Hunger:"/>
+            <Property name="text" type="java.lang.String" value="Hunger Level:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="scoreLabel2">

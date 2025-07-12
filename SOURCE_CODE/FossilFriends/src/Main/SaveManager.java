@@ -18,7 +18,7 @@ public class SaveManager {
      */
     private Connection con;
     private String url = "jdbc:ucanaccess://FossilFriendsSaves.accdb";
-    private String createSQL = "CREATE TABLE saveGames ("
+    private String createSaves = "CREATE TABLE saveGames ("
             + "SaveNum INT PRIMARY KEY, "
             + "DName TEXT, "
             + "Type INT, "
@@ -30,10 +30,16 @@ public class SaveManager {
             + "BDeath BOOLEAN, "
             + "DTStart TEXT, "
             + "DTLast TEXT)";
-    private String updateSQL = "UPDATE SaveGames SET LHunger = ?, LThirst = ?, LClean = ?, LAge = ?, LLonely = ?, BDeath = ?, DTLast = ? WHERE SaveNum = ?";
-    private String newSQL = "INSERT INTO SaveGames (SaveNum, DName, Type, LHunger, LThirst, LClean, LAge, LLonely, BDeath, DTStart, DTLast) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private String loadSQL = "SELECT * FROM SaveGames";
-    private String deleteSQL = "DELETE FROM SaveGames WHERE SaveNum = ?";
+    private String updateSaves = "UPDATE SaveGames SET LHunger = ?, LThirst = ?, LClean = ?, LAge = ?, LLonely = ?, BDeath = ?, DTLast = ? WHERE SaveNum = ?";
+    private String newSaves = "INSERT INTO SaveGames (SaveNum, DName, Type, LHunger, LThirst, LClean, LAge, LLonely, BDeath, DTStart, DTLast) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private String loadSaves = "SELECT * FROM SaveGames";
+    private String deleteSaves = "DELETE FROM SaveGames WHERE SaveNum = ?";
+
+    private String loadSettings = "SELECT * FROM Settings";
+    private String saveSettings = "UPDATE Settings SET Volume = ?";
+    private String createSettings = "CREATE TABLE Settings (Volume INT, TutorialComplete BOOLEAN)";
+    private String newSettings = "INSERT INTO Settings (Volume, TutorialComplete) VALUES (?, ?)";
+
 
     /*
         *constructor method where it connects the database and will through and error is there is none.
@@ -62,11 +68,17 @@ public class SaveManager {
     /*
         * creates a table, if there isnt a suitable table found in the .accdb file. 
      */
-    public void createTable() {
+    public void createTable(int tableNum) {
         try {
-            Statement st = con.createStatement();
-            st.executeUpdate(createSQL);
-            st.close();
+            if (tableNum == 0) {
+                Statement st = con.createStatement();
+                st.executeUpdate(createSaves);
+                st.close();
+            } else if (tableNum == 1){
+                Statement st = con.createStatement();
+                st.executeUpdate(createSettings);
+                st.close();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Failed to create table.");
         }
@@ -76,7 +88,7 @@ public class SaveManager {
     //Saves the currentDino, if no rows are effected that means the dino doesnt exist and so it creates a new save.
     public void saveGame(Dinosaur currentDino) {
         try {
-            PreparedStatement ps = con.prepareStatement(updateSQL);
+            PreparedStatement ps = con.prepareStatement(updateSaves);
 
             ps.setInt(1, currentDino.getHunger());
             ps.setInt(2, currentDino.getThirst());
@@ -91,7 +103,7 @@ public class SaveManager {
 
             if (rows == 0) {
                 try {
-                    PreparedStatement nps = con.prepareStatement(newSQL);
+                    PreparedStatement nps = con.prepareStatement(newSaves);
 
                     nps.setInt(1, currentDino.getNo());
                     nps.setString(2, currentDino.getName());
@@ -120,13 +132,13 @@ public class SaveManager {
     //Deletes the currentDino
     public void deleteSave(Dinosaur dino) {
         try {
-            PreparedStatement ps = con.prepareStatement(deleteSQL);
+            PreparedStatement ps = con.prepareStatement(deleteSaves);
             ps.setInt(1, dino.getNo());
-            
+
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(null, dino.getName() + " deleted." );
+                JOptionPane.showMessageDialog(null, dino.getName() + " deleted.");
             } else {
                 System.out.println("No save with SaveNum " + dino.getNo() + " found.");
             }
@@ -139,7 +151,7 @@ public class SaveManager {
     public Dinosaur[] loadGames() {
         Dinosaur[] allSaves = new Dinosaur[0];
         try {
-            PreparedStatement ps = con.prepareStatement(loadSQL);
+            PreparedStatement ps = con.prepareStatement(loadSaves);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -170,10 +182,47 @@ public class SaveManager {
             ps.close();
             rs.close();
         } catch (Exception e) {
-            createTable();
+            createTable(0);
             allSaves = loadGames();
-            System.out.println("fail load: Creating new file!");
+            System.out.println("fail load: Creating new table!");
         }
         return allSaves;
+    }
+
+    public void loadSettings() {
+        try {
+            PreparedStatement ps = con.prepareStatement(loadSettings);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                MainManager.setVol(rs.getInt("Volume"));
+            }
+
+        } catch (Exception e) {
+            createTable(1);
+            System.out.println("settings load failure: creating table");
+        }
+    }
+
+    public void saveSettings(int vol) {
+        try {
+            PreparedStatement ps = con.prepareStatement(saveSettings);
+            ps.setInt(1, vol);
+            int rows = ps.executeUpdate();
+            if (rows == 0) {
+                try{
+                    PreparedStatement nps = con.prepareStatement(newSettings);
+                    nps.setInt(1, vol);
+                    nps.setBoolean(2, false);
+                    nps.executeUpdate();
+                }catch(Exception i){
+                    System.out.println("fail to create new settings: " + i);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("save failed");
+
+        }
+
     }
 }

@@ -302,7 +302,10 @@ public class LoginPage extends javax.swing.JFrame {
         saveNameLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         saveNameLabel.setForeground(new java.awt.Color(74, 95, 51));
         saveNameLabel.setText("DinoName");
+        saveNameLabel.setToolTipText("");
 
+        startButton.setBackground(new java.awt.Color(249, 245, 227));
+        startButton.setForeground(new java.awt.Color(74, 95, 51));
         startButton.setText("Start Button");
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

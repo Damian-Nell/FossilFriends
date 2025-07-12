@@ -132,7 +132,8 @@ public class CleanGame extends javax.swing.JFrame {
     private void updateDirt() {
         for (int i = 0; i < dirt.length; i++) {
             if (dirt[i].getBounds().intersects(sponge.getBounds())) {
-
+                MainManager.playSound("res/sounds/squeak.wav");
+                
                 dirt[i].setLocation(this.getWidth() + 100, this.getHeight() - 1000000);
                 backPanel.remove(dirt[i]);
                 aDirt++;

@@ -4,12 +4,32 @@ public class MainManager {
 
     //creates a SaveManager and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
     public static SaveManager SM = new SaveManager();
-    public static Dinosaur currentDino;
+    private static SoundManager soundM = new SoundManager();
+    private static Dinosaur currentDino;
+    
+    private static float volume;
 
     
     //main method runs when the project is opened. then calls the method "selectPage" with everything at 0.
     public static void main(String[] args) {
         selectPage(0, 0, 0);
+        SM.loadSettings();
+    }
+    
+    public static void playSound(String sound){
+        float tempVol = volume/100;
+        soundM.play(sound, tempVol);
+    }
+    
+    public static void setVol(int vol){
+        System.out.println(vol);
+        volume = vol;
+        System.out.println(volume);
+        SM.saveSettings( (int) volume);
+    }
+    
+    public static int getVol(){
+        return (int) volume;
     }
     
     /*
@@ -73,6 +93,15 @@ public class MainManager {
             currentFrame.setLocation(x, y);
             currentFrame.setVisible(true);
             currentFrame.initGame();
+        }
+    }
+    
+    public static void openPopup(int popNum, int x, int y){
+        if(popNum == 0){
+            SettingsPopup currentPop = new SettingsPopup();
+            currentPop.setLocation(x + 25, y + 300);
+            currentPop.setVisible(true);
+            currentPop.initPop();
         }
     }
     
