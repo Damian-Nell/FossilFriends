@@ -105,6 +105,7 @@ public class tutorialPopup extends javax.swing.JFrame {
         tutText = new java.awt.TextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(217, 203, 179));
         jPanel1.setForeground(new java.awt.Color(217, 203, 179));

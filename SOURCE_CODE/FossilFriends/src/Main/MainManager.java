@@ -9,66 +9,62 @@ public class MainManager {
     public static SaveManager SM = new SaveManager();
     private static SoundManager soundM = new SoundManager();
     private static Dinosaur currentDino;
-    
+
     private static float volume;
     private static boolean tutorialComplete;
 
-    
     //main method runs when the project is opened. then calls the method "selectPage" with everything at 0.
     public static void main(String[] args) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
 
         int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
-        
-        selectPage(0, screenWidth/2-400, 0);
+
+        selectPage(0, screenWidth / 2 - 400, 0);
         SM.loadSettings();
     }
-    
-    public static void playSound(String sound){
-        float tempVol = volume/100;
+
+    public static void playSound(String sound) {
+        float tempVol = volume / 100;
         soundM.play(sound, tempVol);
     }
-    
-    public static void setSettings(int vol, boolean tutcomp){
+
+    public static void setSettings(int vol, boolean tutcomp) {
         volume = vol;
         tutorialComplete = tutcomp;
         SM.saveSettings((int) volume, tutorialComplete);
     }
-    
-    public static boolean getTut(){
+
+    public static boolean getTut() {
         return tutorialComplete;
     }
-    
-    public static int getVol(){
+
+    public static int getVol() {
         return (int) volume;
     }
-    
+
     /*
         *method called to save the game. 
         *creates a new thread so that the game doesn't wait until saving is done to create the next frame.
-    */
-    public static void SaveGame(){
+     */
+    public static void SaveGame() {
         new Thread(() -> {
-        SM.saveGame(currentDino);
+            SM.saveGame(currentDino);
         }).start();
     }
-    
-   
+
     //used to set the currentDino from other classes.
-    public static void setDino(Dinosaur Dino){
+    public static void setDino(Dinosaur Dino) {
         currentDino = Dino;
     }
-    
+
     //used to get the currentDino from other classes.
-    public static Dinosaur getDino(){
+    public static Dinosaur getDino() {
         return currentDino;
     }
-    
-    
+
     //used to delete the current dino from other classes.
-    public static void deleteDino(){
+    public static void deleteDino() {
         SM.deleteSave(currentDino);
     }
 
@@ -78,7 +74,7 @@ public class MainManager {
         *   - x & y     - where the next form will load in (keeping the look uniform)
         * it checks the pageNum and loads the page, then sets the location and make the form visible, 
         * and calls the respective initGame.
-    */
+     */
     public static void selectPage(int pageNum, int x, int y) {
         if (pageNum == 0) {
             LoginPage currentFrame = new LoginPage();
@@ -96,35 +92,43 @@ public class MainManager {
             currentFrame.setLocation(x, y);
             currentFrame.setVisible(true);
             currentFrame.initGame();
-        } else if(pageNum == 3){
+        } else if (pageNum == 3) {
             ThirstGame currentFrame = new ThirstGame();
             currentFrame.setLocation(x, y);
             currentFrame.setVisible(true);
             currentFrame.initGame();
-        } else if(pageNum == 4){
+        } else if (pageNum == 4) {
             CleanGame currentFrame = new CleanGame();
             currentFrame.setLocation(x, y);
             currentFrame.setVisible(true);
             currentFrame.initGame();
         }
     }
-    
-    public static void openPopup(int popNum, int x, int y){
-        if(popNum == 0){
+
+    public static void openPopup(int popNum, int x, int y) {
+        if (popNum == 0) {
             SettingsPopup currentPop = new SettingsPopup();
             currentPop.setLocation(x + 50, y + 300);
+            System.out.println(x + " " + y);
             currentPop.setVisible(true);
             currentPop.initPop();
-        }else if (popNum == 1){
-            tutorialPopup currentPop = new tutorialPopup();
-            currentPop.setLocation(x - 100, y - 100);
-            currentPop.setVisible(true);
-            currentPop.initPop(x - 100, y - 100);
+        } else if (popNum == 1) {
+            if (getTut() == false) {
+                tutorialPopup currentPop = new tutorialPopup();
+                currentPop.setLocation(x-50, y+250);
+                currentPop.setVisible(true);
+                currentPop.initPop(x-50, y+200);
+            } else {
+                tutorialPopup currentPop = new tutorialPopup();
+                currentPop.setLocation(x - 100, y - 100);
+                currentPop.setVisible(true);
+                currentPop.initPop(x - 100, y - 100);
+            }
         }
     }
-    
+
     //closes the whole game
-    public static void close(){
+    public static void close() {
         System.exit(1);
     }
 }
