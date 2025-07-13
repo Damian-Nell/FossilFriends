@@ -68,6 +68,17 @@ public class GameScreen extends javax.swing.JFrame {
             currentDino.updateStats(0.01, true);
             MainManager.setDino(currentDino);
 
+            if (MainManager.getTut() == false && ran == false) {
+                int result = JOptionPane.showConfirmDialog(backPanel, "Looks like you are new here. Would you like to begin the tutorial?",
+                        "", JOptionPane.YES_NO_OPTION);
+
+                if (result == JOptionPane.YES_OPTION) {
+                    MainManager.openPopup(1, this.getLocation().x, this.getLocation().y);
+                }else{
+                    MainManager.setSettings(MainManager.getVol(), true);
+                }
+            }
+
             petDino();
             updateHearts();
 
@@ -80,6 +91,7 @@ public class GameScreen extends javax.swing.JFrame {
 
             ran = true;
             pet = false;
+
         } else {
             deadDino();
         }
@@ -95,7 +107,7 @@ public class GameScreen extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (pet == false && currentDino.getLonely() < 100 && currentDino.getDeath() == false) {
-                    MainManager.playSound("res/sounds/ping.wav");
+                    MainManager.playSound("ping.wav");
                     JLabel[] temp = hearts;
                     hearts = new JLabel[temp.length + 1];
                     try {

@@ -172,7 +172,7 @@ public class HungerGame extends javax.swing.JFrame {
             Apples[i].setLocation(Apples[i].getLocation().x, Apples[i].getLocation().y + speed);
 
             if (Apples[i].getBounds().intersects(Player.getBounds())) {
-                MainManager.playSound("res/sounds/eat.wav");
+                MainManager.playSound("eat.wav");
                 score++;
                 aApple++;
                 Apples[i].setLocation(this.getWidth() + 100, this.getHeight() - 1000000);

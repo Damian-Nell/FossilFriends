@@ -1,6 +1,6 @@
 package Main;
 
-import java.io.File;
+import java.net.URL;
 import javax.sound.sampled.*;
 
 public class SoundManager {
@@ -9,8 +9,8 @@ public class SoundManager {
 
     public void play(String SoundFile, float volume) {
         try {
-            File file = new File(SoundFile);
-            AudioInputStream AS = AudioSystem.getAudioInputStream(file);
+            URL url = getClass().getResource("/Main/res/snds/" + SoundFile);
+            AudioInputStream AS = AudioSystem.getAudioInputStream(url);
             clip = AudioSystem.getClip();
             clip.open(AS);
             

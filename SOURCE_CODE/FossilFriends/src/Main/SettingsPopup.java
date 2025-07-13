@@ -15,7 +15,7 @@ public class SettingsPopup extends javax.swing.JFrame {
     
     private void save(){
         int vol = volumeSlider.getValue();
-        MainManager.setVol(vol);
+        MainManager.setSettings(vol, MainManager.getTut());
         this.dispose();
     }
     
@@ -54,8 +54,12 @@ public class SettingsPopup extends javax.swing.JFrame {
         tutorialButton.setBackground(new java.awt.Color(249, 245, 227));
         tutorialButton.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tutorialButton.setForeground(new java.awt.Color(74, 95, 51));
-        tutorialButton.setText("coming soon");
-        tutorialButton.setEnabled(false);
+        tutorialButton.setText("Open Tutorial");
+        tutorialButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tutorialButtonActionPerformed(evt);
+            }
+        });
 
         saveButton.setBackground(new java.awt.Color(249, 245, 227));
         saveButton.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
@@ -139,6 +143,12 @@ public class SettingsPopup extends javax.swing.JFrame {
         // TODO add your handling code here:
         discard();
     }//GEN-LAST:event_discardButtonActionPerformed
+
+    private void tutorialButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutorialButtonActionPerformed
+        // TODO add your handling code here:
+        MainManager.openPopup(1, this.getLocation().x, this.getLocation().y);
+        this.dispose();
+    }//GEN-LAST:event_tutorialButtonActionPerformed
 
     /**
      * @param args the command line arguments

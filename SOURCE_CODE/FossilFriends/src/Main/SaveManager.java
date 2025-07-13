@@ -36,7 +36,7 @@ public class SaveManager {
     private String deleteSaves = "DELETE FROM SaveGames WHERE SaveNum = ?";
 
     private String loadSettings = "SELECT * FROM Settings";
-    private String saveSettings = "UPDATE Settings SET Volume = ?";
+    private String saveSettings = "UPDATE Settings SET Volume = ?, TutorialComplete = ?";
     private String createSettings = "CREATE TABLE Settings (Volume INT, TutorialComplete BOOLEAN)";
     private String newSettings = "INSERT INTO Settings (Volume, TutorialComplete) VALUES (?, ?)";
 
@@ -195,7 +195,7 @@ public class SaveManager {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                MainManager.setVol(rs.getInt("Volume"));
+                MainManager.setSettings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"));
             }
 
         } catch (Exception e) {
@@ -204,10 +204,11 @@ public class SaveManager {
         }
     }
 
-    public void saveSettings(int vol) {
+    public void saveSettings(int vol, boolean tutComp) {
         try {
             PreparedStatement ps = con.prepareStatement(saveSettings);
             ps.setInt(1, vol);
+            ps.setBoolean(2, tutComp);
             int rows = ps.executeUpdate();
             if (rows == 0) {
                 try{

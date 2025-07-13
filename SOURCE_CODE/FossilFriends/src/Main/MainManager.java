@@ -1,5 +1,8 @@
 package Main;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 public class MainManager {
 
     //creates a SaveManager and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
@@ -8,11 +11,18 @@ public class MainManager {
     private static Dinosaur currentDino;
     
     private static float volume;
+    private static boolean tutorialComplete;
 
     
     //main method runs when the project is opened. then calls the method "selectPage" with everything at 0.
     public static void main(String[] args) {
-        selectPage(0, 0, 0);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = toolkit.getScreenSize();
+
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        selectPage(0, screenWidth/2-400, 0);
         SM.loadSettings();
     }
     
@@ -21,11 +31,14 @@ public class MainManager {
         soundM.play(sound, tempVol);
     }
     
-    public static void setVol(int vol){
-        System.out.println(vol);
+    public static void setSettings(int vol, boolean tutcomp){
         volume = vol;
-        System.out.println(volume);
-        SM.saveSettings( (int) volume);
+        tutorialComplete = tutcomp;
+        SM.saveSettings((int) volume, tutorialComplete);
+    }
+    
+    public static boolean getTut(){
+        return tutorialComplete;
     }
     
     public static int getVol(){
@@ -99,9 +112,14 @@ public class MainManager {
     public static void openPopup(int popNum, int x, int y){
         if(popNum == 0){
             SettingsPopup currentPop = new SettingsPopup();
-            currentPop.setLocation(x + 25, y + 300);
+            currentPop.setLocation(x + 50, y + 300);
             currentPop.setVisible(true);
             currentPop.initPop();
+        }else if (popNum == 1){
+            tutorialPopup currentPop = new tutorialPopup();
+            currentPop.setLocation(x - 100, y - 100);
+            currentPop.setVisible(true);
+            currentPop.initPop(x - 100, y - 100);
         }
     }
     
