@@ -76,7 +76,7 @@ public class GameScreen extends javax.swing.JFrame {
 
                 if (result == JOptionPane.YES_OPTION) {
                     MainManager.openPopup(1, this.getLocation().x, this.getLocation().y);
-                }else{
+                } else {
                     MainManager.setSettings(MainManager.getVol(), true);
                 }
             }
@@ -150,26 +150,73 @@ public class GameScreen extends javax.swing.JFrame {
         LAge.setText(String.valueOf(currentDino.getAge()));
 
         if (currentDino.getDeath() == false) {
-
-            if (currentDino.getType() == 1) {
-                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/BrontoPic150.png")));
-            } else if (currentDino.getType() == 2) {
-                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/RaptorPic150.png")));
-            } else {
-                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/StegoPic150.png")));
-            }
             backPanel.add(dinoIMG);
 
             if (currentDino.getHappiness() > 90) {
                 LHappy.setText("Amazing");
+                switch (currentDino.getType()) {
+                    case 1:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                        break;
+                    case 2:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                        break;
+                    default:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                        break;
+                }
             } else if (currentDino.getHappiness() > 70) {
                 LHappy.setText("Happy");
+                switch (currentDino.getType()) {
+                    case 1:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                        break;
+                    case 2:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                        break;
+                    default:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                        break;
+                }
             } else if (currentDino.getHappiness() > 40) {
                 LHappy.setText("Normal");
+                switch (currentDino.getType()) {
+                    case 1:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoNeut150.png")));
+                        break;
+                    case 2:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorNeut150.png")));
+                        break;
+                    default:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoNeut150.png")));
+                        break;
+                }
             } else if (currentDino.getHappiness() > 20) {
                 LHappy.setText("Sad");
+                switch (currentDino.getType()) {
+                    case 1:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoSad150.png")));
+                        break;
+                    case 2:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorSad150.png")));
+                        break;
+                    default:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoSad150.png")));
+                        break;
+                }
             } else {
                 LHappy.setText("Depressed");
+                switch (currentDino.getType()) {
+                    case 1:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoSad150.png")));
+                        break;
+                    case 2:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorSad150.png")));
+                        break;
+                    default:
+                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoSad150.png")));
+                        break;
+                }
             }
 
             if (currentDino.getLonely() > 90) {
@@ -242,11 +289,11 @@ public class GameScreen extends javax.swing.JFrame {
         }
 
         if (currentDino.getType() == 1) {
-            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/DeadBrontoPic150.png")));
+            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoDead150.png")));
         } else if (currentDino.getType() == 2) {
-            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/DeadRaptorPic150.png")));
+            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorDead150.png")));
         } else {
-            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/DeadStegoPic150.png")));
+            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoDead150.png")));
         }
 
         backPanel.add(dinoIMG);

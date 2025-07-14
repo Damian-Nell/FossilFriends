@@ -391,11 +391,11 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        dinoTypeIMG1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/BrontoDino.png"))); // NOI18N
+        dinoTypeIMG1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy73.png"))); // NOI18N
 
-        dinoTypeIMG2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/RaptorDino.png"))); // NOI18N
+        dinoTypeIMG2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy73.png"))); // NOI18N
 
-        dinoTypeIMG3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/res/imgs/Stego/StegoDino.png"))); // NOI18N
+        dinoTypeIMG3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy73.png"))); // NOI18N
 
         hungerStatLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         hungerStatLabel.setForeground(new java.awt.Color(74, 95, 51));

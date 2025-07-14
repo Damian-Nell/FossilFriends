@@ -401,21 +401,21 @@
         <Component class="javax.swing.JLabel" name="dinoTypeIMG1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Main/res/imgs/Bronto/BrontoDino.png"/>
+              <Image iconType="3" name="/Main/res/imgs/Bronto/mBrontoHappy73.png"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="dinoTypeIMG2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Main/res/imgs/Raptor/RaptorDino.png"/>
+              <Image iconType="3" name="/Main/res/imgs/Raptor/mRaptorHappy73.png"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="dinoTypeIMG3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Main/res/imgs/Stego/StegoDino.png"/>
+              <Image iconType="3" name="/Main/res/imgs/Stego/mStegoHappy73.png"/>
             </Property>
           </Properties>
         </Component>

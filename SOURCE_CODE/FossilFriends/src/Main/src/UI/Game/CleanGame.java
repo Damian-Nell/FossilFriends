@@ -28,10 +28,14 @@ public class CleanGame extends javax.swing.JFrame {
     private int frameTime = 10;
     private int frameCount = 0;
     private int aDirt;
+    private int[] dirtClean;
 
     private JLabel[] dirt = new JLabel[25];
     private JLabel sponge = new JLabel("");
     private JLabel dinoIMG = new JLabel("");
+
+    private Point Sprev = new Point(0, 0);
+    private Point Scur = new Point(0, 0);
 
     //initialises UI components.
     public CleanGame() {
@@ -57,17 +61,26 @@ public class CleanGame extends javax.swing.JFrame {
 
         dinoIMG.setSize(150, 150);
         dinoIMG.setLocation((this.getWidth() / 2) - 75, (this.getHeight() / 2) - 75);
-        if (currentDino.getType() == 1) {
-            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/BrontoPic150.png")));
-        } else if (currentDino.getType() == 2) {
-            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/RaptorPic150.png")));
-        } else {
-            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/StegoPic150.png")));
+        switch (currentDino.getType()) {
+            case 1:
+                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                break;
+            case 2:
+                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                break;
+            default:
+                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                break;
         }
 
         backPanel.add(sponge);
         setDirt();
         backPanel.add(dinoIMG);
+
+        dirtClean = new int[dirt.length];
+        for (int i = 0; i < dirt.length; i++) {
+            dirtClean[i] = 100;
+        }
 
         gameTimer = new Timer(frameTime, e -> updateGame());
         gameTimer.start();
@@ -93,10 +106,13 @@ public class CleanGame extends javax.swing.JFrame {
 
             currentCleanBar.setValue(currentDino.getClean());
             currentDino.updateStats(0.01, true);
-            if (frameCount > 100) {
+
+            Scur.setLocation(sponge.getLocation());
+            if (frameCount > 10) {
                 updateDirt();
                 frameCount = 0;
             }
+            Sprev.setLocation(Scur.getLocation());
         } else {
             gameTimer.stop();
             backPanel.remove(sponge);
@@ -132,16 +148,26 @@ public class CleanGame extends javax.swing.JFrame {
         *creates the illusion that you have to scrub to get rid of the spot.
      */
     private void updateDirt() {
-        for (int i = 0; i < dirt.length; i++) {
-            if (dirt[i].getBounds().intersects(sponge.getBounds())) {
-                MainManager.playSound("squeak.wav");
-                
-                dirt[i].setLocation(this.getWidth() + 100, this.getHeight() - 1000000);
-                backPanel.remove(dirt[i]);
-                aDirt++;
+        if (Sprev.getLocation().x != Scur.getLocation().x && Sprev.getLocation().y != Scur.getLocation().y) {
+            for (int i = 0; i < dirt.length; i++) {
+                if (dirt[i].getBounds().intersects(sponge.getBounds())) {
+                    dirtClean[i] -= 25;
+                    int r = (int) Math.round(Math.random() * 100);
+                    if (r % 2 == 0) {
+                        MainManager.playSound("squeak.wav");
+                    } else {
+                        MainManager.playSound("squeak2.wav");
+                    }
 
-                if (currentDino.getClean() < 100) {
-                    currentDino.setClean(currentDino.getClean() + 1);
+                    if (dirtClean[i] <= 0) {
+                        dirt[i].setLocation(this.getWidth() + 100, this.getHeight() - 1000000);
+                        backPanel.remove(dirt[i]);
+                        aDirt++;
+
+                        if (currentDino.getClean() < 100) {
+                            currentDino.setClean(currentDino.getClean() + 1);
+                        }
+                    }
                 }
             }
         }

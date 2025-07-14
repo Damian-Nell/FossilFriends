@@ -61,12 +61,16 @@ public class HungerGame extends javax.swing.JFrame {
         this.setCursor(invisibleCursor);
 
         Player.setSize(150, 150);
-        if (currentDino.getType() == 1) {
-            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/BrontoPic150.png")));
-        } else if (currentDino.getType() == 2) {
-            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/RaptorPic150.png")));
-        } else {
-            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/StegoPic150.png")));
+        switch (currentDino.getType()) {
+            case 1:
+                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
+                break;
+            case 2:
+                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
+                break;
+            default:
+                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
+                break;
         }
         backPanel.add(Player);
 
@@ -100,20 +104,28 @@ public class HungerGame extends javax.swing.JFrame {
             currentDino.updateStats(0.01, true);
 
             if (prevX < Player.getLocation().x) {
-                if (currentDino.getType() == 1) {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/BrontoPic150.png")));
-                } else if (currentDino.getType() == 2) {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/RaptorPic150.png")));
-                } else {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/StegoPic150.png")));
+                switch (currentDino.getType()) {
+                    case 1:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
+                        break;
+                    case 2:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
+                        break;
+                    default:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
+                        break;
                 }
             }else if (prevX > Player.getLocation().x){
-                if (currentDino.getType() == 1) {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/leftBrontoPic150.png")));
-                } else if (currentDino.getType() == 2) {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/leftRaptorPic150.png")));
-                } else {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/leftStegoPic150.png")));
+                switch (currentDino.getType()) {
+                    case 1:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEatLeft150.png")));
+                        break;
+                    case 2:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEatLeft150.png")));
+                        break;
+                    default:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEatLeft150.png")));
+                        break;
                 }
             }
             

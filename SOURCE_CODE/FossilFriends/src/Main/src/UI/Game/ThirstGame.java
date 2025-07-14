@@ -68,12 +68,16 @@ public class ThirstGame extends javax.swing.JFrame {
         bottle.setSize(100, 100);
         bottle.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/waterBottle100.png")));
         Player.setSize(150, 150);
-        if (currentDino.getType() == 1) {
-            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/BrontoPic150.png")));
-        } else if (currentDino.getType() == 2) {
-            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/RaptorPic150.png")));
-        } else {
-            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/StegoPic150.png")));
+        switch (currentDino.getType()) {
+            case 1:
+                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
+                break;
+            case 2:
+                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
+                break;
+            default:
+                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
+                break;
         }
 
         backPanel.add(Player);
@@ -192,12 +196,16 @@ public class ThirstGame extends javax.swing.JFrame {
             if (dir == true) {
                 if (x < 250) {
                     Player.setLocation(x + 1, this.getHeight() - 175);
-                    if (currentDino.getType() == 1) {
-                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/BrontoPic150.png")));
-                    } else if (currentDino.getType() == 2) {
-                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/RaptorPic150.png")));
-                    } else {
-                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/StegoPic150.png")));
+                    switch (currentDino.getType()) {
+                        case 1:
+                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
+                            break;
+                        case 2:
+                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
+                            break;
+                        default:
+                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
+                            break;
                     }
                 } else {
                     dir = false;
@@ -205,12 +213,16 @@ public class ThirstGame extends javax.swing.JFrame {
             } else if (dir == false) {
                 if (x > 0) {
                     Player.setLocation(x - 1, this.getHeight() - 175);
-                    if (currentDino.getType() == 1) {
-                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/leftBrontoPic150.png")));
-                    } else if (currentDino.getType() == 2) {
-                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/leftRaptorPic150.png")));
-                    } else {
-                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/leftStegoPic150.png")));
+                    switch (currentDino.getType()) {
+                        case 1:
+                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEatLeft150.png")));
+                            break;
+                        case 2:
+                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEatLeft150.png")));
+                            break;
+                        default:
+                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEatLeft150.png")));
+                            break;
                     }
                 } else {
                     dir = true;
