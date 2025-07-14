@@ -12,7 +12,8 @@ import java.awt.Toolkit;
 
 public class MainManager {
 
-    //creates a SaveManager and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
+    //creates a SaveManager, SoundManager, and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
+    //also creates an int volume to determine the applications volume and tutorial complete to check if the tutorial has ever been completed on the device.
     public static SaveManager SM = new SaveManager();
     private static SoundManager soundM = new SoundManager();
     private static Dinosaur currentDino;
@@ -20,7 +21,8 @@ public class MainManager {
     private static float volume;
     private static boolean tutorialComplete;
 
-    //main method runs when the project is opened. then calls the method "selectPage" with everything at 0.
+    //main method runs when the project is opened. then calls the method "selectPage" with everything at 0 and puts it in the middle of the page.
+    //slight to the left to allow for the tutorial to be visible.
     public static void main(String[] args) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
@@ -31,21 +33,25 @@ public class MainManager {
         SM.loadSettings();
     }
 
+    //plays a certain sound
     public static void playSound(String sound) {
         float tempVol = volume / 100;
         soundM.play(sound, tempVol);
     }
 
+    //saves all the settings.
     public static void setSettings(int vol, boolean tutcomp) {
         volume = vol;
         tutorialComplete = tutcomp;
         SM.saveSettings((int) volume, tutorialComplete);
     }
 
+    //checks if the tutorial has been completed before
     public static boolean getTut() {
         return tutorialComplete;
     }
 
+    //checks the volume
     public static int getVol() {
         return (int) volume;
     }
@@ -112,6 +118,13 @@ public class MainManager {
         }
     }
 
+    /*
+        * selectPage method. Takes in:
+        *   - popNum   - to determine which popup to switch to
+        *   - x & y     - where the next form will load in (keeping the look uniform)
+        * it checks the popNum and loads the page, then sets the location and make the form visible, 
+        * and calls the respective initPop.
+     */
     public static void openPopup(int popNum, int x, int y) {
         if (popNum == 0) {
             SettingsPopup currentPop = new SettingsPopup();

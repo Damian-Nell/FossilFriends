@@ -5,8 +5,10 @@ import javax.sound.sampled.*;
 
 public class SoundManager {
 
+    //single clip file to save memory
     private Clip clip;
 
+    //loads the specified sound file and volume settings and play the sound at that volume.
     public void play(String SoundFile, float volume) {
         try {
             URL url = getClass().getResource("/Main/res/snds/" + SoundFile);

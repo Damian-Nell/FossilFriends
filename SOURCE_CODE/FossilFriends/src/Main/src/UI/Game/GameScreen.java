@@ -60,6 +60,7 @@ public class GameScreen extends javax.swing.JFrame {
     /*
         * updates the game by checking if the dino is not dead or if it hasnt ran once yet. 
         * Then it updates the fields and stats of the dino. 
+        * checks the saves if the tutorial has been played before.
         * Checks if you have pet the dino and updates the hearts.
         * then every second (100 frames) it will save the current game.
         * If the dino is dead then it will call the dead dino method. 
@@ -101,7 +102,7 @@ public class GameScreen extends javax.swing.JFrame {
 
     /*
         * listens for when you click on the dinoIMG
-        * then checks if pet is false and the lonely stat isnt at a max, then creates a heart image and increases the lonely stat.
+        * then checks if pet is false and the lonely stat isnt at a max and the dino isnt currently dead, then creates a heart image and increases the lonely stat.
         * then sets pet to true
      */
     private void petDino() {
@@ -689,6 +690,7 @@ public class GameScreen extends javax.swing.JFrame {
 
     private void SettingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingButtonActionPerformed
         // TODO add your handling code here:
+        //opens the settings popup.
         MainManager.openPopup(0, this.getLocation().x, this.getLocation().y);
     }//GEN-LAST:event_SettingButtonActionPerformed
 

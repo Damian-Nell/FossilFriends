@@ -15,7 +15,7 @@ public class HungerGame extends javax.swing.JFrame {
 
     /*
         * all the variables needed for the hunger minigame.
-        *   - gameTimer, frameTime, frameCounter - same as the loginPage.
+        *   - gameTimer, frameTime, frameCount - same as the loginPage.
         *   - currentDino to effect only the needed dino.
         *   - score - to keep track of how many apples you have caught
         *   - aApple - to keep track of all the apples fallen (including missed and caught ones) to limit the number of apples you can catch to a set num
@@ -151,7 +151,7 @@ public class HungerGame extends javax.swing.JFrame {
 
     /*
         * checks if there are less than 30 apples, 
-        *   if there is then it will at a new apple in a random position.
+        *   if there is then it will add a new apple in a random position when frame count is above timeTillNext.
         * and then it will move all the apples down 3 pixels.
         * it will detect once an apple goes offscreen or collides with the player and will update aApples and score accoringly
         * and send the apples somewhere where they wont bother us and remove them to free up memory and cpu.

@@ -158,11 +158,11 @@ public class LoginPage extends javax.swing.JFrame {
     }
     
     /*
-        *call when the Start Game button is pressed. checks if there is an available save.
+        * call when the Start Game button is pressed. checks if there is an available save.
         *   -if there is then it will load the page with the selected save
         *    -if there isnt then it do some data validation to check if the name and type is valid, 
         *                        and then create a new save with the default stats.
-        *Also closes this page once next one is loaded to prevent clutter
+        * Also closes this page once next one is loaded to prevent clutter
     */
     private void loadGame() {
         if (Available == true) {
@@ -196,9 +196,7 @@ public class LoginPage extends javax.swing.JFrame {
         }
     }
 
-    /*
-        *will try to return the select saves name. if it doesnt exist then it will fail and indicate a new save can be made.
-    */
+    // will try to return the select saves name. if it doesnt exist then it will fail and indicate a new save can be made.
     private String getSaveName(int i) {
         try {
             Available = true;
@@ -243,9 +241,7 @@ public class LoginPage extends javax.swing.JFrame {
         return (int) saveSpinner.getValue();
     }
     
-    /*
-        *loops through each save and calls the update method from it with the respective time since last.
-    */
+    //loops through each save and calls the update method from it with the respective time since last.
     private void updateFromLast() {
         for (int i = 0; i < saves.length; i++) {
             saves[i].setStatMulti(1);

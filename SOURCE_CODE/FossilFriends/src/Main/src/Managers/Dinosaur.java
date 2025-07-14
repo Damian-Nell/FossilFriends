@@ -1,6 +1,3 @@
-/*
-    *imports needed files.
- */
 package Main.src.Managers;
 
 import java.time.LocalDate;
@@ -41,10 +38,20 @@ public class Dinosaur {
         dLonely = LLonely;
     }
 
+    /*
+        * Updates the stats of this specific dino. Takes in:
+        *       - timeSinceLast - to determine how much to decrease.
+        *       - online - to determine whether the game was online or offline during the time. 
+        * it will first set the age of the Dinosaur
+        * then decrease the cooldown values.
+        * then check if it was online or offline and adjust those stats accordingly
+        * then will check if the Dinosaur has died
+    */
     public void updateStats(double timeSinceLast, boolean online) {
-        setAge((Period.between(getStartDate(), LocalDate.now())).getYears() * 365
-                + (Period.between(getStartDate(), LocalDate.now())).getMonths() * 30
-                + (Period.between(getStartDate(), LocalDate.now())).getDays());
+        Period p = Period.between(getStartDate(), LocalDate.now());
+        setAge(p.getYears() * 365
+                + p.getMonths() * 30
+                + p.getDays());
 
         hCoolDown -= timeSinceLast;
         tCoolDown -= timeSinceLast;
@@ -155,6 +162,7 @@ public class Dinosaur {
         return cCoolDown;
     }
 
+    //returns the total amount of seconds since the last update.
     public double secsSinceLast() {
         double last = ((lastDateTime.getYear() * 365 * 30 * 24 * 3600) + (lastDateTime.getMonthValue() * 30 * 24 * 3600) + (lastDateTime.getDayOfMonth() * 24 * 3600)
                 + (lastDateTime.getHour() * 3600) + (lastDateTime.getMinute() * 60) + (lastDateTime.getSecond()));
@@ -239,6 +247,4 @@ public class Dinosaur {
     public void setStatMulti(double StatMulti) {
         statMulti = StatMulti;
     }
-
-    //no to string as its not needed
 }

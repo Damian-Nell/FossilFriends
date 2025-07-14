@@ -10,11 +10,17 @@ public class SaveManager {
         * variable list for all the sql presets.
         *   - con - used for the connection to the database.
         *   - url - where to look for the game save.
-        *   - createSQL - SQL code to create a new table if none is found in the file.
-        *   - updateSQL - used to update specific fields of the SQL table.
-        *   - newSQL - used to create a new row in SQL table.
-        *   - loadSQL - used to load all the saves from the SQL table.
-        *   - deleteSQL - used to delete a specific row from the SQL table.
+        *   - createSaves - SQL code to create a new table if none is found in the file.
+        *   - updateSaves - used to update specific fields of the SQL table.
+        *   - newSaves - used to create a new row in SQL table.
+        *   - loadSaves - used to load all the saves from the SQL table.
+        *   - deleteSaves - used to delete a specific row from the SQL table.
+        *
+        *   Seperate table for the settings so they are persistant throughout saves.
+        *   - loadSettings - loads everything from the settings table.
+        *   - saveSettings - updates the settings table.
+        *   - createSettings - used to create a table for the settings.
+        *   - newSettings - used to create a new row in the settings table (incase it's missing).
      */
     private Connection con;
     private String url = "jdbc:ucanaccess://FossilFriendsSaves.accdb";
@@ -42,18 +48,14 @@ public class SaveManager {
 
 
     /*
-        *constructor method where it connects the database and will through and error is there is none.
+        *constructor method where it connects.
      */
     public SaveManager() {
-        try {
             DBConnect();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Connection to save file error.");
-        }
     }
 
     /*
-        * connects the database and throws and error if no file found. and then closes the application when "ok" is selected.
+        * connects the database and throws an error if no file found and then closes the application when "ok" is selected.
         * message directs you to the read me file where it will show how to create the file.
      */
     public void DBConnect() {
@@ -189,6 +191,7 @@ public class SaveManager {
         return allSaves;
     }
 
+    //loads the settings and puts them into the MainManager. If it fails that means theres no table available so it creates one.
     public void loadSettings() {
         try {
             PreparedStatement ps = con.prepareStatement(loadSettings);
@@ -204,6 +207,7 @@ public class SaveManager {
         }
     }
 
+    //Saves all the inputed settings into the table
     public void saveSettings(int vol, boolean tutComp) {
         try {
             PreparedStatement ps = con.prepareStatement(saveSettings);
@@ -221,7 +225,7 @@ public class SaveManager {
                 }
             }
         } catch (Exception e) {
-            System.out.println("save failed");
+            JOptionPane.showMessageDialog(null, "save failed");
 
         }
 

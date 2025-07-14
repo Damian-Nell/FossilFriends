@@ -18,9 +18,12 @@ public class CleanGame extends javax.swing.JFrame {
         *   - gameTimer, frameTime, frameCounter - same as the loginPage.
         *   - currentDino to effect only the needed dino.
         *   - aDirt - to keep track of all the dirt you have washed.
+        *   - dirtClean - keep track of each dirt spots clean level
         *   - sponge - the image of the sponge you will control.
         *   - dirt - array containing all the dirt peices (set it to the number of dirt bits you want here).
         *   - dinoIMG - the image of your dino.
+        *   - Sprev - determines the previous location of the sponge.
+        *   - Scur - determines the current location of the sponge.
      */
     private Dinosaur currentDino;
     private Timer gameTimer;
@@ -43,10 +46,10 @@ public class CleanGame extends javax.swing.JFrame {
     }
 
     /*
-        *initialises the game but getting the currentDino
-        *makes your cursor invisible
-        *sets the dino and spong images
-        *starts the game timer.
+        * initialises the game but getting the currentDino
+        * makes your cursor invisible
+        * sets the dino and sponge images and sets each dirt spot cleanliness to 100
+        * starts the game timer.
      */
     public void initGame() {
         currentDino = MainManager.getDino();
@@ -90,7 +93,7 @@ public class CleanGame extends javax.swing.JFrame {
         *checks if the dirt collected it smaller than the amount of dirt on screen
         *sets the sponge your your mouse location
         *sets the fields to right values
-        *every second updates the dirt
+        *updates the current location and the previous location and then every second updates the dirt
         *once you collected all the dirt it will stop the timer
         *and remove UI components, set cCoolDown, save the same and go back to the main page.
         *will dispose of this one after to free up resources.
@@ -143,7 +146,8 @@ public class CleanGame extends javax.swing.JFrame {
     }
 
     /*
-        *called once every second in update game, checks if it is intersecting with the sponge. 
+        *called once every second in update game, checks that the sponge is in a different location
+        * and then checks if it is intersecting with the sponge. 
         *if it is then it removes the dirt peice and increase clean stat.
         *creates the illusion that you have to scrub to get rid of the spot.
      */
