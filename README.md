@@ -140,6 +140,7 @@ FOR MAC:
  - Select your save.
  - Input a name and type of dinosaur if creating a new save.
  - Start the game.
+
 ![LoginPage](Resources/Images/Others/LoginPageIMG.png)
 
 ### Game Screen ###
@@ -150,6 +151,7 @@ FOR MAC:
  - Settings icon in the top right to adjust volume, language, and to access the tutorial again.
  - Minigame buttons take you to your respective minigame.
  - Home button to take you to the LoginPage.
+
 ![New Main Game](Resources/Images/Others/NewDinoIMG.png)
 ![Main Game](Resources/Images/Others/MainGameIMG.png)
 ![Pet GIF](Resources/Images/Others/HeartsGIF.gif)
@@ -158,18 +160,21 @@ FOR MAC:
 
  - A total of 30 apples will drop.
  - you control your dinosaur with your mouse to catch the falling apples.
+
 ![Hunger Game](Resources/Images/Others/HungerGIF.gif)
 
 ### Thirst Game ###
  
  - A total of 35 drops will fall out of your water bottle.
  - You control a water bottle and you have to time it correctly so it drops onto your dinosaur as it moves side to side.
+
 ![Thirst Game](Resources/Images/Others/ThirstGIF.gif)
 
 ### Clean Game ###
 
  - A total of 25 dirt spots will appear on your dinosaur
  - You will control a sponge to clean off your dirt spots.
+
 ![Clean Game](Resources/Images/Others/CleanGIF.gif)
 
 ## Saving and Data ##
@@ -198,7 +203,9 @@ Fossil Friends uses a local Microsoft Access (.accdb) database to store and mana
 
 ## Common Errors ##
 ### 1. No Save File ###
+
 ![No Save File](Resources/Images/Others/NoSaveFileIMG.png)
+
 If this error is shown, create a .accdb file named `FossilFriendsSaves` in the root folder, next to the .jar file.
 
 ## License ##
