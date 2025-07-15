@@ -243,7 +243,15 @@ public class LoginPage extends javax.swing.JFrame {
             return saves[i].getName();
         } catch (Exception e) {
             Available = false;
-            switch (MainManager.getLang()) {
+            String lang;
+            
+            if (MainManager.getLang() != null){
+                lang = MainManager.getLang();
+            } else {
+                lang = "English";
+            }
+            
+            switch (lang) {
                 case "English":
                     return "Create A New Dino";
                 case "Afrikaans":
@@ -309,7 +317,14 @@ public class LoginPage extends javax.swing.JFrame {
 
     //updates all the fields to the correct language.
     private void updateLang() {
-        switch (MainManager.getLang()) {
+        String lang;
+        if (MainManager.getLang() != null){
+            lang = MainManager.getLang();
+        } else{
+            lang = "English";
+        }
+        
+        switch (lang) {
             case "English":
                 hungerStatLabel.setText("Hunger: ");
                 thirstStatLabel.setText("Thirst: ");

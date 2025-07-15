@@ -1,8 +1,0 @@
-All images were created by ChatGPT.
-Sound effects came from pixabay.com
-	eat.wav -> Nahtt -> https://pixabay.com/sound-effects/eat-323883
-	slurp.wav -> Breviceps -> https://pixabay.com/sound-effects/cartoon-slurp-37066
-	squeak.wav -> floraphonic -> https://pixabay.com/sound-effects/glass-rub-squeak-7-183943
-	ping.wav -> DrMrSir -> https://pixabay.com/sound-effects/ping-82822
-MP3 sound effects where converted to WAV by cloudConvert.
-	

@@ -72,13 +72,19 @@ public class SaveManager {
     public void createTable(int tableNum) {
         try {
             if (tableNum == 0) {
-                Statement st = con.createStatement();
-                st.executeUpdate(createSaves);
-                st.close();
+                PreparedStatement ps = con.prepareStatement(createSaves);
+                ps.executeUpdate();
+                ps.close();
             } else if (tableNum == 1) {
-                Statement st = con.createStatement();
-                st.executeUpdate(createSettings);
-                st.close();
+                PreparedStatement ps = con.prepareStatement(createSettings);
+                ps.executeUpdate();
+                ps.close();
+                PreparedStatement nps = con.prepareStatement(saveSettings);
+                nps.setInt(1, 100);
+                nps.setBoolean(2, false);
+                nps.setString(3, "English");
+                nps.executeUpdate();
+                nps.close();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Failed to create table. " + tableNum);
@@ -201,13 +207,16 @@ public class SaveManager {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                String lang = rs.getString("Language");
-                if (lang == null) {
+                String lang;
+                if (rs.getString("Language").equals(null)) {
                     lang = "English";
+                } else {
+                    lang = rs.getString("Language");
                 }
                 MainManager.setSettings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"), lang);
             }
-
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             createTable(1);
             System.out.println("settings load failure: creating table");
