@@ -13,13 +13,13 @@ public class Dinosaur {
     private int saveNo, LHunger, LThirst, LClean, LAge, dinoType, LHappiness, LLonely, hCoolDown, tCoolDown, cCoolDown;
     private double dHunger, dThirst, dClean, dLonely, statMulti;
     private String DName;
-    private boolean death;
+    private boolean death, egg;
     private LocalDateTime startDateTime, lastDateTime;
 
     /*
         * constructor method to create the dinosaur using all the variables.
      */
-    public Dinosaur(int inSaveNo, String inName, int inType, int inHunger, int inThirst, int inClean, int inAge, int inLonely, boolean inDeath, LocalDateTime inStart, LocalDateTime inLast) {
+    public Dinosaur(int inSaveNo, String inName, int inType, int inHunger, int inThirst, int inClean, int inAge, int inLonely, boolean inDeath, boolean inEgg, LocalDateTime inStart, LocalDateTime inLast) {
         saveNo = inSaveNo;
         DName = inName;
         dinoType = inType;
@@ -29,6 +29,7 @@ public class Dinosaur {
         LAge = inAge;
         LLonely = inLonely;
         death = inDeath;
+        egg = inEgg;
         startDateTime = inStart;
         lastDateTime = inLast;
 
@@ -191,6 +192,10 @@ public class Dinosaur {
         }
         return LHappiness;
     }
+    
+    public boolean getEgg(){
+        return egg;
+    }
 
     //setter methods
     public void setHunger(int hunger) {
@@ -246,5 +251,9 @@ public class Dinosaur {
 
     public void setStatMulti(double StatMulti) {
         statMulti = StatMulti;
+    }
+    
+    public void setEgg(boolean inEgg){
+        egg = inEgg;
     }
 }

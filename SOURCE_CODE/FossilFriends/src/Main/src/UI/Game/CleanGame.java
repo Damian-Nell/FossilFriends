@@ -75,20 +75,16 @@ public class CleanGame extends javax.swing.JFrame {
                 dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
                 break;
         }
-        if (currentDino.getAge() > 1) {
-            switch (currentDino.getType()) {
-                case 1:
-                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
-                    break;
-                case 2:
-                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
-                    break;
-                default:
-                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
-                    break;
-            }
-        } else {
-            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
+        switch (currentDino.getType()) {
+            case 1:
+                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                break;
+            case 2:
+                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                break;
+            default:
+                dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                break;
         }
 
         backPanel.add(sponge);

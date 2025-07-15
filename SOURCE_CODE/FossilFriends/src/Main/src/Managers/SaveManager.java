@@ -34,10 +34,11 @@ public class SaveManager {
             + "LAge INT, "
             + "LLonely INT, "
             + "BDeath BOOLEAN, "
+            + "BEgg BOOLEAN,"
             + "DTStart TEXT, "
             + "DTLast TEXT)";
-    private String updateSaves = "UPDATE SaveGames SET LHunger = ?, LThirst = ?, LClean = ?, LAge = ?, LLonely = ?, BDeath = ?, DTLast = ? WHERE SaveNum = ?";
-    private String newSaves = "INSERT INTO SaveGames (SaveNum, DName, Type, LHunger, LThirst, LClean, LAge, LLonely, BDeath, DTStart, DTLast) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private String updateSaves = "UPDATE SaveGames SET LHunger = ?, LThirst = ?, LClean = ?, LAge = ?, LLonely = ?, BDeath = ?, BEgg = ?, DTLast = ? WHERE SaveNum = ?";
+    private String newSaves = "INSERT INTO SaveGames (SaveNum, DName, Type, LHunger, LThirst, LClean, LAge, LLonely, BDeath, BEgg, DTStart, DTLast) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private String loadSaves = "SELECT * FROM SaveGames";
     private String deleteSaves = "DELETE FROM SaveGames WHERE SaveNum = ?";
 
@@ -99,8 +100,9 @@ public class SaveManager {
             ps.setInt(4, currentDino.getAge());
             ps.setInt(5, currentDino.getLonely());
             ps.setBoolean(6, currentDino.getDeath());
-            ps.setString(7, currentDino.getLastRaw());
-            ps.setInt(8, currentDino.getNo());
+            ps.setBoolean(7, currentDino.getEgg());
+            ps.setString(8, currentDino.getLastRaw());
+            ps.setInt(9, currentDino.getNo());
 
             int rows = ps.executeUpdate();
 
@@ -117,8 +119,9 @@ public class SaveManager {
                     nps.setInt(7, currentDino.getAge());
                     nps.setInt(8, currentDino.getLonely());
                     nps.setBoolean(9, currentDino.getDeath());
-                    nps.setString(10, currentDino.getStartRaw());
-                    nps.setString(11, currentDino.getLastRaw());
+                    nps.setBoolean(10, currentDino.getEgg());
+                    nps.setString(11, currentDino.getStartRaw());
+                    nps.setString(12, currentDino.getLastRaw());
 
                     nps.executeUpdate();
                 } catch (Exception i) {
@@ -174,11 +177,12 @@ public class SaveManager {
                 int LAge = rs.getInt("LAge");
                 int LLonely = rs.getInt("LLonely");
                 Boolean BDeath = rs.getBoolean("BDeath");
+                Boolean BEgg = rs.getBoolean("BEgg");
                 String DTStart = rs.getString("DTStart");
                 String DTLast = rs.getString("DTLast");
 
                 allSaves[allSaves.length - 1] = new Dinosaur(saveNum, DName, Type, LHunger,
-                        LThirst, LClean, LAge, LLonely, BDeath,
+                        LThirst, LClean, LAge, LLonely, BDeath, BEgg,
                         LocalDateTime.parse(DTStart), LocalDateTime.parse(DTLast));
             }
 

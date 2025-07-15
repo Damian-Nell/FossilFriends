@@ -226,7 +226,7 @@ public class LoginPage extends javax.swing.JFrame {
                     type = 3;
                 }
 
-                Dinosaur currentDino = new Dinosaur(getSpinnerNum(), inputName.getText().trim(), type, defHunger, defThirst, defClean, defAge, defLonely, false, LocalDateTime.now(), LocalDateTime.now());
+                Dinosaur currentDino = new Dinosaur(getSpinnerNum(), inputName.getText().trim(), type, defHunger, defThirst, defClean, defAge, defLonely, false, false, LocalDateTime.now(), LocalDateTime.now());
                 MainManager.setDino(currentDino);
                 MainManager.SM.saveGame(currentDino);
 

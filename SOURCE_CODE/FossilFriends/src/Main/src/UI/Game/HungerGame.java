@@ -73,8 +73,6 @@ public class HungerGame extends javax.swing.JFrame {
                     Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
                     break;
             }
-        } else {
-            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
         }
         backPanel.add(Player);
 
@@ -123,23 +121,19 @@ public class HungerGame extends javax.swing.JFrame {
             }
 
             if (prevX < Player.getLocation().x) {
-                if (currentDino.getAge() > 1) {
-                    switch (currentDino.getType()) {
-                        case 1:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
-                            break;
-                        case 2:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
-                            break;
-                        default:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
-                            break;
-                    }
-                } else {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
+                switch (currentDino.getType()) {
+                    case 1:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
+                        break;
+                    case 2:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
+                        break;
+                    default:
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
+                        break;
                 }
+
             } else if (prevX > Player.getLocation().x) {
-                if (currentDino.getAge() > 1) {
                     switch (currentDino.getType()) {
                         case 1:
                             Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEatLeft150.png")));
@@ -151,9 +145,6 @@ public class HungerGame extends javax.swing.JFrame {
                             Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEatLeft150.png")));
                             break;
                     }
-                } else {
-                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
-                }
             }
 
             prevX = Player.getLocation().x;
