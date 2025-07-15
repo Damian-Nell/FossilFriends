@@ -20,6 +20,7 @@ public class MainManager {
 
     private static float volume;
     private static boolean tutorialComplete;
+    private static String language;
 
     //main method runs when the project is opened. then calls the method "selectPage" with everything at 0 and puts it in the middle of the page.
     //slight to the left to allow for the tutorial to be visible.
@@ -29,8 +30,8 @@ public class MainManager {
 
         int screenWidth = screenSize.width;
 
-        selectPage(0, screenWidth / 2 - 400, 0);
         SM.loadSettings();
+        selectPage(0, screenWidth / 2 - 400, 0);
     }
 
     //plays a certain sound
@@ -40,20 +41,26 @@ public class MainManager {
     }
 
     //saves all the settings.
-    public static void setSettings(int vol, boolean tutcomp) {
+    public static void setSettings(int vol, boolean tutcomp, String lang) {
         volume = vol;
         tutorialComplete = tutcomp;
-        SM.saveSettings((int) volume, tutorialComplete);
+        language = lang;
+        SM.saveSettings((int) volume, tutorialComplete, language);
     }
 
-    //checks if the tutorial has been completed before
+    // checks if the tutorial has been completed before.
     public static boolean getTut() {
         return tutorialComplete;
     }
 
-    //checks the volume
+    // checks the volume.
     public static int getVol() {
         return (int) volume;
+    }
+
+    // checks language.
+    public static String getLang() {
+        return language;
     }
 
     /*
@@ -135,9 +142,9 @@ public class MainManager {
         } else if (popNum == 1) {
             if (getTut() == false) {
                 tutorialPopup currentPop = new tutorialPopup();
-                currentPop.setLocation(x-50, y+250);
+                currentPop.setLocation(x - 50, y + 250);
                 currentPop.setVisible(true);
-                currentPop.initPop(x-50, y+200);
+                currentPop.initPop(x - 50, y + 200);
             } else {
                 tutorialPopup currentPop = new tutorialPopup();
                 currentPop.setLocation(x - 100, y - 100);

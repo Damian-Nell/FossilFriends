@@ -42,9 +42,9 @@ public class SaveManager {
     private String deleteSaves = "DELETE FROM SaveGames WHERE SaveNum = ?";
 
     private String loadSettings = "SELECT * FROM Settings";
-    private String saveSettings = "UPDATE Settings SET Volume = ?, TutorialComplete = ?";
-    private String createSettings = "CREATE TABLE Settings (Volume INT, TutorialComplete BOOLEAN)";
-    private String newSettings = "INSERT INTO Settings (Volume, TutorialComplete) VALUES (?, ?)";
+    private String saveSettings = "UPDATE Settings SET Volume = ?, TutorialComplete = ?, Language = ?";
+    private String createSettings = "CREATE TABLE Settings (Volume INT, TutorialComplete BOOLEAN, Language TEXT)";
+    private String newSettings = "INSERT INTO Settings (Volume, TutorialComplete, Language) VALUES (?, ?, ?)";
 
 
     /*
@@ -82,7 +82,8 @@ public class SaveManager {
                 st.close();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Failed to create table.");
+            JOptionPane.showMessageDialog(null, "Failed to create table. " + tableNum);
+            MainManager.close();
         }
 
     }
@@ -198,7 +199,11 @@ public class SaveManager {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                MainManager.setSettings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"));
+                String lang = rs.getString("Language");
+                if (lang == null){
+                    lang = "English";
+                }
+                MainManager.setSettings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"), lang);
             }
 
         } catch (Exception e) {
@@ -208,17 +213,19 @@ public class SaveManager {
     }
 
     //Saves all the inputed settings into the table
-    public void saveSettings(int vol, boolean tutComp) {
+    public void saveSettings(int vol, boolean tutComp, String lang) {
         try {
             PreparedStatement ps = con.prepareStatement(saveSettings);
             ps.setInt(1, vol);
             ps.setBoolean(2, tutComp);
+            ps.setString(3, lang);
             int rows = ps.executeUpdate();
             if (rows == 0) {
                 try{
                     PreparedStatement nps = con.prepareStatement(newSettings);
                     nps.setInt(1, vol);
                     nps.setBoolean(2, false);
+                    nps.setString(3, lang);
                     nps.executeUpdate();
                 }catch(Exception i){
                     System.out.println("fail to create new settings: " + i);

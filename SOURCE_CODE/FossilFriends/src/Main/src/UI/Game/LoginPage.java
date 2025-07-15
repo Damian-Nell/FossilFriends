@@ -17,7 +17,7 @@ public class LoginPage extends javax.swing.JFrame {
         *    - gameTimer - a timer that is initialised later on. it will update the game everytime it goes off.
         *    - frameTime - the time it takes for the gameTimer to go off (in ms).
         *    - frameCount - goes up one everyFrame for time based mechanics.
-    */
+     */
     public Dinosaur[] saves;
 
     private boolean Available;
@@ -27,15 +27,14 @@ public class LoginPage extends javax.swing.JFrame {
     private Timer gameTimer;
     private int frameTime = 10;
     private int frameCount = 0;
-    
+
     //default values for a new dinosaur.
     private int defHunger = 50, defThirst = 50, defClean = 50, defAge = 0, defLonely = 50;
 
-    
     /*
         *initialises this page, call the initSave method, and creates a new timer which goes off every frameTime
         *and calls updateGame() method everytime it goes off.
-    */
+     */
     public LoginPage() {
         initComponents();
         initSaves();
@@ -44,12 +43,12 @@ public class LoginPage extends javax.swing.JFrame {
         gameTimer.start();
 
     }
-    
+
     /*
         *firstly, it calls check(), then the updateFields(), and increases the frameCount.
         *Then it checks if there is an available save for the slot number. if there is then it disables the text box 
         *if there isnt then it enables the text box for the user to create a new save.
-    */
+     */
     public void updateGame() {
         check();
         updateFields();
@@ -57,7 +56,17 @@ public class LoginPage extends javax.swing.JFrame {
 
         if (Available == true) {
             inputName.setEnabled(false);
-            inputName.setText("Disabled");
+            switch (MainManager.getLang()) {
+                case "English":
+                    inputName.setText("Disabled");
+                    break;
+                case "Afrikaans":
+                    inputName.setText("Deaktiveer");
+                    break;
+                case "Zulu":
+                    inputName.setText("Khubaziwe");
+                    break;
+            }
             TBClear = false;
         } else {
             if (TBClear == false) {
@@ -70,12 +79,13 @@ public class LoginPage extends javax.swing.JFrame {
 
     /*
         *initialises all the dinosaur saves, then calls updateFromLast().
-    */
+     */
     public void initSaves() {
         saves = MainManager.SM.loadGames();
         updateFromLast();
+        updateLang();
     }
-    
+
     /*
         *It will try to set all the labels to their respective values, 
         *but if the try fails then that indicates there isnt a save for the selected spinner num, 
@@ -83,7 +93,7 @@ public class LoginPage extends javax.swing.JFrame {
         *also checks if there is an error. if it is then it will set the error text to red for 100 frames (1000ms or 1 second)
         *if there is no error then it will make the text the same colour as the background to make it invisible
     
-    */
+     */
     private void updateFields() {
         try {
             saveNameLabel.setText(getSaveName(getSpinnerNum()));
@@ -92,10 +102,30 @@ public class LoginPage extends javax.swing.JFrame {
             cleanLabel.setText("" + saves[getSpinnerNum()].getClean());
             if (saves[getSpinnerNum()].getDeath() == true) {
                 deadLabel.setForeground(Color.red);
-                deadLabel.setText("Dead");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        deadLabel.setText("Dead");
+                        break;
+                    case "Afrikaans":
+                        deadLabel.setText("Dood");
+                        break;
+                    case "Zulu":
+                        deadLabel.setText("Ufile");
+                        break;
+                }
             } else {
                 deadLabel.setForeground(new java.awt.Color(74, 95, 51));
-                deadLabel.setText("Alive");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        deadLabel.setText("Alive");
+                        break;
+                    case "Afrikaans":
+                        deadLabel.setText("Lewendig");
+                        break;
+                    case "Zulu":
+                        deadLabel.setText("Uyaphila");
+                        break;
+                }
             }
             ageLabel.setText("" + saves[getSpinnerNum()].getAge());
             lonelyLabel.setText("" + saves[getSpinnerNum()].getLonely());
@@ -156,14 +186,14 @@ public class LoginPage extends javax.swing.JFrame {
             errorText.setForeground(new java.awt.Color(217, 203, 179));
         }
     }
-    
+
     /*
         * call when the Start Game button is pressed. checks if there is an available save.
         *   -if there is then it will load the page with the selected save
         *    -if there isnt then it do some data validation to check if the name and type is valid, 
         *                        and then create a new save with the default stats.
         * Also closes this page once next one is loaded to prevent clutter
-    */
+     */
     private void loadGame() {
         if (Available == true) {
             int i = getSpinnerNum();
@@ -176,7 +206,17 @@ public class LoginPage extends javax.swing.JFrame {
             if (inputName.getText().trim().isEmpty()) {
                 frameCount = 0;
                 isError = true;
-                errorText.setText("Please enter a name");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        errorText.setText("Please enter a name.");
+                        break;
+                    case "Afrikaans":
+                        errorText.setText("Voer asseblief 'n naam in.");
+                        break;
+                    case "Zulu":
+                        errorText.setText("Sicela ufake igama.");
+                        break;
+                }
             } else {
                 if (dinoSelectBronto.isSelected() == true) {
                     type = 1;
@@ -189,7 +229,7 @@ public class LoginPage extends javax.swing.JFrame {
                 Dinosaur currentDino = new Dinosaur(getSpinnerNum(), inputName.getText().trim(), type, defHunger, defThirst, defClean, defAge, defLonely, false, LocalDateTime.now(), LocalDateTime.now());
                 MainManager.setDino(currentDino);
                 MainManager.SM.saveGame(currentDino);
-                
+
                 MainManager.selectPage(1, this.getLocation().x, this.getLocation().y);
                 this.dispose();
             }
@@ -203,6 +243,14 @@ public class LoginPage extends javax.swing.JFrame {
             return saves[i].getName();
         } catch (Exception e) {
             Available = false;
+            switch (MainManager.getLang()) {
+                case "English":
+                    return "Create A New Dino";
+                case "Afrikaans":
+                    return "Skep ’n Nuwe Dinosourus";
+                case "Zulu":
+                    return "Dala iDinasawari Entsha";
+            }
             return "Create A New Dino";
         }
     }
@@ -211,7 +259,7 @@ public class LoginPage extends javax.swing.JFrame {
         *Data validation:
         *   - doesnt allow you to create a negative save and a save that is more than 1 more the total length of the saves (to keep consistency).
         *   - then limits the inputName textbox to a name thats less than 15 and if it goes over, removes the extra letters
-    */
+     */
     private void check() {
         if (getSpinnerNum() < 0) {
             saveSpinner.setValue(0);
@@ -222,7 +270,14 @@ public class LoginPage extends javax.swing.JFrame {
         if (inputName.getText().length() > 15) {
             frameCount = 0;
             isError = true;
-            errorText.setText("Please Keep Your Pets Name Under 15 Characters");
+            switch (MainManager.getLang()) {
+                case "English":
+                    errorText.setText("Please Keep Your Pets Name Under 15 Characters");
+                case "Afrikaans":
+                    errorText.setText("Hou asseblief jou troeteldier se naam onder 15 karakters.");
+                case "Zulu":
+                    errorText.setText("Sicela ugcine igama lesilwane sakho lingaphansi kwezinhlamvu eziyi-15.");
+            }
             String tempInputBox;
             String tempInputName = "";
             tempInputBox = inputName.getText().trim();
@@ -235,12 +290,12 @@ public class LoginPage extends javax.swing.JFrame {
             inputName.setText(tempInputName);
         }
     }
-    
+
     //returns the spinner number value
     private int getSpinnerNum() {
         return (int) saveSpinner.getValue();
     }
-    
+
     //loops through each save and calls the update method from it with the respective time since last.
     private void updateFromLast() {
         for (int i = 0; i < saves.length; i++) {
@@ -249,6 +304,53 @@ public class LoginPage extends javax.swing.JFrame {
 
             MainManager.SM.saveGame(saves[i]);
 
+        }
+    }
+
+    private void updateLang() {
+        switch (MainManager.getLang()) {
+            case "English":
+                hungerStatLabel.setText("Hunger: ");
+                thirstStatLabel.setText("Thirst: ");
+                cleanStatLabel.setText("Cleanliness: ");
+                condStatLabel.setText("Condition: ");
+                ageStatLabel.setText("Age: ");
+                lonelyStatLabel.setText("Lonely: ");
+                dateCreateStatLabel.setText("Date Created: ");
+                dateVisitStatLabel.setText("Date Visited: ");
+                startButton.setText("Start");
+                dinoSelectBronto.setText("Brontosaurus");
+                dinoSelectRaptor.setText("Raptor");
+                dinoSelectStego.setText("Stegosaurus");
+                break;
+            case "Afrikaans":
+                hungerStatLabel.setText("Honger: ");
+                thirstStatLabel.setText("Dors: ");
+                cleanStatLabel.setText("Netheid: ");
+                condStatLabel.setText("Toestand: ");
+                ageStatLabel.setText("Ouderdom: ");
+                lonelyStatLabel.setText("Eensaamheid: ");
+                dateCreateStatLabel.setText("Datum geskep: ");
+                dateVisitStatLabel.setText("Datum besoek: ");
+                startButton.setText("Begin");
+                dinoSelectBronto.setText("Brontosourus");
+                dinoSelectRaptor.setText("Raptora");
+                dinoSelectStego.setText("Stegosourus");
+                break;
+            case "Zulu":
+                hungerStatLabel.setText("Indlala: ");
+                thirstStatLabel.setText("Ukoma: ");
+                cleanStatLabel.setText("Ukuhlanzeka: ");
+                condStatLabel.setText("Isimo: ");
+                ageStatLabel.setText("Iminyaka: ");
+                lonelyStatLabel.setText("Ukuzizwa wedwa: ");
+                dateCreateStatLabel.setText("Usuku lokudala: ");
+                dateVisitStatLabel.setText("Usuku lokuvakashelwa: ");
+                startButton.setText("Qala");
+                dinoSelectBronto.setText("IBhrontosawusi");
+                dinoSelectRaptor.setText("Irhapthara");
+                dinoSelectStego.setText("IStegosawusi");
+                break;
         }
     }
 
@@ -281,11 +383,11 @@ public class LoginPage extends javax.swing.JFrame {
         dinoTypeIMG1 = new javax.swing.JLabel();
         dinoTypeIMG2 = new javax.swing.JLabel();
         dinoTypeIMG3 = new javax.swing.JLabel();
+        thirstStatLabel = new javax.swing.JLabel();
         hungerStatLabel = new javax.swing.JLabel();
-        hungerStatLabel1 = new javax.swing.JLabel();
-        hungerStatLabel2 = new javax.swing.JLabel();
-        hungerStatLabel3 = new javax.swing.JLabel();
-        hungerStatLabel4 = new javax.swing.JLabel();
+        condStatLabel = new javax.swing.JLabel();
+        cleanStatLabel = new javax.swing.JLabel();
+        ageStatLabel = new javax.swing.JLabel();
         dateCreateStatLabel = new javax.swing.JLabel();
         lonelyStatLabel = new javax.swing.JLabel();
         dateVisitStatLabel = new javax.swing.JLabel();
@@ -393,25 +495,25 @@ public class LoginPage extends javax.swing.JFrame {
 
         dinoTypeIMG3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy73.png"))); // NOI18N
 
+        thirstStatLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        thirstStatLabel.setForeground(new java.awt.Color(74, 95, 51));
+        thirstStatLabel.setText("Thirst:");
+
         hungerStatLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         hungerStatLabel.setForeground(new java.awt.Color(74, 95, 51));
-        hungerStatLabel.setText("Thirst:");
+        hungerStatLabel.setText("Hunger:");
 
-        hungerStatLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        hungerStatLabel1.setForeground(new java.awt.Color(74, 95, 51));
-        hungerStatLabel1.setText("Hunger:");
+        condStatLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        condStatLabel.setForeground(new java.awt.Color(74, 95, 51));
+        condStatLabel.setText("Condition:");
 
-        hungerStatLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        hungerStatLabel2.setForeground(new java.awt.Color(74, 95, 51));
-        hungerStatLabel2.setText("Condition:");
+        cleanStatLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        cleanStatLabel.setForeground(new java.awt.Color(74, 95, 51));
+        cleanStatLabel.setText("Cleanliness:");
 
-        hungerStatLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        hungerStatLabel3.setForeground(new java.awt.Color(74, 95, 51));
-        hungerStatLabel3.setText("Cleanliness:");
-
-        hungerStatLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        hungerStatLabel4.setForeground(new java.awt.Color(74, 95, 51));
-        hungerStatLabel4.setText("Age:");
+        ageStatLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        ageStatLabel.setForeground(new java.awt.Color(74, 95, 51));
+        ageStatLabel.setText("Age:");
 
         dateCreateStatLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         dateCreateStatLabel.setForeground(new java.awt.Color(74, 95, 51));
@@ -448,23 +550,23 @@ public class LoginPage extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(saveNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(hungerStatLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(hungerStatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(hungerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(hungerStatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(thirstStatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(thirstLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(hungerStatLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cleanStatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(cleanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(hungerStatLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(condStatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(deadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(hungerStatLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ageStatLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -514,23 +616,23 @@ public class LoginPage extends javax.swing.JFrame {
                 .addComponent(startButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hungerStatLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hungerStatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hungerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(thirstLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hungerStatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(thirstStatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hungerStatLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cleanStatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cleanLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hungerStatLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(condStatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hungerStatLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ageStatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -644,7 +746,10 @@ public class LoginPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JLabel ageLabel;
+    private javax.swing.JLabel ageStatLabel;
     private javax.swing.JLabel cleanLabel;
+    private javax.swing.JLabel cleanStatLabel;
+    private javax.swing.JLabel condStatLabel;
     private javax.swing.JLabel dateCreateLabel;
     private javax.swing.JLabel dateCreateStatLabel;
     private javax.swing.JLabel dateVisitLabel;
@@ -659,10 +764,6 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel errorText;
     private javax.swing.JLabel hungerLabel;
     private javax.swing.JLabel hungerStatLabel;
-    private javax.swing.JLabel hungerStatLabel1;
-    private javax.swing.JLabel hungerStatLabel2;
-    private javax.swing.JLabel hungerStatLabel3;
-    private javax.swing.JLabel hungerStatLabel4;
     private javax.swing.JTextField inputName;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lonelyLabel;
@@ -671,5 +772,6 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JSpinner saveSpinner;
     private javax.swing.JButton startButton;
     private javax.swing.JLabel thirstLabel;
+    private javax.swing.JLabel thirstStatLabel;
     // End of variables declaration//GEN-END:variables
 }

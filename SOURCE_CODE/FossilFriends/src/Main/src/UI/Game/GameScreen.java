@@ -72,13 +72,28 @@ public class GameScreen extends javax.swing.JFrame {
             MainManager.setDino(currentDino);
 
             if (MainManager.getTut() == false && ran == false) {
-                int result = JOptionPane.showConfirmDialog(backPanel, "Looks like you are new here. Would you like to begin the tutorial?",
-                        "", JOptionPane.YES_NO_OPTION);
+                int result = JOptionPane.NO_OPTION;
+                switch (MainManager.getLang()) {
+                    case "English":
+                        result = JOptionPane.showConfirmDialog(backPanel, "It looks like you're new here. Would you like to start the tutorial?",
+                                "", JOptionPane.YES_NO_OPTION);
+                        break;
+                    case "Afrikaans":
+                        result = JOptionPane.showConfirmDialog(backPanel, "Dit lyk asof jy nuut hier is. Wil jy die tutoriaal begin?",
+                                "", JOptionPane.YES_NO_OPTION);
+                        break;
+                    case "Zulu":
+                        result = JOptionPane.showConfirmDialog(backPanel, "Kubukeka sengathi umusha lapha. Ungathanda ukuqala isifundo?",
+                                "", JOptionPane.YES_NO_OPTION);
+                        break;
+                    default:
+                        break;
+                }
 
                 if (result == JOptionPane.YES_OPTION) {
                     MainManager.openPopup(1, this.getLocation().x, this.getLocation().y);
                 } else {
-                    MainManager.setSettings(MainManager.getVol(), true);
+                    MainManager.setSettings(MainManager.getVol(), true, MainManager.getLang());
                 }
             }
 
@@ -149,92 +164,213 @@ public class GameScreen extends javax.swing.JFrame {
     private void updateFields() {
         LName.setText(currentDino.getName());
         LAge.setText(String.valueOf(currentDino.getAge()));
+        updateLang();
 
         if (currentDino.getDeath() == false) {
             backPanel.add(dinoIMG);
 
             if (currentDino.getHappiness() > 90) {
-                LHappy.setText("Amazing");
-                switch (currentDino.getType()) {
-                    case 1:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LHappy.setText("Amazing");
                         break;
-                    case 2:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                    case "Afrikaans":
+                        LHappy.setText("verstommend");
                         break;
-                    default:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                    case "Zulu":
+                        LHappy.setText("emangalisayo");
+                }
+                if (currentDino.getAge() > 1) {
+                    switch (currentDino.getType()) {
+                        case 1:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                            break;
+                        case 2:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                            break;
+                        default:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                            break;
+                    }
+                } else {
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
+                }
+
+            } else if (currentDino.getHappiness() > 70) {
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LHappy.setText("Happy");
+                        break;
+                    case "Afrikaans":
+                        LHappy.setText("Gelukkig");
+                        break;
+                    case "Zulu":
+                        LHappy.setText("Jabulile");
                         break;
                 }
-            } else if (currentDino.getHappiness() > 70) {
-                LHappy.setText("Happy");
-                switch (currentDino.getType()) {
-                    case 1:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
-                        break;
-                    case 2:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
-                        break;
-                    default:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
-                        break;
+                if (currentDino.getAge() > 1) {
+                    switch (currentDino.getType()) {
+                        case 1:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                            break;
+                        case 2:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                            break;
+                        default:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                            break;
+                    }
+                } else {
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
                 }
             } else if (currentDino.getHappiness() > 40) {
-                LHappy.setText("Normal");
-                switch (currentDino.getType()) {
-                    case 1:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoNeut150.png")));
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LHappy.setText("Normal");
                         break;
-                    case 2:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorNeut150.png")));
+                    case "Afrikaans":
+                        LHappy.setText("Normaal");
                         break;
-                    default:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoNeut150.png")));
+                    case "Zulu":
+                        LHappy.setText("Okuvamile");
                         break;
+                }
+                if (currentDino.getAge() > 1) {
+                    switch (currentDino.getType()) {
+                        case 1:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoNeut150.png")));
+                            break;
+                        case 2:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorNeut150.png")));
+                            break;
+                        default:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoNeut150.png")));
+                            break;
+                    }
+                } else {
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
                 }
             } else if (currentDino.getHappiness() > 20) {
-                LHappy.setText("Sad");
-                switch (currentDino.getType()) {
-                    case 1:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoSad150.png")));
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LHappy.setText("Sad");
                         break;
-                    case 2:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorSad150.png")));
+                    case "Afrikaans":
+                        LHappy.setText("Hartseer");
                         break;
-                    default:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoSad150.png")));
+                    case "Zulu":
+                        LHappy.setText("lusizi");
                         break;
                 }
+                if (currentDino.getAge() > 1) {
+                    switch (currentDino.getType()) {
+                        case 1:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoSad150.png")));
+                            break;
+                        case 2:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorSad150.png")));
+                            break;
+                        default:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoSad150.png")));
+                            break;
+                    }
+                } else {
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
+                }
             } else {
-                LHappy.setText("Depressed");
-                switch (currentDino.getType()) {
-                    case 1:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoSad150.png")));
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LHappy.setText("Depressed");
                         break;
-                    case 2:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorSad150.png")));
+                    case "Afrikaans":
+                        LHappy.setText("depressief");
                         break;
-                    default:
-                        dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoSad150.png")));
+                    case "Zulu":
+                        LHappy.setText("edangele");
                         break;
+                }
+                if (currentDino.getAge() > 1) {
+                    switch (currentDino.getType()) {
+                        case 1:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoSad150.png")));
+                            break;
+                        case 2:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorSad150.png")));
+                            break;
+                        default:
+                            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoSad150.png")));
+                            break;
+                    }
+                } else {
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
                 }
             }
 
             if (currentDino.getLonely() > 90) {
-                LLonely.setText("Overwhelmed");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LLonely.setText("Overwhelmed");
+                        break;
+                    case "Afrikaans":
+                        LLonely.setText("Oorweldig");
+                        break;
+                    case "Zulu":
+                        LLonely.setText("Ekhungathekile");
+                        break;
+                }
                 currentDino.setStatMulti(3);
             } else if (currentDino.getLonely() > 80) {
-                LLonely.setText("Normal");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LLonely.setText("Normal");
+                        break;
+                    case "Afrikaans":
+                        LLonely.setText("Normaal");
+                        break;
+                    case "Zulu":
+                        LLonely.setText("Evamile");
+                        break;
+                }
                 currentDino.setStatMulti(1.5);
             } else if (currentDino.getLonely() > 60) {
-                LLonely.setText("Loved");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LLonely.setText("Loved");
+                        break;
+                    case "Afrikaans":
+                        LLonely.setText("Liefgehad");
+                        break;
+                    case "Zulu":
+                        LLonely.setText("Thandiwe");
+                        break;
+                }
                 currentDino.setStatMulti(1);
             } else if (currentDino.getLonely() > 40) {
                 currentDino.setStatMulti(1.5);
-                LLonely.setText("Normal");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LLonely.setText("Normal");
+                        break;
+                    case "Afrikaans":
+                        LLonely.setText("Normaal");
+                        break;
+                    case "Zulu":
+                        LLonely.setText("Evamile");
+                        break;
+                }
             } else {
                 currentDino.setStatMulti(3);
-                LLonely.setText("Lonely");
+                switch (MainManager.getLang()) {
+                    case "English":
+                        LLonely.setText("Lonely");
+                        break;
+                    case "Afrikaans":
+                        LLonely.setText("Eensaam");
+                        break;
+                    case "Zulu":
+                        LLonely.setText("Isizungu");
+                        break;
+                }
             }
 
             if (currentDino.getHCool() > 0) {
@@ -304,15 +440,40 @@ public class GameScreen extends javax.swing.JFrame {
         LThirst.setText(currentDino.getThirst() + "%");
         cleanBar.setValue(currentDino.getClean());
         LClean.setText(currentDino.getClean() + "%");
-        LLonely.setText("Dead");
-        LHappy.setText("Dead");
+        switch (MainManager.getLang()) {
+            case "English":
+                LLonely.setText("Dead");
+                LHappy.setText("Dead");
+                break;
+            case "Afrikaans":
+                LLonely.setText("Dood");
+                LHappy.setText("Dood");
+                break;
+            case "Zulu":
+                LLonely.setText("Efile");
+                LHappy.setText("Efile");
+                break;
+        }
         hCoolDownLabel.setText("");
         tCoolDownLabel.setText("");
         cCoolDownLabel.setText("");
 
         if (deadConfirm == false) {
-            int result = JOptionPane.showConfirmDialog(backPanel, "Your dino is dead. Would you like to delete " + currentDino.getName(),
-                    "", JOptionPane.YES_NO_OPTION);
+            int result = JOptionPane.NO_OPTION;
+            switch (MainManager.getLang()) {
+                case "English":
+                    result = JOptionPane.showConfirmDialog(backPanel, "Your dino is dead. Would you like to delete " + currentDino.getName(),
+                            "", JOptionPane.YES_NO_OPTION);
+                    break;
+                case "Afrikaans":
+                    result = JOptionPane.showConfirmDialog(backPanel, "Jou dinosourus is dood. Wil jy" + currentDino.getName() + "uitvee?",
+                            "", JOptionPane.YES_NO_OPTION);
+                    break;
+                case "Zulu":
+                    result = JOptionPane.showConfirmDialog(backPanel, "I-dino yakho ifile. Ungathanda ukususa u-" + currentDino.getName(),
+                            "", JOptionPane.YES_NO_OPTION);
+                    break;
+            }
 
             if (result == JOptionPane.YES_OPTION) {
                 MainManager.deleteDino();
@@ -322,6 +483,38 @@ public class GameScreen extends javax.swing.JFrame {
             } else {
                 deadConfirm = true;
             }
+        }
+    }
+
+    private void updateLang() {
+        switch (MainManager.getLang()) {
+            case "English":
+                moodLabel.setText("Mood: ");
+                happyLabel.setText("Happiness: ");
+                nameLabel.setText("Name: ");
+                ageLabel.setText("Age: ");
+                hungerLabel.setText("Hunger: ");
+                thirstLabel.setText("Thirst: ");
+                cleanLabel.setText("Cleanliness: ");
+                break;
+            case "Afrikaans":
+                moodLabel.setText("Gemoedstemming: ");
+                happyLabel.setText("Geluk: ");
+                nameLabel.setText("Naam: ");
+                ageLabel.setText("Ouderdom: ");
+                hungerLabel.setText("Honger: ");
+                thirstLabel.setText("Dors: ");
+                cleanLabel.setText("Netheid: ");
+                break;
+            case "Zulu":
+                moodLabel.setText("Isimo sengqondo: ");
+                happyLabel.setText("Injabulo: ");
+                nameLabel.setText("Igama: ");
+                ageLabel.setText("Iminyaka: ");
+                hungerLabel.setText("Indlala: ");
+                thirstLabel.setText("Ukoma: ");
+                cleanLabel.setText("Ukuhlanzeka: ");
+                break;
         }
     }
 

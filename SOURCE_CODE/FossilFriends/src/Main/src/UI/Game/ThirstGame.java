@@ -68,16 +68,20 @@ public class ThirstGame extends javax.swing.JFrame {
         bottle.setSize(100, 100);
         bottle.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/waterBottle100.png")));
         Player.setSize(150, 150);
-        switch (currentDino.getType()) {
-            case 1:
-                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
-                break;
-            case 2:
-                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
-                break;
-            default:
-                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
-                break;
+        if (currentDino.getAge() > 1) {
+            switch (currentDino.getType()) {
+                case 1:
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
+                    break;
+                case 2:
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
+                    break;
+                default:
+                    Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
+                    break;
+            }
+        } else {
+            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
         }
 
         backPanel.add(Player);
@@ -104,6 +108,21 @@ public class ThirstGame extends javax.swing.JFrame {
 
             scoreLabel.setText(score + "/" + maxDrops);
             currentThirstBar.setValue(currentDino.getThirst());
+
+            switch (MainManager.getLang()) {
+                case "English":
+                    currentLabel.setText("Thirst Level: ");
+                    scoreLabel2.setText("Score: ");
+                    break;
+                case "Afrikaans":
+                    currentLabel.setText("Dorsvlak: ");
+                    scoreLabel2.setText("Punte: ");
+                    break;
+                case "Zulu":
+                    currentLabel.setText("Izinga lokoma: ");
+                    scoreLabel2.setText("Amanqaku: ");
+                    break;
+            }
 
             updateDrops();
             updatePlayer();
@@ -196,16 +215,20 @@ public class ThirstGame extends javax.swing.JFrame {
             if (dir == true) {
                 if (x < 250) {
                     Player.setLocation(x + 1, this.getHeight() - 175);
-                    switch (currentDino.getType()) {
-                        case 1:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
-                            break;
-                        case 2:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
-                            break;
-                        default:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
-                            break;
+                    if (currentDino.getAge() > 1) {
+                        switch (currentDino.getType()) {
+                            case 1:
+                                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEat150.png")));
+                                break;
+                            case 2:
+                                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEat150.png")));
+                                break;
+                            default:
+                                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEat150.png")));
+                                break;
+                        }
+                    } else {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
                     }
                 } else {
                     dir = false;
@@ -213,16 +236,20 @@ public class ThirstGame extends javax.swing.JFrame {
             } else if (dir == false) {
                 if (x > 0) {
                     Player.setLocation(x - 1, this.getHeight() - 175);
-                    switch (currentDino.getType()) {
-                        case 1:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEatLeft150.png")));
-                            break;
-                        case 2:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEatLeft150.png")));
-                            break;
-                        default:
-                            Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEatLeft150.png")));
-                            break;
+                    if (currentDino.getAge() > 1) {
+                        switch (currentDino.getType()) {
+                            case 1:
+                                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoEatLeft150.png")));
+                                break;
+                            case 2:
+                                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorEatLeft150.png")));
+                                break;
+                            default:
+                                Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoEatLeft150.png")));
+                                break;
+                        }
+                    } else {
+                        Player.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
                     }
                 } else {
                     dir = true;
@@ -261,7 +288,7 @@ public class ThirstGame extends javax.swing.JFrame {
         currentLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         currentLabel.setForeground(new java.awt.Color(74, 95, 51));
         currentLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        currentLabel.setText("Current Thirst:");
+        currentLabel.setText("Thirst Level:");
 
         scoreLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         scoreLabel2.setForeground(new java.awt.Color(74, 95, 51));
@@ -277,7 +304,7 @@ public class ThirstGame extends javax.swing.JFrame {
                 .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backPanelLayout.createSequentialGroup()
                         .addComponent(currentLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
                         .addComponent(scoreLabel2))
                     .addComponent(currentThirstBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

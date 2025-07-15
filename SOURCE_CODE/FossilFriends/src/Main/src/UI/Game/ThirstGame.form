@@ -52,7 +52,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="currentLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="200" max="32767" attributes="0"/>
+                          <EmptySpace pref="216" max="32767" attributes="0"/>
                           <Component id="scoreLabel2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="currentThirstBar" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
               <Color blue="33" green="5f" red="4a" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Current Thirst:"/>
+            <Property name="text" type="java.lang.String" value="Thirst Level:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="currentThirstBar">

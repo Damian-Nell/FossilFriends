@@ -75,6 +75,21 @@ public class CleanGame extends javax.swing.JFrame {
                 dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
                 break;
         }
+        if (currentDino.getAge() > 1) {
+            switch (currentDino.getType()) {
+                case 1:
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Bronto/mBrontoHappy150.png")));
+                    break;
+                case 2:
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Raptor/mRaptorHappy150.png")));
+                    break;
+                default:
+                    dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Stego/mStegoHappy150.png")));
+                    break;
+            }
+        } else {
+            dinoIMG.setIcon(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dinoEgg150.png")));
+        }
 
         backPanel.add(sponge);
         setDirt();
@@ -109,6 +124,18 @@ public class CleanGame extends javax.swing.JFrame {
 
             currentCleanBar.setValue(currentDino.getClean());
             currentDino.updateStats(0.01, true);
+
+            switch (MainManager.getLang()) {
+                case "English":
+                    currentLabel.setText("Current Cleanliness: ");
+                    break;
+                case "Afrikaans":
+                    currentLabel.setText("Huidige netheid: ");
+                    break;
+                case "Zulu":
+                    currentLabel.setText("Ukuhlanzeka kwamanje: ");
+                    break;
+            }
 
             Scur.setLocation(sponge.getLocation());
             if (frameCount > 10) {
