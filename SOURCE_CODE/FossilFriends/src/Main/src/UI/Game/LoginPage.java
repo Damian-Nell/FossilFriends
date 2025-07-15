@@ -78,7 +78,7 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     /*
-        *initialises all the dinosaur saves, then calls updateFromLast().
+        *initialises all the dinosaur saves, then calls updateFromLast() and updateLang().
      */
     public void initSaves() {
         saves = MainManager.SM.loadGames();
@@ -307,6 +307,7 @@ public class LoginPage extends javax.swing.JFrame {
         }
     }
 
+    //updates all the fields to the correct language.
     private void updateLang() {
         switch (MainManager.getLang()) {
             case "English":

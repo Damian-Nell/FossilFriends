@@ -81,14 +81,15 @@ public class HungerGame extends javax.swing.JFrame {
     }
 
     /*
-        * will carry on running if the counter all apples is below 30
-        *   - will set the Player to the same x location as your mouse
-        *   - will update all the apples
-        *   - sets the score text and current hunger bar to corressponding values
-        *   - updates the dino to the direction it is moving (if not moving then keeps its same direction)
+        * will carry on running if the counter all apples is below 30.
+        *   - will set the Player to the same x location as your mouse.
+        *   - will update all the apples.
+        *   - sets the score text and current hunger bar to corressponding values.
+        *   - updates to correct language.
+        *   - updates the dino to the direction it is moving (if not moving then keeps its same direction).
         * if all apples have reached above 30 then it will:
-        *   - stop the timer and save the game
-        *   - remove the player and apples JLabels to save memory
+        *   - stop the timer and save the game.
+        *   - remove the player and apples JLabels to save memory.
         *   - set the hCoolDown of the currentDino.
         *   - save the game and go back to the main area and dispose of this frame.
      */

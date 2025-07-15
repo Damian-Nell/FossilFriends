@@ -49,14 +49,14 @@ public class SaveManager {
 
 
     /*
-        *constructor method where it connects.
+        *constructor method where it calls the connect function.
      */
     public SaveManager() {
-            DBConnect();
+        DBConnect();
     }
 
     /*
-        * connects the database and throws an error if no file found and then closes the application when "ok" is selected.
+        * connects to the database and throws an error if no file found and then closes the application when "ok" is selected.
         * message directs you to the read me file where it will show how to create the file.
      */
     public void DBConnect() {
@@ -68,16 +68,14 @@ public class SaveManager {
         }
     }
 
-    /*
-        * creates a table, if there isnt a suitable table found in the .accdb file. 
-     */
+    // creates a table, if there isnt a suitable table found in the .accdb file. 
     public void createTable(int tableNum) {
         try {
             if (tableNum == 0) {
                 Statement st = con.createStatement();
                 st.executeUpdate(createSaves);
                 st.close();
-            } else if (tableNum == 1){
+            } else if (tableNum == 1) {
                 Statement st = con.createStatement();
                 st.executeUpdate(createSettings);
                 st.close();
@@ -135,7 +133,7 @@ public class SaveManager {
         }
     }
 
-    //Deletes the currentDino
+    //Deletes the selected Dino
     public void deleteSave(Dinosaur dino) {
         try {
             PreparedStatement ps = con.prepareStatement(deleteSaves);
@@ -204,7 +202,7 @@ public class SaveManager {
 
             while (rs.next()) {
                 String lang = rs.getString("Language");
-                if (lang == null){
+                if (lang == null) {
                     lang = "English";
                 }
                 MainManager.setSettings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"), lang);
@@ -225,13 +223,13 @@ public class SaveManager {
             ps.setString(3, lang);
             int rows = ps.executeUpdate();
             if (rows == 0) {
-                try{
+                try {
                     PreparedStatement nps = con.prepareStatement(newSettings);
                     nps.setInt(1, vol);
                     nps.setBoolean(2, false);
                     nps.setString(3, lang);
                     nps.executeUpdate();
-                }catch(Exception i){
+                } catch (Exception i) {
                     System.out.println("fail to create new settings: " + i);
                 }
             }

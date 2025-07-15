@@ -13,7 +13,7 @@ public class SettingsPopup extends javax.swing.JFrame {
         initComponents();
     }
     
-    // Gets the currentVol from the MainManager and displays it on the slider
+    // Gets the currentVol and currentLang from the MainManager and displays it on the slider and dropdown.
     public void initPop(){
         currentVol = MainManager.getVol();
         volumeSlider.setValue(currentVol);

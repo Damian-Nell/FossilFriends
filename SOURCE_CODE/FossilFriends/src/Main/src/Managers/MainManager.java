@@ -12,8 +12,11 @@ import java.awt.Toolkit;
 
 public class MainManager {
 
-    //creates a SaveManager, SoundManager, and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
-    //also creates an int volume to determine the applications volume and tutorial complete to check if the tutorial has ever been completed on the device.
+    /*
+        * creates a SaveManager, SoundManager, and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
+        * also creates an int volume to determine the applications volume and tutorial complete to check if the tutorial has ever been completed on the device.
+        * and a string to track which language to display the game in.
+    */
     public static SaveManager SM = new SaveManager();
     private static SoundManager soundM = new SoundManager();
     private static Dinosaur currentDino;
@@ -22,8 +25,8 @@ public class MainManager {
     private static boolean tutorialComplete;
     private static String language;
 
-    //main method runs when the project is opened. then calls the method "selectPage" with everything at 0 and puts it in the middle of the page.
-    //slight to the left to allow for the tutorial to be visible.
+    // Main method runs when the project is opened. Then calls the method "selectPage" with everything at 0 and puts it in the middle of the page.
+    // Slight to the left to allow for the tutorial to be visible.
     public static void main(String[] args) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();

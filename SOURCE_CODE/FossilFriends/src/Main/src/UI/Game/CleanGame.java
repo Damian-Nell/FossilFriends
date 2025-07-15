@@ -2,11 +2,14 @@ package Main.src.UI.Game;
 
 import Main.src.Managers.Dinosaur;
 import Main.src.Managers.MainManager;
+import java.awt.AlphaComposite;
 import java.awt.Cursor;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -16,9 +19,10 @@ public class CleanGame extends javax.swing.JFrame {
     /*
         * all the variables needed for the hunger minigame.
         *   - gameTimer, frameTime, frameCounter - same as the loginPage.
-        *   - currentDino to effect only the needed dino.
+        *   - currentDino - to effect only the needed dino.
         *   - aDirt - to keep track of all the dirt you have washed.
-        *   - dirtClean - keep track of each dirt spots clean level
+        *   - dirtClean - keep track of each dirt spots clean level.
+        *   - countDown - the time limit for the minigame.
         *   - sponge - the image of the sponge you will control.
         *   - dirt - array containing all the dirt peices (set it to the number of dirt bits you want here).
         *   - dinoIMG - the image of your dino.
@@ -32,6 +36,8 @@ public class CleanGame extends javax.swing.JFrame {
     private int frameCount = 0;
     private int aDirt;
     private int[] dirtClean;
+    
+    private double countDown = 20;
 
     private JLabel[] dirt = new JLabel[25];
     private JLabel sponge = new JLabel("");
@@ -101,17 +107,17 @@ public class CleanGame extends javax.swing.JFrame {
     }
 
     /*
-        *checks if the dirt collected it smaller than the amount of dirt on screen
-        *sets the sponge your your mouse location
-        *sets the fields to right values
-        *updates the current location and the previous location and then every second updates the dirt
-        *once you collected all the dirt it will stop the timer
+        *checks if the dirt collected it smaller than the amount of dirt on screen.
+        *sets the sponge your your mouse location.
+        *sets the fields to right values.
+        *updates the current location and the previous location and then every second updates the dirt.
+        *sets the correct language.
+        *once you collected all the dirt it will stop the timer.
         *and remove UI components, set cCoolDown, save the same and go back to the main page.
         *will dispose of this one after to free up resources.
      */
     private void updateGame() {
-        if (aDirt < dirt.length) {
-
+        if (aDirt < dirt.length && countDown > 0) {
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
             Point frameLocation = this.getLocationOnScreen();
             sponge.setLocation(mousePos.x - frameLocation.x - sponge.getWidth() / 2, mousePos.y - frameLocation.y - sponge.getHeight() / 2);
@@ -120,6 +126,7 @@ public class CleanGame extends javax.swing.JFrame {
 
             currentCleanBar.setValue(currentDino.getClean());
             currentDino.updateStats(0.01, true);
+            countLabel.setText(String.valueOf((int) Math.round(countDown)));
 
             switch (MainManager.getLang()) {
                 case "English":
@@ -137,12 +144,16 @@ public class CleanGame extends javax.swing.JFrame {
             if (frameCount > 10) {
                 updateDirt();
                 frameCount = 0;
+                countDown -= 0.1;
             }
             Sprev.setLocation(Scur.getLocation());
         } else {
             gameTimer.stop();
             backPanel.remove(sponge);
             sponge = null;
+            for (int i = 0; i < dirt.length; i++){
+                backPanel.remove(dirt[i]);
+            }
             dirt = null;
 
             currentDino.setCCool(60 * 100);
@@ -169,10 +180,10 @@ public class CleanGame extends javax.swing.JFrame {
     }
 
     /*
-        *called once every second in update game, checks that the sponge is in a different location
-        * and then checks if it is intersecting with the sponge. 
-        *if it is then it removes the dirt peice and increase clean stat.
-        *creates the illusion that you have to scrub to get rid of the spot.
+        *checks that the sponge has moved to a different location.
+        * if it has then will cycle through each dirt and check if the dirt is touching the sponge.
+        *   if it is then it decreases the dirtClean and sets the image opacity to the corresponding value.
+        *   and randomizes between 2 sounds, so it doesnt become as annoying.
      */
     private void updateDirt() {
         if (Sprev.getLocation().x != Scur.getLocation().x && Sprev.getLocation().y != Scur.getLocation().y) {
@@ -196,8 +207,33 @@ public class CleanGame extends javax.swing.JFrame {
                         }
                     }
                 }
+
+                if (dirtClean[i] > 75) {
+                    dirt[i].setIcon(setOpacity(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dirtSpot25.png")), 1f));
+                } else if (dirtClean[i] > 50) {
+                    dirt[i].setIcon(setOpacity(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dirtSpot25.png")), 0.75f));
+                } else if (dirtClean[i] > 25) {
+                    dirt[i].setIcon(setOpacity(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dirtSpot25.png")), 0.50f));
+                } else if (dirtClean[i] > 0) {
+                    dirt[i].setIcon(setOpacity(new ImageIcon(getClass().getResource("/Main/res/imgs/Items/dirtSpot25.png")), 0.25f));
+                }
             }
         }
+    }
+
+    //sets the opacity of the inputted image.
+    public static ImageIcon setOpacity(ImageIcon icon, float opacity) {
+        int w = icon.getIconWidth();
+        int h = icon.getIconHeight();
+
+        BufferedImage buffered = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = buffered.createGraphics();
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+        g2.drawImage(icon.getImage(), 0, 0, null);
+        g2.dispose();
+
+        return new ImageIcon(buffered);
     }
 
     @SuppressWarnings("unchecked")
@@ -207,6 +243,7 @@ public class CleanGame extends javax.swing.JFrame {
         backPanel = new javax.swing.JPanel();
         currentLabel = new javax.swing.JLabel();
         currentCleanBar = new javax.swing.JProgressBar();
+        countLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,6 +255,11 @@ public class CleanGame extends javax.swing.JFrame {
         currentLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentLabel.setText("Current Cleanliness:");
 
+        countLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        countLabel.setForeground(new java.awt.Color(74, 95, 51));
+        countLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        countLabel.setText("30");
+
         javax.swing.GroupLayout backPanelLayout = new javax.swing.GroupLayout(backPanel);
         backPanel.setLayout(backPanelLayout);
         backPanelLayout.setHorizontalGroup(
@@ -227,16 +269,21 @@ public class CleanGame extends javax.swing.JFrame {
                 .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(currentLabel)
                     .addComponent(currentCleanBar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addComponent(countLabel)
+                .addContainerGap())
         );
         backPanelLayout.setVerticalGroup(
             backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(currentLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(currentCleanBar, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(550, Short.MAX_VALUE))
+                .addGroup(backPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(countLabel)
+                    .addGroup(backPanelLayout.createSequentialGroup()
+                        .addComponent(currentLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(currentCleanBar, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(543, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,6 +337,7 @@ public class CleanGame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backPanel;
+    private javax.swing.JLabel countLabel;
     private javax.swing.JProgressBar currentCleanBar;
     private javax.swing.JLabel currentLabel;
     // End of variables declaration//GEN-END:variables

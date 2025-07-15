@@ -12,6 +12,15 @@ import Main.src.Managers.MainManager;
  */
 public class tutorialPopup extends javax.swing.JFrame {
 
+    /*
+        * All the English tutorial texts.
+        * All the Afrikaans translations.
+        * And all the Zulu translations.
+        *
+        * Counter to determine which text to show.
+        * x, y - to determine where the tutorial popup will move to.
+        * lang - the current language.
+    */
     private String EngText1 = "Welcome to FossilFriends!\nThis is a pet simulation game developed\nfor my Grade 12 IT Practical Assessment Task.\nI will now show you how to play.";
     private String EngText2 = "Up here is the information header.\nIt will show you the dinosaur’s name, age, mood, happiness,\nhunger, thirst, and cleanliness.";
     private String EngText3 = "The age will increase once per day.\nOver time, your other stats will decrease.\nMood is determined by how often you visit your dinosaur.\nHappiness is determined by the average of all the other stats.";
@@ -56,13 +65,14 @@ public class tutorialPopup extends javax.swing.JFrame {
 
     private String lang;
 
-    /**
+    /*
      * Creates new form tutorialPopup
      */
     public tutorialPopup() {
         initComponents();
     }
 
+    //initialises the first popup with correct language.
     public void initPop(int x, int y) {
         lang = MainManager.getLang();
         switch (lang) {
@@ -84,6 +94,7 @@ public class tutorialPopup extends javax.swing.JFrame {
         this.y = y;
     }
 
+    //gets the next text in the popup with the correct language.
     private void nextText() {
         if (lang.equals("English")) {
             switch (counter) {

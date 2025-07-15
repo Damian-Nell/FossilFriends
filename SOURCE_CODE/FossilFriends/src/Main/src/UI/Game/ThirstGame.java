@@ -90,9 +90,9 @@ public class ThirstGame extends javax.swing.JFrame {
     /*
         *checks if there has been less than 35 drops
         *if true then it will set the bottle to the cursors x pos.
-        *   update the labels
-        *   and call the other update methods
-        *otherwise it will stop the timer, remove the UI components
+        *   update the labels with correct languages.
+        *   and call the other update methods.
+        *otherwise it will stop the timer, remove the UI components.
         *set tCoolDown, set currentDino, and switch back to the main screen. will dispose of this one after to free up resources.
      */
     private void updateGame() {

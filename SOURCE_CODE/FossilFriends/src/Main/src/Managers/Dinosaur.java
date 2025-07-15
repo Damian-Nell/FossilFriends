@@ -27,9 +27,9 @@ public class Dinosaur {
         LThirst = inThirst;
         LClean = inClean;
         LAge = inAge;
-        LLonely = inLonely;
+        LLonely = inLonely;                                                     //lower means more lonely. higher means less lonely/more overwhelmed.
         death = inDeath;
-        egg = inEgg;
+        egg = inEgg;                                                            //false mean still inside the egg. true means egg has hatched.
         startDateTime = inStart;
         lastDateTime = inLast;
 
