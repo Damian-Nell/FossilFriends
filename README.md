@@ -21,8 +21,7 @@ Fossil Friends is a virtual pet simulation game built using JAVA and SQL tables.
 
 You'll be responsible for managing your dino's hunger, thirst, cleanliness, and loneliness. Each of these affects the dinosaur's overall happiness and survival. The game features real-time stat decay (even when offline), interactive minigames, animated feedback, and persistent saving via a local SQL database.
 
-This is designed as my Grade 12 IEB IT PAT project. 
-
+This was developed as my grade 12 IT PAT (Practical Assessment Task).
 
 
 ## Features ##
@@ -33,9 +32,12 @@ Start your journey by hatching a dinosaur from an egg. You are able to choose be
 ### Interactive Minigames ###
 
 There are dedicated minigames to manage your pet's needs:
-	- Catch apples to feed your dino (Hunger)
-	- Pour water droplets for your dino (Thirst)
-	- Scrub away dirt spots with a sponge (Cleanliness)
+	
+- Catch apples to feed your dino (Hunger)
+
+- Pour water droplets for your dino (Thirst)
+	
+- Scrub away dirt spots with a sponge (Cleanliness)
 
 ### Real-Time Stat Management ###
 
