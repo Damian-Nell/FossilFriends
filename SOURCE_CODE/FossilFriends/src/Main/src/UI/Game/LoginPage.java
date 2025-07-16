@@ -322,6 +322,7 @@ public class LoginPage extends javax.swing.JFrame {
             lang = MainManager.getLang();
         } else{
             lang = "English";
+            MainManager.setSettings(100, false, "English");
         }
         
         switch (lang) {
