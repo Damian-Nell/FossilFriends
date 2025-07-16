@@ -57,7 +57,7 @@ Your dinosaur reacts to how well you take care of it. High loneliness or neglect
 
 ### Petting Mechanic ###
 
-Click your dinosaur to show it affection and reduce loneliness. Animated heart effects shows the dinosaurs love.
+Click your dinosaur to show it affection and reduce loneliness. There are even animated heart effects that show the dinosaurs love.
 
 ### Aging system ###
 
