@@ -152,7 +152,7 @@ FOR MAC:
  - Pet the dinosaur by clicking on it. This reduces it's loneliness, but be careful as you might overwhelm your dinosaur.
  - Settings icon in the top right to adjust volume, language, and to access the tutorial again.
  - Minigame buttons take you to your respective minigame.
- - Home button to take you to the LoginPage.
+ - Home button to take you to the Login Page.
 
 ![New Main Game](Resources/Images/Others/NewDinoIMG.png)
 ![Main Game](Resources/Images/Others/MainGameIMG.png)
@@ -161,7 +161,7 @@ FOR MAC:
 ### Hunger Game ###
 
  - A total of 30 apples will drop.
- - you control your dinosaur with your mouse to catch the falling apples.
+ - You control your dinosaur with your mouse to catch the falling apples.
 
 ![Hunger Game](Resources/Images/Others/HungerGIF.gif)
 
@@ -174,8 +174,8 @@ FOR MAC:
 
 ### Clean Game ###
 
- - A total of 25 dirt spots will appear on your dinosaur
- - You will control a sponge to clean off your dirt spots.
+ - A total of 25 dirt spots will appear on your dinosaur.
+ - You control a sponge to clean off the dirt spots.
 
 ![Clean Game](Resources/Images/Others/CleanGIF.gif)
 
@@ -185,7 +185,7 @@ Fossil Friends uses a local Microsoft Access (.accdb) database to store and mana
 
 ### Save Features ###
 
- - Automatic Saving: The game saves your dinosaur during every second.
+ - Automatic Saving: Every second the game saves your dinosaur.
  - Persistent Progress: Even when you close the game, your dinosaur's state is remembered and updated the next time you launch.
  - Multiple Save Slots: You can manage multiple dinosaurs using different save slots.
  - Manual Save Fallback: If autosaving fails (such as a missing table inside the database) the game will attempt to recover or recreate the table.
