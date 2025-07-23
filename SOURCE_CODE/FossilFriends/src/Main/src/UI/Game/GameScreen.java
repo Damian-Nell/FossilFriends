@@ -26,14 +26,12 @@ public class GameScreen extends javax.swing.JFrame {
         *    - heartSpeed - to determine the speed of the hearts as they float.
      */
     private Timer gameTimer;
-    private int frameTime = 10;
-    private int frameCounter = 0;
+    private int frameTime = 10, frameCounter = 0, eggClick = 0;
     private Dinosaur currentDino;
+    
     private JLabel dinoIMG;
     JLabel[] hearts = new JLabel[0];
-
-    private int eggClick = 0;
-
+    
     private boolean ran = false, pet = false, deadConfirm = false;
 
     private int heartSpeed = 1;

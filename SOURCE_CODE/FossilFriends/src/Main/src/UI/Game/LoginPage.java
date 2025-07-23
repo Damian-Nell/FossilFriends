@@ -20,13 +20,10 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public Dinosaur[] saves;
 
-    private boolean Available;
-    private boolean isError;
-    private boolean TBClear;
+    private boolean Available, isError, TBClear;
 
     private Timer gameTimer;
-    private int frameTime = 10;
-    private int frameCount = 0;
+    private int frameTime = 10, frameCount = 0;
 
     //default values for a new dinosaur.
     private int defHunger = 50, defThirst = 50, defClean = 50, defAge = 0, defLonely = 50;

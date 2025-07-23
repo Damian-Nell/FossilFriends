@@ -31,14 +31,9 @@ public class ThirstGame extends javax.swing.JFrame {
     private Timer gameTimer;
     private Dinosaur currentDino;
 
-    private int frameTime = 10;
-    private int dropFrameCount = 0;
-    private int score;
-    private int aDrops;
-    private int timeTillNext;
-    private int playerFrameCount = 0;
-    private int maxDrops = 35;
-    private int speed = 3;
+    private int frameTime = 10, dropFrameCount = 0, score, 
+            aDrops, timeTillNext, playerFrameCount = 0, maxDrops = 35, 
+            speed = 3;
 
     private boolean dir = true;
 

@@ -21,47 +21,46 @@ public class tutorialPopup extends javax.swing.JFrame {
         * x, y - to determine where the tutorial popup will move to.
         * lang - the current language.
     */
-    private String EngText1 = "Welcome to FossilFriends!\nThis is a pet simulation game developed\nfor my Grade 12 IT Practical Assessment Task.\nI will now show you how to play.";
-    private String EngText2 = "Up here is the information header.\nIt will show you the dinosaur’s name, age, mood, happiness,\nhunger, thirst, and cleanliness.";
-    private String EngText3 = "The age will increase once per day.\nOver time, your other stats will decrease.\nMood is determined by how often you visit your dinosaur.\nHappiness is determined by the average of all the other stats.";
-    private String EngText4 = "Here’s the settings button\nif you ever need to open this tutorial again or to change the volume.";
-    private String EngText5 = "Here are the minigame buttons:\nHunger, Thirst, and Cleanliness.\nEach minigame has a cooldown of 60 seconds.\nI will explain each game now.";
-    private String EngText6 = "Hunger:\nYou control your dinosaur and will have to catch falling apples in its mouth.";
-    private String EngText7 = "Thirst:\nYou control a water bottle that periodically drops a water droplet.\nYour dinosaur moves side to side, and you will have to time it correctly.";
-    private String EngText8 = "Clean:\nYou control a sponge, and you must scrub off dirt spots.";
-    private String EngText9 = "You can pet your dinosaur to increase its mood,\nbut be careful—as you may overwhelm your dinosaur.";
-    private String EngText10 = "Here’s the home button if you would\nlike to go change your dinosaur.";
-    private String EngText11 = "You may leave the game at any moment—don’t worry,\nyour dinosaurs are saved.\nBut be sure to come back, otherwise your dinosaur might die!";
-    private String EngText12 = "I hope you enjoy :)";
+    private String EngText1 = "Welcome to FossilFriends!\nThis is a pet simulation game developed\nfor my Grade 12 IT Practical Assessment Task.\nI will now show you how to play.", 
+            EngText2 = "Up here is the information header.\nIt will show you the dinosaur’s name, age, mood, happiness,\nhunger, thirst, and cleanliness.",
+            EngText3 = "The age will increase once per day.\nOver time, your other stats will decrease.\nMood is determined by how often you visit your dinosaur.\nHappiness is determined by the average of all the other stats.",
+            EngText4 = "Here’s the settings button\nif you ever need to open this tutorial again or to change the volume.",
+            EngText5 = "Here are the minigame buttons:\nHunger, Thirst, and Cleanliness.\nEach minigame has a cooldown of 60 seconds.\nI will explain each game now.",
+            EngText6 = "Hunger:\nYou control your dinosaur and will have to catch falling apples in its mouth.",
+            EngText7 = "Thirst:\nYou control a water bottle that periodically drops a water droplet.\nYour dinosaur moves side to side, and you will have to time it correctly.",
+            EngText8 = "Clean:\nYou control a sponge, and you must scrub off dirt spots.",
+            EngText9 = "You can pet your dinosaur to increase its mood,\nbut be careful—as you may overwhelm your dinosaur.",
+            EngText10 = "Here’s the home button if you would\nlike to go change your dinosaur.",
+            EngText11 = "You may leave the game at any moment—don’t worry,\nyour dinosaurs are saved.\nBut be sure to come back, otherwise your dinosaur might die!",
+            EngText12 = "I hope you enjoy :)";
 
-    private String AfrText1 = "Welkom by FossilFriends!\nHierdie is 'n troeteldier-simulasiespeletjie wat\nek ontwikkel het vir my Graad 12 IT Praktiese Assesseringstaak.\nEk gaan jou nou wys hoe om te speel.";
-    private String AfrText2 = "Hier bo is die inligtingkop.\nDit wys vir jou die dinosourus se naam, ouderdom, bui, geluk,\nhonger, dors en netheid.";
-    private String AfrText3 = "Die ouderdom verhoog een keer per dag.\nMet verloop van tyd sal jou ander statistieke afneem.\nBui word bepaal deur hoe gereeld jy jou dinosourus besoek.\nGeluk word bepaal deur die gemiddelde van al die ander statistieke.";
-    private String AfrText4 = "Hier is die instellingsknoppie\nas jy weer hierdie tutoriaal wil oopmaak of die volume wil verander.";
-    private String AfrText5 = "Hier is die minispeletjie-knoppies:\nHonger, Dors, en Netheid.\nElke minispeletjie het ’n afkoeltyd van 60 sekondes.\nEk sal nou elke speletjie verduidelik.";
-    private String AfrText6 = "Honger:\nJy beheer jou dinosourus en moet vallende appels met sy mond vang.";
-    private String AfrText7 = "Dors:\nJy beheer ’n waterbottel wat periodiek ’n waterdruppel laat val.\nJou dinosourus beweeg heen en weer, en jy moet dit reg tyd.";
-    private String AfrText8 = "Netheid:\nJy beheer ’n spons, en jy moet vuil kolle afskrop. ";
-    private String AfrText9 = "Jy kan jou dinosourus streel om sy bui te verbeter,\nmaar wees versigtig—jy kan hom dalk oorweldig.";
-    private String AfrText10 = "Hier is die tuisknoppie as jy jou dinosourus wil verander.";
-    private String AfrText11 = "Jy kan die speletjie enige tyd verlaat—moenie bekommer nie,\njou dinosourusse word gestoor.\nMaar wees seker om terug te kom, anders kan jou dinosourus dalk sterf!";
-    private String AfrText12 = "Ek hoop jy geniet dit :)";
+    private String AfrText1 = "Welkom by FossilFriends!\nHierdie is 'n troeteldier-simulasiespeletjie wat\nek ontwikkel het vir my Graad 12 IT Praktiese Assesseringstaak.\nEk gaan jou nou wys hoe om te speel.",
+            AfrText2 = "Hier bo is die inligtingkop.\nDit wys vir jou die dinosourus se naam, ouderdom, bui, geluk,\nhonger, dors en netheid.",
+            AfrText3 = "Die ouderdom verhoog een keer per dag.\nMet verloop van tyd sal jou ander statistieke afneem.\nBui word bepaal deur hoe gereeld jy jou dinosourus besoek.\nGeluk word bepaal deur die gemiddelde van al die ander statistieke.",
+            AfrText4 = "Hier is die instellingsknoppie\nas jy weer hierdie tutoriaal wil oopmaak of die volume wil verander.",
+            AfrText5 = "Hier is die minispeletjie-knoppies:\nHonger, Dors, en Netheid.\nElke minispeletjie het ’n afkoeltyd van 60 sekondes.\nEk sal nou elke speletjie verduidelik.",
+            AfrText6 = "Honger:\nJy beheer jou dinosourus en moet vallende appels met sy mond vang.",
+            AfrText7 = "Dors:\nJy beheer ’n waterbottel wat periodiek ’n waterdruppel laat val.\nJou dinosourus beweeg heen en weer, en jy moet dit reg tyd.",
+            AfrText8 = "Netheid:\nJy beheer ’n spons, en jy moet vuil kolle afskrop. ",
+            AfrText9 = "Jy kan jou dinosourus streel om sy bui te verbeter,\nmaar wees versigtig—jy kan hom dalk oorweldig.",
+            AfrText10 = "Hier is die tuisknoppie as jy jou dinosourus wil verander.",
+            AfrText11 = "Jy kan die speletjie enige tyd verlaat—moenie bekommer nie,\njou dinosourusse word gestoor.\nMaar wees seker om terug te kom, anders kan jou dinosourus dalk sterf!",
+            AfrText12 = "Ek hoop jy geniet dit :)";
     
-    private String ZulText1 = "Siyakwamukela ku-FossilFriends!\nLo ngumdlalo wokulingisa izilwane ezifuywayo owenziwe\nngomsebenzi wami wokuhlola we-IT weBanga le-12.\nManje ngizokukhombisa ukuthi ungawudlala kanjani.";
-    private String ZulText2 = "Phezulu lapha kukhona isihloko solwazi.\nSizokukhombisa igama ledinosaur, iminyaka, isimo sengqondo,\ninjabulo, indlala, ukoma, nokuhlanzeka.";
-    private String ZulText3 = "Iminyaka izokhula kanye ngosuku.\nNgokuhamba kwesikhathi, ezinye izibalo zizokwehla.\nIsimo sengqondo sinqunywa ukuthi uvakashela kangaki idinosaur yakho.\nInjabulo inqunywa isilinganiso sazo zonke ezinye izibalo.";
-    private String ZulText4 = "Nansi inkinobho yezilungiselelo\numa udinga ukuvula lesi sifundo futhi noma ushintshe ivolumu.";
-    private String ZulText5 = "Nazi izinkinobho zemidlalo emincane:\nIndlala, Ukoma, nokuhlanzeka.\nUmdlalo ngamunye unemizuzwana engama-60\nyokuphola ngaphambi kokuthi uwudlale futhi.\nManje ngizochaza umdlalo ngamunye.";
-    private String ZulText6 = "Indlala:\nUlawula idinosaur yakho futhi kufanele\nubambe ama-apula awelayo ngomlomo wayo.";
-    private String ZulText7 = "Ukoma:\nUlawula ibhodlela lamanzi eliphonsa amaconsi amanzi ngezikhathi ezithile.\nIdinosaur yakho iyahamba isuka ohlangothini olulodwa iye kolunye,\nfuthi kufanele ulinganise kahle isikhathi.";
-    private String ZulText8 = "Ukuhlanzeka:\nUlawula isiponji, kufanele ususe amabala angcolile.";
-    private String ZulText9 = "Ungayithinta idinosaur yakho ukuyenza ijabule,\nkodwa qaphela—ungayigcwala kakhulu.";
-    private String ZulText10 = "Nansi inkinobho yasekhaya uma ungathanda ukushintsha idinosaur yakho.";
-    private String ZulText11 = "Ungaphuma noma nini emdlalweni—ungakhathazeki,\nama-dinosaur akho agcinwa.Kodwa qiniseka ukuthi uyabuya,\numa kungenjalo idinosaur yakho ingafa!";
-    private String ZulText12 = "Ngiyethemba uzokujabulela :)";
+    private String ZulText1 = "Siyakwamukela ku-FossilFriends!\nLo ngumdlalo wokulingisa izilwane ezifuywayo owenziwe\nngomsebenzi wami wokuhlola we-IT weBanga le-12.\nManje ngizokukhombisa ukuthi ungawudlala kanjani.",
+            ZulText2 = "Phezulu lapha kukhona isihloko solwazi.\nSizokukhombisa igama ledinosaur, iminyaka, isimo sengqondo,\ninjabulo, indlala, ukoma, nokuhlanzeka.",
+            ZulText3 = "Iminyaka izokhula kanye ngosuku.\nNgokuhamba kwesikhathi, ezinye izibalo zizokwehla.\nIsimo sengqondo sinqunywa ukuthi uvakashela kangaki idinosaur yakho.\nInjabulo inqunywa isilinganiso sazo zonke ezinye izibalo.",
+            ZulText4 = "Nansi inkinobho yezilungiselelo\numa udinga ukuvula lesi sifundo futhi noma ushintshe ivolumu.",
+            ZulText5 = "Nazi izinkinobho zemidlalo emincane:\nIndlala, Ukoma, nokuhlanzeka.\nUmdlalo ngamunye unemizuzwana engama-60\nyokuphola ngaphambi kokuthi uwudlale futhi.\nManje ngizochaza umdlalo ngamunye.",
+            ZulText6 = "Indlala:\nUlawula idinosaur yakho futhi kufanele\nubambe ama-apula awelayo ngomlomo wayo.",
+            ZulText7 = "Ukoma:\nUlawula ibhodlela lamanzi eliphonsa amaconsi amanzi ngezikhathi ezithile.\nIdinosaur yakho iyahamba isuka ohlangothini olulodwa iye kolunye,\nfuthi kufanele ulinganise kahle isikhathi.",
+            ZulText8 = "Ukuhlanzeka:\nUlawula isiponji, kufanele ususe amabala angcolile.",
+            ZulText9 = "Ungayithinta idinosaur yakho ukuyenza ijabule,\nkodwa qaphela—ungayigcwala kakhulu.",
+            ZulText10 = "Nansi inkinobho yasekhaya uma ungathanda ukushintsha idinosaur yakho.",
+            ZulText11 = "Ungaphuma noma nini emdlalweni—ungakhathazeki,\nama-dinosaur akho agcinwa.Kodwa qiniseka ukuthi uyabuya,\numa kungenjalo idinosaur yakho ingafa!",
+            ZulText12 = "Ngiyethemba uzokujabulela :)";
 
-    private int counter = 0;
-    private int x, y;
+    private int counter = 0, x, y;
 
     private String lang;
 

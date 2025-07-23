@@ -32,8 +32,7 @@ public class CleanGame extends javax.swing.JFrame {
     private Dinosaur currentDino;
     private Timer gameTimer;
 
-    private int frameTime = 10;
-    private int frameCount = 0;
+    private int frameTime = 10, frameCount = 0;
     private int aDirt;
     private int[] dirtClean;
     

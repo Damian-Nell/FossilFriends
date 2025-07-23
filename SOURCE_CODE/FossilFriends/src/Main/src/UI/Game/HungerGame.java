@@ -29,14 +29,9 @@ public class HungerGame extends javax.swing.JFrame {
     private Timer gameTimer;
     private Dinosaur currentDino;
 
-    private int frameTime = 10;
-    private int frameCount = 0;
-    private int score = 0;
-    private int aApple = 0;
-    private int timeTillNext = 70;
-    private int maxApples = 30;
-    private int speed = 3;
-    private int prevX;
+    private int frameTime = 10, frameCount = 0;
+    private int score = 0, aApple = 0, timeTillNext = 70, maxApples = 30, 
+            speed = 3, prevX;
 
     private JLabel[] Apples = new JLabel[0];
     private JLabel Player = new JLabel("");
