@@ -217,6 +217,8 @@ You are free to use, modify, and distribute this software with proper credit.
 
 ## Contact and Feedback ##
 
+Please fill out this form: https://forms.office.com/r/iCxwzwXmpP
+
 Created by **Damian Nell** for the Grade 12 IEB IT PAT.  
 For questions, feedback, or bug reports, please:
 
