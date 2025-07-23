@@ -273,15 +273,19 @@ public class LoginPage extends javax.swing.JFrame {
         }
 
         if (inputName.getText().length() > 15) {
+            System.out.println(MainManager.getLang());
             frameCount = 0;
             isError = true;
             switch (MainManager.getLang()) {
                 case "English":
                     errorText.setText("Please Keep Your Pets Name Under 15 Characters");
+                    break;
                 case "Afrikaans":
                     errorText.setText("Hou asseblief jou troeteldier se naam onder 15 karakters.");
+                    break;
                 case "Zulu":
                     errorText.setText("Sicela ugcine igama lesilwane sakho lingaphansi kwezinhlamvu eziyi-15.");
+                    break;
             }
             String tempInputBox;
             String tempInputName = "";

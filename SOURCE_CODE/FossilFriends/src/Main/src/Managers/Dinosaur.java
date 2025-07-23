@@ -49,6 +49,7 @@ public class Dinosaur {
         * then will check if the Dinosaur has died
     */
     public void updateStats(double timeSinceLast, boolean online) {
+        check();
         Period p = Period.between(getStartDate(), LocalDate.now());
         setAge(p.getYears() * 365
                 + p.getMonths() * 30
@@ -95,6 +96,33 @@ public class Dinosaur {
 
         if (LHunger <= 0 || LThirst <= 0 || LClean <= 0) {
             setDead(true);
+        }
+    }
+    
+    //Data validation on the dinosaur
+    private void check(){
+        if (getHunger() > 100){
+            setHunger(100);
+        } else if (getHunger() < 0){
+            setHunger(0);
+        }
+        if (getThirst() > 100) {
+            setThirst(100);
+        }else if (getThirst() < 0){
+            setThirst(0);
+        }
+        if (getClean() > 100){
+            setClean(100);
+        }else if (getClean() < 0){
+            setClean(0);
+        }
+        if(getLonely() > 100){
+            setLonely(100);
+        }else if (getLonely() < 0){
+            setLonely(0);
+        }
+        if (getType() != 1 && getType() != 2 && getType() != 3){
+            dinoType = (int) (Math.random() * 3) + 1;
         }
     }
 
