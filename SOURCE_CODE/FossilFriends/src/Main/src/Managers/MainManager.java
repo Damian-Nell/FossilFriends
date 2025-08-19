@@ -20,10 +20,7 @@ public class MainManager {
     public static SaveManager SM = new SaveManager();
     private static SoundManager soundM = new SoundManager();
     private static Dinosaur currentDino;
-
-    private static float volume;
-    private static boolean tutorialComplete;
-    private static String language;
+    private static Settings settings;
 
     // Main method runs when the project is opened. Then calls the method "selectPage" with everything at 0 and puts it in the middle of the page.
     // Slight to the left to allow for the tutorial to be visible.
@@ -39,31 +36,19 @@ public class MainManager {
 
     //plays a certain sound
     public static void playSound(String sound) {
-        float tempVol = volume / 100;
+        float tempVol = (float) settings.getVol() / 100;
         soundM.play(sound, tempVol);
     }
 
     //saves all the settings.
-    public static void setSettings(int vol, boolean tutcomp, String lang) {
-        volume = vol;
-        tutorialComplete = tutcomp;
-        language = lang;
-        SM.saveSettings((int) volume, tutorialComplete, language);
+    public static void setSettings(Settings sets) {
+        settings = sets;
+        SM.saveSettings(settings);
     }
-
-    // checks if the tutorial has been completed before.
-    public static boolean getTut() {
-        return tutorialComplete;
-    }
-
-    // checks the volume.
-    public static int getVol() {
-        return (int) volume;
-    }
-
-    // checks language.
-    public static String getLang() {
-        return language;
+    
+    
+    public static Settings getSettings(){
+        return settings;
     }
 
     /*
@@ -77,8 +62,8 @@ public class MainManager {
     }
 
     //used to set the currentDino from other classes.
-    public static void setDino(Dinosaur Dino) {
-        currentDino = Dino;
+    public static void setDino(Dinosaur dino) {
+        currentDino = dino;
     }
 
     //used to get the currentDino from other classes.
@@ -143,7 +128,7 @@ public class MainManager {
             currentPop.setVisible(true);
             currentPop.initPop();
         } else if (popNum == 1) {
-            if (getTut() == false) {
+            if (settings.getTut() == false) {
                 tutorialPopup currentPop = new tutorialPopup();
                 currentPop.setLocation(x - 50, y + 250);
                 currentPop.setVisible(true);

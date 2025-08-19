@@ -5,6 +5,7 @@
 package Main.src.UI.Popups;
 
 import Main.src.Managers.MainManager;
+import Main.src.Managers.Settings;
 
 /**
  *
@@ -62,6 +63,7 @@ public class tutorialPopup extends javax.swing.JFrame {
 
     private int counter = 0, x, y;
 
+    private Settings set;
     private String lang;
 
     /*
@@ -73,7 +75,8 @@ public class tutorialPopup extends javax.swing.JFrame {
 
     //initialises the first popup with correct language.
     public void initPop(int x, int y) {
-        lang = MainManager.getLang();
+        set = MainManager.getSettings();
+        lang = set.getLang();
         switch (lang) {
             case "English":
                 tutText.setText(EngText1);
@@ -85,7 +88,7 @@ public class tutorialPopup extends javax.swing.JFrame {
                 tutText.setText(ZulText1);
                 break;
             default:
-                MainManager.setSettings(MainManager.getVol(), MainManager.getTut(), "English");
+                MainManager.setSettings(set);
                 this.dispose();
                 break;
         }
@@ -137,7 +140,7 @@ public class tutorialPopup extends javax.swing.JFrame {
                     tutText.setText(EngText12);
                     break;
                 case 11:
-                    MainManager.setSettings(MainManager.getVol(), true, MainManager.getLang());
+                    MainManager.setSettings(set);
                     this.dispose();
                     break;
                 default:
@@ -185,7 +188,7 @@ public class tutorialPopup extends javax.swing.JFrame {
                     tutText.setText(AfrText12);
                     break;
                 case 11:
-                    MainManager.setSettings(MainManager.getVol(), true, MainManager.getLang());
+                    MainManager.setSettings(set);
                     this.dispose();
                     break;
                 default:
@@ -233,7 +236,7 @@ public class tutorialPopup extends javax.swing.JFrame {
                     tutText.setText(ZulText12);
                     break;
                 case 11:
-                    MainManager.setSettings(MainManager.getVol(), true, MainManager.getLang());
+                    MainManager.setSettings(set);
                     this.dispose();
                     break;
                 default:

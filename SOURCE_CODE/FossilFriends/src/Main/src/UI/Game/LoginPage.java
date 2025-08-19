@@ -2,6 +2,7 @@ package Main.src.UI.Game;
 
 import Main.src.Managers.Dinosaur;
 import Main.src.Managers.MainManager;
+import Main.src.Managers.Settings;
 import java.awt.Color;
 import java.time.*;
 import javax.swing.*;
@@ -18,15 +19,16 @@ public class LoginPage extends javax.swing.JFrame {
         *    - frameTime - the time it takes for the gameTimer to go off (in ms).
         *    - frameCount - goes up one everyFrame for time based mechanics.
      */
-    public Dinosaur[] saves;
+    private Dinosaur[] saves;
+    private Settings set;
 
     private boolean Available, isError, TBClear;
 
     private Timer gameTimer;
-    private int frameTime = 10, frameCount = 0;
+    private int frameCount = 0;
 
     //default values for a new dinosaur.
-    private int defHunger = 50, defThirst = 50, defClean = 50, defAge = 0, defLonely = 50;
+    private static final int FRAME_TIME = 10, DEF_HUNGER = 50, DEF_THIRST = 50, DEF_CLEAN = 50, DEF_AGE = 0, DEF_LONELY = 50;
 
     /*
         *initialises this page, call the initSave method, and creates a new timer which goes off every frameTime
@@ -36,7 +38,7 @@ public class LoginPage extends javax.swing.JFrame {
         initComponents();
         initSaves();
 
-        gameTimer = new Timer(frameTime, e -> updateGame());
+        gameTimer = new Timer(FRAME_TIME, e -> updateGame());
         gameTimer.start();
 
     }
@@ -46,14 +48,14 @@ public class LoginPage extends javax.swing.JFrame {
         *Then it checks if there is an available save for the slot number. if there is then it disables the text box 
         *if there isnt then it enables the text box for the user to create a new save.
      */
-    public void updateGame() {
+    private void updateGame() {
         check();
         updateFields();
         frameCount++;
 
         if (Available == true) {
             inputName.setEnabled(false);
-            switch (MainManager.getLang()) {
+            switch (set.getLang()) {
                 case "English":
                     inputName.setText("Disabled");
                     break;
@@ -77,8 +79,9 @@ public class LoginPage extends javax.swing.JFrame {
     /*
         *initialises all the dinosaur saves, then calls updateFromLast() and updateLang().
      */
-    public void initSaves() {
+    private void initSaves() {
         saves = MainManager.SM.loadGames();
+        set = MainManager.getSettings();
         updateFromLast();
         updateLang();
     }
@@ -99,7 +102,7 @@ public class LoginPage extends javax.swing.JFrame {
             cleanLabel.setText("" + saves[getSpinnerNum()].getClean());
             if (saves[getSpinnerNum()].getDeath() == true) {
                 deadLabel.setForeground(Color.red);
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         deadLabel.setText("Dead");
                         break;
@@ -112,7 +115,7 @@ public class LoginPage extends javax.swing.JFrame {
                 }
             } else {
                 deadLabel.setForeground(new java.awt.Color(74, 95, 51));
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         deadLabel.setText("Alive");
                         break;
@@ -203,7 +206,7 @@ public class LoginPage extends javax.swing.JFrame {
             if (inputName.getText().trim().isEmpty()) {
                 frameCount = 0;
                 isError = true;
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         errorText.setText("Please enter a name.");
                         break;
@@ -223,7 +226,7 @@ public class LoginPage extends javax.swing.JFrame {
                     type = 3;
                 }
 
-                Dinosaur currentDino = new Dinosaur(getSpinnerNum(), inputName.getText().trim(), type, defHunger, defThirst, defClean, defAge, defLonely, false, false, LocalDateTime.now(), LocalDateTime.now());
+                Dinosaur currentDino = new Dinosaur(getSpinnerNum(), inputName.getText().trim(), type, DEF_HUNGER, DEF_THIRST, DEF_CLEAN, DEF_AGE, DEF_LONELY, false, false, LocalDateTime.now(), LocalDateTime.now());
                 MainManager.setDino(currentDino);
                 MainManager.SM.saveGame(currentDino);
 
@@ -242,8 +245,8 @@ public class LoginPage extends javax.swing.JFrame {
             Available = false;
             String lang;
             
-            if (MainManager.getLang() != null){
-                lang = MainManager.getLang();
+            if (set.getLang() != null){
+                lang = set.getLang();
             } else {
                 lang = "English";
             }
@@ -273,10 +276,10 @@ public class LoginPage extends javax.swing.JFrame {
         }
 
         if (inputName.getText().length() > 15) {
-            System.out.println(MainManager.getLang());
+            System.out.println(set.getLang());
             frameCount = 0;
             isError = true;
-            switch (MainManager.getLang()) {
+            switch (set.getLang()) {
                 case "English":
                     errorText.setText("Please Keep Your Pets Name Under 15 Characters");
                     break;
@@ -319,11 +322,12 @@ public class LoginPage extends javax.swing.JFrame {
     //updates all the fields to the correct language.
     private void updateLang() {
         String lang;
-        if (MainManager.getLang() != null){
-            lang = MainManager.getLang();
+        if (set.getLang() != null){
+            lang = set.getLang();
         } else{
             lang = "English";
-            MainManager.setSettings(100, false, "English");
+            set.setLang(lang);
+            MainManager.setSettings(set);
         }
         
         switch (lang) {

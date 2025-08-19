@@ -2,6 +2,7 @@ package Main.src.UI.Game;
 
 import Main.src.Managers.Dinosaur;
 import Main.src.Managers.MainManager;
+import Main.src.Managers.Settings;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
@@ -26,15 +27,16 @@ public class GameScreen extends javax.swing.JFrame {
         *    - heartSpeed - to determine the speed of the hearts as they float.
      */
     private Timer gameTimer;
-    private int frameTime = 10, frameCounter = 0, eggClick = 0;
+    private int frameCounter = 0, eggClick = 0;
     private Dinosaur currentDino;
-    
+    private Settings set;
+
     private JLabel dinoIMG;
-    JLabel[] hearts = new JLabel[0];
-    
+    private JLabel[] hearts = new JLabel[0];
+
     private boolean ran = false, pet = false, deadConfirm = false;
 
-    private int heartSpeed = 1;
+    private static final int FRAME_TIME = 10, HEART_SPEED = 1;
 
     //initialises the UI components.
     public GameScreen() {
@@ -45,13 +47,14 @@ public class GameScreen extends javax.swing.JFrame {
     public void initGame() {
         initSaves();
 
-        gameTimer = new Timer(frameTime, e -> updateGame());
+        gameTimer = new Timer(FRAME_TIME, e -> updateGame());
         gameTimer.start();
     }
 
     //gets the current save from main manager and sets the dinoIMG.
     private void initSaves() {
         currentDino = MainManager.getDino();
+        set = MainManager.getSettings();
 
         dinoIMG = new JLabel("");
         dinoIMG.setLocation((backPanel.getWidth() / 2) - 75, (backPanel.getHeight() / 2) - 15);
@@ -72,9 +75,9 @@ public class GameScreen extends javax.swing.JFrame {
             currentDino.updateStats(0.01, true);
             MainManager.setDino(currentDino);
 
-            if (MainManager.getTut() == false && ran == false) {
+            if (set.getTut() == false && ran == false) {
                 int result = JOptionPane.NO_OPTION;
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         result = JOptionPane.showConfirmDialog(backPanel, "It looks like you're new here. Would you like to start the tutorial?",
                                 "", JOptionPane.YES_NO_OPTION);
@@ -94,7 +97,8 @@ public class GameScreen extends javax.swing.JFrame {
                 if (result == JOptionPane.YES_OPTION) {
                     MainManager.openPopup(1, this.getLocation().x, this.getLocation().y);
                 } else {
-                    MainManager.setSettings(MainManager.getVol(), true, MainManager.getLang());
+                    set.setTut(true);
+                    MainManager.setSettings(set);
                 }
             }
 
@@ -156,7 +160,7 @@ public class GameScreen extends javax.swing.JFrame {
     private void updateHearts() {
         for (int i = 0; i < hearts.length; i++) {
             if (hearts[i].getLocation().y > 0) {
-                hearts[i].setLocation(hearts[i].getLocation().x, hearts[i].getLocation().y - heartSpeed);
+                hearts[i].setLocation(hearts[i].getLocation().x, hearts[i].getLocation().y - HEART_SPEED);
             } else {
                 backPanel.remove(hearts[i]);
             }
@@ -172,7 +176,7 @@ public class GameScreen extends javax.swing.JFrame {
 
         if (currentDino.getEgg() == true) {
             if (currentDino.getHappiness() > 90) {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LHappy.setText("Amazing");
                         break;
@@ -195,7 +199,7 @@ public class GameScreen extends javax.swing.JFrame {
                 }
 
             } else if (currentDino.getHappiness() > 70) {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LHappy.setText("Happy");
                         break;
@@ -218,7 +222,7 @@ public class GameScreen extends javax.swing.JFrame {
                         break;
                 }
             } else if (currentDino.getHappiness() > 40) {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LHappy.setText("Normal");
                         break;
@@ -241,7 +245,7 @@ public class GameScreen extends javax.swing.JFrame {
                         break;
                 }
             } else if (currentDino.getHappiness() > 20) {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LHappy.setText("Sad");
                         break;
@@ -265,7 +269,7 @@ public class GameScreen extends javax.swing.JFrame {
                         break;
                 }
             } else {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LHappy.setText("Depressed");
                         break;
@@ -290,7 +294,7 @@ public class GameScreen extends javax.swing.JFrame {
             }
 
             if (currentDino.getLonely() > 90) {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LLonely.setText("Overwhelmed");
                         break;
@@ -303,7 +307,7 @@ public class GameScreen extends javax.swing.JFrame {
                 }
                 currentDino.setStatMulti(3);
             } else if (currentDino.getLonely() > 80) {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LLonely.setText("Normal");
                         break;
@@ -316,7 +320,7 @@ public class GameScreen extends javax.swing.JFrame {
                 }
                 currentDino.setStatMulti(1.5);
             } else if (currentDino.getLonely() > 60) {
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LLonely.setText("Loved");
                         break;
@@ -330,7 +334,7 @@ public class GameScreen extends javax.swing.JFrame {
                 currentDino.setStatMulti(1);
             } else if (currentDino.getLonely() > 40) {
                 currentDino.setStatMulti(1.5);
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LLonely.setText("Normal");
                         break;
@@ -343,7 +347,7 @@ public class GameScreen extends javax.swing.JFrame {
                 }
             } else {
                 currentDino.setStatMulti(3);
-                switch (MainManager.getLang()) {
+                switch (set.getLang()) {
                     case "English":
                         LLonely.setText("Lonely");
                         break;
@@ -398,7 +402,7 @@ public class GameScreen extends javax.swing.JFrame {
                     currentDino.setEgg(true);
             }
 
-            switch (MainManager.getLang()) {
+            switch (set.getLang()) {
                 case "English":
                     LHappy.setText("Egg");
                     LLonely.setText("Egg");
@@ -442,7 +446,7 @@ public class GameScreen extends javax.swing.JFrame {
         * it will also set all the necessary fields to their correct values.
         * it will display a popup asking if you want to delete your dinosaur from the save file once.
      */
-    public void deadDino() {
+    private void deadDino() {
         if (dinoIMG == null) {
             dinoIMG = new JLabel("");
             dinoIMG.setLocation((backPanel.getWidth() / 2) - 75, (backPanel.getHeight() / 2) - 15);
@@ -468,7 +472,7 @@ public class GameScreen extends javax.swing.JFrame {
         thirstButton.setEnabled(false);
         cleanButton.setEnabled(false);
 
-        switch (MainManager.getLang()) {
+        switch (set.getLang()) {
             case "English":
                 LLonely.setText("Dead");
                 LHappy.setText("Dead");
@@ -488,7 +492,7 @@ public class GameScreen extends javax.swing.JFrame {
 
         if (deadConfirm == false) {
             int result = JOptionPane.NO_OPTION;
-            switch (MainManager.getLang()) {
+            switch (set.getLang()) {
                 case "English":
                     result = JOptionPane.showConfirmDialog(backPanel, "Your dino is dead. Would you like to delete " + currentDino.getName(),
                             "", JOptionPane.YES_NO_OPTION);
@@ -516,7 +520,7 @@ public class GameScreen extends javax.swing.JFrame {
 
     //updates all the fields in the screen to the correct language.
     private void updateLang() {
-        switch (MainManager.getLang()) {
+        switch (set.getLang()) {
             case "English":
                 moodLabel.setText("Mood: ");
                 happyLabel.setText("Happiness: ");

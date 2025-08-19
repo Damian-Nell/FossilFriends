@@ -59,7 +59,7 @@ public class SaveManager {
         * connects to the database and throws an error if no file found and then closes the application when "ok" is selected.
         * message directs you to the read me file where it will show how to create the file.
      */
-    public void DBConnect() {
+    private void DBConnect() {
         try {
             con = DriverManager.getConnection(url);
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class SaveManager {
     }
 
     // creates a table, if there isnt a suitable table found in the .accdb file. 
-    public void createTable(int tableNum) {
+    private void createTable(int tableNum) {
         try {
             if (tableNum == 0) {
                 PreparedStatement ps = con.prepareStatement(createSaves);
@@ -213,7 +213,9 @@ public class SaveManager {
                 } else {
                     lang = rs.getString("Language");
                 }
-                MainManager.setSettings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"), lang);
+                Settings sets = new Settings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"), lang);
+                MainManager.setSettings(sets);
+                sets = null;
             }
             rs.close();
             ps.close();
@@ -224,7 +226,11 @@ public class SaveManager {
     }
 
     //Saves all the inputed settings into the table
-    public void saveSettings(int vol, boolean tutComp, String lang) {
+    public void saveSettings(Settings sets) {
+        int vol = sets.getVol();
+        boolean tutComp = sets.getTut();
+        String lang = sets.getLang();
+        
         try {
             PreparedStatement ps = con.prepareStatement(saveSettings);
             ps.setInt(1, vol);

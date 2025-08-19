@@ -1,60 +1,61 @@
 package Main.src.UI.Popups;
 
 import Main.src.Managers.MainManager;
+import Main.src.Managers.Settings;
 
 public class SettingsPopup extends javax.swing.JFrame {
 
-    // Current volume and language variables.
-    private int currentVol;
-    private String currentLang;
-    
+    //Settings class to store the current settings.
+    private Settings set;
+
     // Initialises UI components.
     public SettingsPopup() {
         initComponents();
     }
-    
+
     // Gets the currentVol and currentLang from the MainManager and displays it on the slider and dropdown.
-    public void initPop(){
-        currentVol = MainManager.getVol();
-        volumeSlider.setValue(currentVol);
-        currentLang = MainManager.getLang();
-        languageDrop.setSelectedItem(currentLang);
-        
-        switch (MainManager.getLang()){
-                case "English":
-                    languageLabel.setText("Language: ");
-                    volumeLabel.setText("Volume: ");
-                    tutorialButton.setText("Open Tutorial");
-                    saveButton.setText("Save Settings");
-                    discardButton.setText("Discard Settings");
-                    break;
-                case "Afrikaans":
-                    languageLabel.setText("Taal: ");
-                    volumeLabel.setText("Volume: ");
-                    tutorialButton.setText("Maak tutoriaal oop");
-                    saveButton.setText("Stoor instellings");
-                    discardButton.setText("Verwerp instellings");
-                    break;
-                case "Zulu":
-                    languageLabel.setText("Ulimi: ");
-                    volumeLabel.setText("Ivolumu: ");
-                    tutorialButton.setText("Vula isifundo");
-                    saveButton.setText("Gcina izilungiselelo");
-                    discardButton.setText("Lahla izilungiselelo");
-                    break;
-            }
+    public void initPop() {
+        set = MainManager.getSettings();
+        volumeSlider.setValue(set.getVol());        
+        languageDrop.setSelectedItem(set.getLang());
+
+        switch (set.getLang()) {
+            case "English":
+                languageLabel.setText("Language: ");
+                volumeLabel.setText("Volume: ");
+                tutorialButton.setText("Open Tutorial");
+                saveButton.setText("Save Settings");
+                discardButton.setText("Discard Settings");
+                break;
+            case "Afrikaans":
+                languageLabel.setText("Taal: ");
+                volumeLabel.setText("Volume: ");
+                tutorialButton.setText("Maak tutoriaal oop");
+                saveButton.setText("Stoor instellings");
+                discardButton.setText("Verwerp instellings");
+                break;
+            case "Zulu":
+                languageLabel.setText("Ulimi: ");
+                volumeLabel.setText("Ivolumu: ");
+                tutorialButton.setText("Vula isifundo");
+                saveButton.setText("Gcina izilungiselelo");
+                discardButton.setText("Lahla izilungiselelo");
+                break;
+        }
     }
-    
+
     // Saves the currentVol.
-    private void save(){
-        int vol = volumeSlider.getValue();
-        String lang = String.valueOf(languageDrop.getSelectedItem());
-        MainManager.setSettings(vol, MainManager.getTut(), lang);
+    private void save() {
+        set.setVol(volumeSlider.getValue());
+        set.setLang(String.valueOf(languageDrop.getSelectedItem()));
+        MainManager.setSettings(set);
+        set = null;
         this.dispose();
     }
-    
+
     // Closes this popup without saving.
-    private void discard(){
+    private void discard() {
+        set = null;
         this.dispose();
     }
 
@@ -198,11 +199,8 @@ public class SettingsPopup extends javax.swing.JFrame {
 
     private void tutorialButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutorialButtonActionPerformed
         // TODO add your handling code here:
-        int vol = volumeSlider.getValue();
-        String lang = String.valueOf(languageDrop.getSelectedItem());
-        MainManager.setSettings(vol, MainManager.getTut(), lang);
         MainManager.openPopup(1, this.getLocation().x, this.getLocation().y);
-        this.dispose();
+        save();
     }//GEN-LAST:event_tutorialButtonActionPerformed
 
     /**

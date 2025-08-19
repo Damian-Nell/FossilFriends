@@ -2,6 +2,7 @@ package Main.src.UI.Game;
 
 import Main.src.Managers.Dinosaur;
 import Main.src.Managers.MainManager;
+import Main.src.Managers.Settings;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -28,10 +29,12 @@ public class HungerGame extends javax.swing.JFrame {
      */
     private Timer gameTimer;
     private Dinosaur currentDino;
+    private Settings set;
 
-    private int frameTime = 10, frameCount = 0;
-    private int score = 0, aApple = 0, timeTillNext = 70, maxApples = 30, 
-            speed = 3, prevX;
+    private int frameCount = 0;
+    private int score = 0, aApple = 0, timeTillNext = 70, prevX;
+    
+    private static final int FRAME_TIME = 10, MAX_APPLES = 30, SPEED = 3;
 
     private JLabel[] Apples = new JLabel[0];
     private JLabel Player = new JLabel("");
@@ -49,6 +52,7 @@ public class HungerGame extends javax.swing.JFrame {
      */
     public void initGame() {
         currentDino = MainManager.getDino();
+        set = MainManager.getSettings();
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = toolkit.createImage(new byte[0]);
@@ -71,7 +75,7 @@ public class HungerGame extends javax.swing.JFrame {
         }
         backPanel.add(Player);
 
-        gameTimer = new Timer(frameTime, e -> updateGame());
+        gameTimer = new Timer(FRAME_TIME, e -> updateGame());
         gameTimer.start();
     }
 
@@ -89,7 +93,7 @@ public class HungerGame extends javax.swing.JFrame {
         *   - save the game and go back to the main area and dispose of this frame.
      */
     private void updateGame() {
-        if (aApple < maxApples) {
+        if (aApple < MAX_APPLES) {
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
             Point frameLocation = this.getLocationOnScreen();
             int x = mousePos.x - frameLocation.x;
@@ -97,11 +101,11 @@ public class HungerGame extends javax.swing.JFrame {
 
             updateApples();
             frameCount++;
-            scoreLabel.setText(score + "/" + maxApples);
+            scoreLabel.setText(score + "/" + MAX_APPLES);
             currentHungerBar.setValue(currentDino.getHunger());
             currentDino.updateStats(0.01, true);
 
-            switch (MainManager.getLang()) {
+            switch (set.getLang()) {
                 case "English":
                     hungerLabel.setText("Hunger Level: ");
                     scoreLabel2.setText("Score: ");
@@ -172,7 +176,7 @@ public class HungerGame extends javax.swing.JFrame {
         
      */
     private void updateApples() {
-        if (Apples.length < maxApples) {
+        if (Apples.length < MAX_APPLES) {
             if (frameCount > timeTillNext) {
                 JLabel[] tempApples = Apples;
                 Apples = new JLabel[tempApples.length + 1];
@@ -197,7 +201,7 @@ public class HungerGame extends javax.swing.JFrame {
         }
 
         for (int i = 0; i < Apples.length; i++) {
-            Apples[i].setLocation(Apples[i].getLocation().x, Apples[i].getLocation().y + speed);
+            Apples[i].setLocation(Apples[i].getLocation().x, Apples[i].getLocation().y + SPEED);
 
             if (Apples[i].getBounds().intersects(Player.getBounds())) {
                 MainManager.playSound("eat.wav");

@@ -2,6 +2,7 @@ package Main.src.UI.Game;
 
 import Main.src.Managers.Dinosaur;
 import Main.src.Managers.MainManager;
+import Main.src.Managers.Settings;
 import java.awt.AlphaComposite;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
@@ -30,9 +31,10 @@ public class CleanGame extends javax.swing.JFrame {
         *   - Scur - determines the current location of the sponge.
      */
     private Dinosaur currentDino;
+    private Settings set;
     private Timer gameTimer;
 
-    private int frameTime = 10, frameCount = 0;
+    private int frameCount = 0;
     private int aDirt;
     private int[] dirtClean;
     
@@ -44,6 +46,8 @@ public class CleanGame extends javax.swing.JFrame {
 
     private Point Sprev = new Point(0, 0);
     private Point Scur = new Point(0, 0);
+    
+    private static final int FRAME_TIME = 10;
 
     //initialises UI components.
     public CleanGame() {
@@ -58,6 +62,7 @@ public class CleanGame extends javax.swing.JFrame {
      */
     public void initGame() {
         currentDino = MainManager.getDino();
+        set = MainManager.getSettings();
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = toolkit.createImage(new byte[0]);
@@ -101,7 +106,7 @@ public class CleanGame extends javax.swing.JFrame {
             dirtClean[i] = 100;
         }
 
-        gameTimer = new Timer(frameTime, e -> updateGame());
+        gameTimer = new Timer(FRAME_TIME, e -> updateGame());
         gameTimer.start();
     }
 
@@ -127,7 +132,7 @@ public class CleanGame extends javax.swing.JFrame {
             currentDino.updateStats(0.01, true);
             countLabel.setText(String.valueOf((int) Math.round(countDown)));
 
-            switch (MainManager.getLang()) {
+            switch (set.getLang()) {
                 case "English":
                     currentLabel.setText("Current Cleanliness: ");
                     break;
@@ -221,7 +226,7 @@ public class CleanGame extends javax.swing.JFrame {
     }
 
     //sets the opacity of the inputted image.
-    public static ImageIcon setOpacity(ImageIcon icon, float opacity) {
+    private ImageIcon setOpacity(ImageIcon icon, float opacity) {
         int w = icon.getIconWidth();
         int h = icon.getIconHeight();
 

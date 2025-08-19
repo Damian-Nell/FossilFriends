@@ -2,6 +2,7 @@ package Main.src.UI.Game;
 
 import Main.src.Managers.Dinosaur;
 import Main.src.Managers.MainManager;
+import Main.src.Managers.Settings;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.MouseInfo;
@@ -30,12 +31,15 @@ public class ThirstGame extends javax.swing.JFrame {
      */
     private Timer gameTimer;
     private Dinosaur currentDino;
+    private Settings set;
 
-    private int frameTime = 10, dropFrameCount = 0, score, 
-            aDrops, timeTillNext, playerFrameCount = 0, maxDrops = 35, 
-            speed = 3;
+    private int dropFrameCount = 0, score, 
+            aDrops, timeTillNext, playerFrameCount = 0;
 
     private boolean dir = true;
+    
+    private static final int FRAME_TIME = 10, MAX_DROPS = 35, 
+            SPEED = 3;
 
     private JLabel bottle = new JLabel("");
     private JLabel Player = new JLabel("");
@@ -54,6 +58,7 @@ public class ThirstGame extends javax.swing.JFrame {
      */
     public void initGame() {
         currentDino = MainManager.getDino();
+        set = MainManager.getSettings();
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image image = toolkit.createImage(new byte[0]);
@@ -78,7 +83,7 @@ public class ThirstGame extends javax.swing.JFrame {
         backPanel.add(Player);
         backPanel.add(bottle);
 
-        gameTimer = new Timer(frameTime, e -> updateGame());
+        gameTimer = new Timer(FRAME_TIME, e -> updateGame());
         gameTimer.start();
     }
 
@@ -91,16 +96,16 @@ public class ThirstGame extends javax.swing.JFrame {
         *set tCoolDown, set currentDino, and switch back to the main screen. will dispose of this one after to free up resources.
      */
     private void updateGame() {
-        if (aDrops < maxDrops) {
+        if (aDrops < MAX_DROPS) {
             Point mousePos = MouseInfo.getPointerInfo().getLocation();
             Point frameLocation = this.getLocationOnScreen();
             int x = mousePos.x - frameLocation.x;
             bottle.setLocation(x - (bottle.getWidth() / 2), 100);
 
-            scoreLabel.setText(score + "/" + maxDrops);
+            scoreLabel.setText(score + "/" + MAX_DROPS);
             currentThirstBar.setValue(currentDino.getThirst());
 
-            switch (MainManager.getLang()) {
+            switch (set.getLang()) {
                 case "English":
                     currentLabel.setText("Thirst Level: ");
                     scoreLabel2.setText("Score: ");
@@ -149,7 +154,7 @@ public class ThirstGame extends javax.swing.JFrame {
     public void updateDrops() {
         dropFrameCount++;
 
-        if (Drops.length < maxDrops) {
+        if (Drops.length < MAX_DROPS) {
             if (dropFrameCount > timeTillNext) {
                 JLabel[] temp = Drops;
                 Drops = new JLabel[temp.length + 1];
@@ -173,7 +178,7 @@ public class ThirstGame extends javax.swing.JFrame {
             }
         }
         for (int i = 0; i < Drops.length; i++) {
-            Drops[i].setLocation(Drops[i].getLocation().x, Drops[i].getLocation().y + speed);
+            Drops[i].setLocation(Drops[i].getLocation().x, Drops[i].getLocation().y + SPEED);
 
             if (Drops[i].getBounds().intersects(Player.getBounds())) {
                 MainManager.playSound("slurp.wav");
@@ -198,7 +203,7 @@ public class ThirstGame extends javax.swing.JFrame {
         * this moves the dinosaur from one side of the screen to the other and updates which way its facing. 
         * the dinosaur moves once every 2 frames.
      */
-    public void updatePlayer() {
+    private void updatePlayer() {
         int x = Player.getLocation().x;
         playerFrameCount++;
 
