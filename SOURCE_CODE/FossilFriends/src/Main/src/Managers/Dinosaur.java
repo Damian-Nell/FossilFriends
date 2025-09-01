@@ -6,19 +6,15 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class Dinosaur {
-
-    /*
-        * all the variables for the dinosaur class, self-explanatory.
-     */
+    
+    //All the variables for the dinosaur class.
     private int saveNo, LHunger, LThirst, LClean, LAge, dinoType, LHappiness, LLonely, hCoolDown, tCoolDown, cCoolDown;
     private double dHunger, dThirst, dClean, dLonely, statMulti;
     private String DName;
     private boolean death, egg;
     private LocalDateTime startDateTime, lastDateTime;
-
-    /*
-        * constructor method to create the dinosaur using all the variables.
-     */
+    
+    //Constructor method to create the dinosaur using all the variables.
     public Dinosaur(int inSaveNo, String inName, int inType, int inHunger, int inThirst, int inClean, int inAge, int inLonely, boolean inDeath, boolean inEgg, LocalDateTime inStart, LocalDateTime inLast) {
         saveNo = inSaveNo;
         DName = inName;

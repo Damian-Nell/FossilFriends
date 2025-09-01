@@ -116,7 +116,7 @@ public class ThirstGame extends javax.swing.JFrame {
                     break;
                 case "Zulu":
                     currentLabel.setText("Izinga lokoma: ");
-                    scoreLabel2.setText("Amanqaku: ");
+                    scoreLabel2.setText("Amamphuzu: ");
                     break;
             }
 

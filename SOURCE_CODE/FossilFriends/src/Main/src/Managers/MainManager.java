@@ -12,18 +12,13 @@ import java.awt.Toolkit;
 
 public class MainManager {
 
-    /*
-        * creates a SaveManager, SoundManager, and Dinosaur object at the beginning for the rest of the project to refer to when wanting to save/load.
-        * also creates an int volume to determine the applications volume and tutorial complete to check if the tutorial has ever been completed on the device.
-        * and a string to track which language to display the game in.
-    */
+    //Creates a SaveManager, SoundManager, Dinosaur, and Settings object at startup for the rest of the project to refer to when wanting to perform specific actions.
     public static SaveManager SM = new SaveManager();
     private static SoundManager soundM = new SoundManager();
     private static Dinosaur currentDino;
     private static Settings settings;
 
-    // Main method runs when the project is opened. Then calls the method "selectPage" with everything at 0 and puts it in the middle of the page.
-    // Slight to the left to allow for the tutorial to be visible.
+    //this is what is ran when the program is openened. it initialises your devices dimensions and opens the loging screen in the correct position and correct values.
     public static void main(String[] args) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
@@ -34,26 +29,26 @@ public class MainManager {
         selectPage(0, screenWidth / 2 - 400, 0);
     }
 
-    //plays a certain sound
+    //plays a certain sound using the sound manager at correct volume
     public static void playSound(String sound) {
         float tempVol = (float) settings.getVol() / 100;
         soundM.play(sound, tempVol);
     }
 
-    //saves all the settings.
+    //used to set the settings from other classes.
     public static void setSettings(Settings sets) {
         settings = sets;
         SM.saveSettings(settings);
     }
-    
-    
-    public static Settings getSettings(){
+
+    //used when another class wants to see the current settings.
+    public static Settings getSettings() {
         return settings;
     }
 
     /*
-        *method called to save the game. 
-        *creates a new thread so that the game doesn't wait until saving is done to create the next frame.
+        * method called to save the game. 
+        * creates a new thread so that the game doesn't wait until saving is done to create the next frame, reducing stutters.
      */
     public static void SaveGame() {
         new Thread(() -> {
@@ -66,7 +61,7 @@ public class MainManager {
         currentDino = dino;
     }
 
-    //used to get the currentDino from other classes.
+    //used when another class wants to see the stats of the currentDino.
     public static Dinosaur getDino() {
         return currentDino;
     }
@@ -114,7 +109,7 @@ public class MainManager {
     }
 
     /*
-        * selectPage method. Takes in:
+        * openPopup method. Takes in:
         *   - popNum   - to determine which popup to switch to
         *   - x & y     - where the next form will load in (keeping the look uniform)
         * it checks the popNum and loads the page, then sets the location and make the form visible, 
@@ -124,7 +119,6 @@ public class MainManager {
         if (popNum == 0) {
             SettingsPopup currentPop = new SettingsPopup();
             currentPop.setLocation(x + 50, y + 300);
-            System.out.println(x + " " + y);
             currentPop.setVisible(true);
             currentPop.initPop();
         } else if (popNum == 1) {

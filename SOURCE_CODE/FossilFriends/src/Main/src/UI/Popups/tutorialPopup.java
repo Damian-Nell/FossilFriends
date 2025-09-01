@@ -64,7 +64,6 @@ public class tutorialPopup extends javax.swing.JFrame {
     private int counter = 0, x, y;
 
     private Settings set;
-    private String lang;
 
     /*
      * Creates new form tutorialPopup
@@ -76,8 +75,7 @@ public class tutorialPopup extends javax.swing.JFrame {
     //initialises the first popup with correct language.
     public void initPop(int x, int y) {
         set = MainManager.getSettings();
-        lang = set.getLang();
-        switch (lang) {
+        switch (set.getLang()) {
             case "English":
                 tutText.setText(EngText1);
                 break;
@@ -98,6 +96,7 @@ public class tutorialPopup extends javax.swing.JFrame {
 
     //gets the next text in the popup with the correct language.
     private void nextText() {
+        String lang = set.getLang();
         if (lang.equals("English")) {
             switch (counter) {
                 case 0:
@@ -140,6 +139,7 @@ public class tutorialPopup extends javax.swing.JFrame {
                     tutText.setText(EngText12);
                     break;
                 case 11:
+                    set.setTut(true);
                     MainManager.setSettings(set);
                     this.dispose();
                     break;
@@ -188,6 +188,7 @@ public class tutorialPopup extends javax.swing.JFrame {
                     tutText.setText(AfrText12);
                     break;
                 case 11:
+                    set.setTut(true);
                     MainManager.setSettings(set);
                     this.dispose();
                     break;
@@ -236,6 +237,7 @@ public class tutorialPopup extends javax.swing.JFrame {
                     tutText.setText(ZulText12);
                     break;
                 case 11:
+                    set.setTut(true);
                     MainManager.setSettings(set);
                     this.dispose();
                     break;

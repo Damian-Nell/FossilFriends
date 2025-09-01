@@ -116,7 +116,7 @@ public class HungerGame extends javax.swing.JFrame {
                     break;
                 case "Zulu":
                     hungerLabel.setText("Izinga lendlala: ");
-                    scoreLabel2.setText("Amanqaku: ");
+                    scoreLabel2.setText("Amamphuzu: ");
                     break;
             }
 

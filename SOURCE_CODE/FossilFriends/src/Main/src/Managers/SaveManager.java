@@ -79,12 +79,13 @@ public class SaveManager {
                 PreparedStatement ps = con.prepareStatement(createSettings);
                 ps.executeUpdate();
                 ps.close();
-                PreparedStatement nps = con.prepareStatement(saveSettings);
+                PreparedStatement nps = con.prepareStatement(newSettings);
                 nps.setInt(1, 100);
                 nps.setBoolean(2, false);
                 nps.setString(3, "English");
                 nps.executeUpdate();
                 nps.close();
+                loadSettings();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Failed to create table. " + tableNum);
@@ -207,13 +208,24 @@ public class SaveManager {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                String tempLang = rs.getString("Language");
                 String lang;
-                if (rs.getString("Language").equals(null)) {
-                    lang = "English";
+                if (tempLang.equals("English") || tempLang.equals("Afrikaans") || tempLang.equals("Zulu")) {
+                    lang = tempLang;
                 } else {
-                    lang = rs.getString("Language");
+                    lang = "English";
                 }
-                Settings sets = new Settings(rs.getInt("Volume"), rs.getBoolean("TutorialComplete"), lang);
+                
+                int tempVol = rs.getInt("Volume");
+                int vol;
+                if (tempVol > 100){
+                    vol = 100;
+                } else if (tempVol < 0){
+                    vol = 0;
+                } else {
+                    vol = tempVol;
+                }
+                Settings sets = new Settings(vol, rs.getBoolean("TutorialComplete"), lang);
                 MainManager.setSettings(sets);
                 sets = null;
             }
